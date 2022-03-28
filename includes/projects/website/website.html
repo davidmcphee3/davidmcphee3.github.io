@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<title>David McPhee's Personal Homepage</title>
+<link href="/includes/main.css" rel="stylesheet" type="text/css" media="screen" />
+
+</head>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-C8K8BK48K1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-C8K8BK48K1');
+</script>
+
+<body style="background-color:#121212;">
+
+<div id="content">
+
+<div id="nav">
+<ul>
+<li><a href="/projects.html">Back To Projects</a></li>
+</ul>
+</div>
+
+<!-- End Header $include_path/header.html -->
+
+<div class="main">
+<div class="bTitle"><p><u><strong>Website From Scratch</strong></u><p /></div>
+<img class="bImg" src="/includes/projects/website/thumbnail.png" alt="Thumbnail for website"></img>
+A website is actually a directory and the files within it make up the website. It was made from scratch so
+no online website builders like Wix or SquareSpace. It is the first time that I ever used HTML or CSS so I have 
+noted many basic examples and small victories.  
+<div class="bSub"><p><b>Welcome To My Domain</b><p /></div>
+Here is a break down the domain: <i>http://www.davidmcphee.ca</i>, it is best to start at the end and work our 
+way backward. <p /><i>.ca</i> is a top-level domain for Canada. The Canadian Internet Registration Authority (CIRA) 
+operates the domain name registry. Basically Canadians, like me, can register their domain with the CIRA to give a
+human-readable name to their server (website). The CIRA only registers domains through a certified registrar like
+GoDaddy. Other examples of top-level domains are <i>.com, .org, .notascam</i> to name a few have different rules
+and hoops to jump through. <p /><i>.davidmcphee</i> is a domain and is pointed to the server hosting these web
+files. It is a domain of .ca in the example. <p /><i>www</i> is a sub-domain of .davidmcphee. Thats right, www is
+an optional sub-domain of my website rather than the other way around. The reason for this is that computers were
+invented before the internet and had different functions. These functions required different types of information
+from the computer and thus programmers added sub-domains for each function. When the World Wide Web came along
+they simply added another sub-domain for that purpose. The internet has become so popular that developers just
+dropped the www. sub-domain and made it the default domain for their server. 
+<p /><i>http://</i> is the protocol used to connect the computers together. In this case it is HyperText Transfer
+Protocol, this means that the users computer is requesting HTML files from the host computer. ie the user is 
+attempting to view a webpage. 
+<p /><i>http://www.davidmcphee.ca</i> really means that a user is requesting HTML files from the server that 
+davidmcphee.ca is pointing at.     
+<div class="bSub"><p><b>Server Structure</b><p /></div>
+When a user requests an HTML file, they are sent the file at the default location in the Raspberry Pi 
+/var/www/html/. In the html/ directory is a file named index.html which is sent to the user. There are other
+html files in this directory that a user can access if they type in the path or click on the nav bar. Each
+page has its own HTML. There are also .png, .jpg, and .pdf files on the RPi server if you look hard enough. The
+webmaster can restrict access to certain directories if they so choose.<p />
+There is another very important file on the web server, main.css. A CSS file adds all of the beauty to a website. 
+HTML is the foundation and frames, CSS is the drywall and paint. Another typical file that can be found on a 
+server is a javascript file. This is the light switches, buttons, and appliances of the house. Each of these
+files, HTML, CSS, javascript, have different syntax and structure and it is up to the webmaster to make them work
+together. <p />
+With all of this together it is clear why most people use a website builder, but not this website. This project
+gave me the opportunity to learn HTML and CSS with real world applications. It was a try-and-fail approach most
+of the time but sometimes it just worked. 
+<div class="bSub"><p><b>HTML</b><p /></div>
+The HTML is not too complex for this server. It includes a header where the CSS is linked, and a body. HTML is 
+a bunch of blocks placed on top of one another. It is in the CSS where the blocks get placed and shaped. The two
+tricky parts of this HTML is the embedded tweet and the comment box below. Each of these are iframes and are
+placed directly into the HTML code. A block is placed around the twitter iframe so it can be moved and sized. The
+comment box on the other hand did not work with that approach so it is all by itself in another main block. Any
+websites HTML can be viewed by right-clicking and selecting "view page source". Here is a photo of the first 
+custom HTML for this server: 
+<img class="bImg" src="/includes/projects/website/img1.png" alt="First custom HTML"></img>
+<div class="bSub"><p><b>CSS</b><p /></div>
+The previous image was OK, but why is the background white? Why is the text small and Times New Roman? Why is
+there no nav bar? These questions can be answered with CSS. 
+<img class="bImg" src="/includes/projects/website/img2.png" alt="Webpage with CSS"></img>
+The webpage is now grey with a light-grey box to hold all of the text and nav bar. The text and nav bar are
+defined in the HTML but it is the CSS that places them. The 'photo of me' is missing because it was not on the
+RPi server. There is a command <i>scp</i> that was used to transfer images and files from the workstation to the
+webserver. It was found that the quickest way to check changes on the CSS and HTML was to connect to the local IP
+rather than the domain. This is because the local IP is on LAN where as the domain has to travel to many servers. 
+Chrome would cache the CSS making it appear as though none of the changes had been made so the cache had to be 
+cleared every reload. 	
+<div class="bSub"><p><b>Now What?</b><p /></div>
+The HTML and CSS are clearly more advanced now than in the previous image but there are still so many tips and 
+tricks that can and will be implemented. There are currently no javascript files on this server which is sad. 
+Hopefully that will change in the future. Remember the HTML and CSS can be inspected, take a look and let me
+know if you find anything odd. 
+</div>
+
+<!-- Begin Footer $include_path/footer.html -->
+<div id="footer">
+<br>
+david.mcphee3@gmail.com | not copyrighted, no rights reserved
+</div>
+
+</div>
+
+<div id="content">
+<!-- begin wwww.htmlcommentbox.com -->
+ <div id="HCB_comment_box"><a href="http://www.htmlcommentbox.com">Comment Box</a> is loading comments...</div>
+ <script type="text/javascript" id="hcb"> /*<!--*/ if(!window.hcb_user){hcb_user={};} (function(){var s=document.createElement("script"), l=hcb_user.PAGE || (""+window.location).replace(/'/g,"%27"), h="https://www.htmlcommentbox.com";s.setAttribute("type","text/javascript");s.setAttribute("src", h+"/jread?page="+encodeURIComponent(l).replace("+","%2B")+"&mod=%241%24wq1rdBcg%24Xk1c2cCSlprFkr2MjLvTb."+"&opts=16662&num=10&ts=1644780820414");if (typeof s!="undefined") document.getElementsByTagName("head")[0].appendChild(s);})(); /*-->*/ </script>
+<style>
+#HCB_comment_box textarea{width:50%;
+}
+#HCB_comment_box{font-family:arial;color:#FFFFFF;background-color:none;}
+#HCB_comment_box p.error{border:1px solid red;background-color:#fee}
+.hcb-mod b{color:#d34}
+#HCB_comment_box textarea,#hcb_form_name,#HCB_comment_box input.text{border:none;border-radius:5px;background-color:#FFFFFF}
+#HCB_comment_box .text-blur {color:none;}
+#HCB_comment_box blockquote{background-color:#626262;width:50%;padding:10px;border-radius:5px}
+#HCB_comment_box .hcb-wrapper-half{display:block;width:50%;float:left;}
+#HCB_comment_box .hcb-wrapper{clear:both}
+#HCB_comment_box input.text{display:block;width:75%}
+#HCB_comment_box input.submit{border-radius: 20px;;background-color:#626262;color:#FFFFFF;font-weight:700;cursor:pointer}
+#HCB_comment_box span.home-desc{font-size:10px;opacity:.4}
+.hcb-link{color:white;text-decoration:underline}
+.hcb-mod i{color:#00008b}
+
+ </style>
+<!-- end www.htmlcommentbox.com -->
+</div>
+
+</body>
+</html>
