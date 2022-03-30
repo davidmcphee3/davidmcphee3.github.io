@@ -38,10 +38,10 @@
 Smart contracts are a way of automatically executing transactions on the Ethereum blockchain. This project will
 cover the basics of these topics as well as the creation of a smart contract to deploy a Non-Fungible Token (NFT)
 on the blockchain. Here is the NFT that will be minted:
-<img class="bImg" src="/includes/projects/smartcontracts/img1.png" alt="smart contracts img 1"></img>
-<div class="bSub"><p><b>The Basics</b><p /></div>
+<img class="bImg" src="/includes/projects/smartcontracts/img1.png" alt="Image to Mint"></img>
+<div class="bSub"><p><b>The Basic Basics</b><p /></div>
 <b>NFT-</b> A Non-Fungible Token (NFT) is some data stored on the blockchain that is unique (the actual code) and
-can be traded whislt leaving a permanent and unchangable record. On the Ethereum blockchain they are also known as
+can be traded whilst leaving a permanent and unchangable record. On the Ethereum blockchain they are also known as
 a ERC-721 Token. Unlike an Ether token, these ERC-721 tokens are unique and generally speaking are not traded one
 for one. The current trends for NFTs are to be used to store PNG or JPG data to represent digital art work but this
 is only one way that the tokens can be used.
@@ -52,7 +52,7 @@ one for one, unlike NFTs. These tokens do not exist in a physical form and it is
 <p />
 <b>Blockchain-</b> A blockchain is an imutable list of records that are linked cryptographically to each other. The
 list is made of blocks which contain data such as the time, transaction details, and link to the previous block. <thead>
-blockchain is managed by a decentralized network of computers, called nodes. The nodes validate new blocks whislt
+blockchain is managed by a decentralized network of computers, called nodes. The nodes validate new blocks whilst
 following identical protocols. The Ethereum Blockchain differs from the Bitcoin Blockchain because the Eth can contain
 smart contracts. This is because the Bitcoin Blockchain is primarily used to store and exchange the Bitcoin cryptocurrency
 while the Ethereum Blockchain has more of a general purpose and uses the Ether cryptocurrency as the native token.
@@ -63,12 +63,27 @@ technology can be utilized for much more than just exchanging Bitcoin tokens.
 between the physical and smart contracts are that the smart contracts are self-executing pertinent to the terms agreed to <body>
 all parties. These contracts are stored on the Ether Blockchain and thus are irreversible. The smart contracts can be written
 in a language called Solidity and deployed to the blockchain using Ether.
-</body>
-<p />
-
+<b>Test Networks-</b>
+To interact with the Ethereum Blockchain, gas needs to be spent. Gas is transaction fee which are payments made to the miners
+for processing and validating the transaction. As of writing, the gas fee my test smart contract was ~$120 to deploy and mint
+an NFT. Gas fees are set by supply and demand and thus can change hour to hour, day to day, etc. The "real" blockchain is
+called the mainnet and is where actaul transactions occur that cost real money (well, real Ether). Testnets are used to test
+smart contracts without the cost of the mainnet. Since the blockchain is immutable, developers need to squash every bug in
+their code before deploying it on the mainnet. There are many testnets to work with but currently the one that most resembles
+the mainnet is called Ropsten. This testnet uses proof-of-work which is the same as the mainnet, however the Eth on the testnet
+is free unlike the mainnet.
+<div class="bSub"><p><b>Filling a Wallet with Eth</b><p /></div>
+Note: This <a href="https://github.com/ethereum/ethereum-org-website/tree/dev/src/content/developers/tutorials/how-to-mint-an-nft">github repo</a>
+contains the guide that was referenced through the following sections<p />
+Eth is stored in an Ethereum account address. This address can be easily managed via virtual wallet called MetaMask. Once the
+MetaMask wallet is set up and connected to the Ropsten testnet, it can be filled with Eth. Crypot faucets in general give out
+tiny amounts of crypto for users doing simple tasks. Basically the faucet pays humans to do human-only tasks. However since
+we are using a testnet, the Eth is fake and can therefore be given in much larger quantities. Using a facuet my MetaMask account
+now has 0.2 Eth (search the current conversion).
+<img class="bImg" src="/includes/projects/smartcontracts/img2.png" alt="Wallet Filled with Eth"></img>
+Now that the wallet is set up with the Eth we can move onto actually writing the smart contract.
 
 </div>
-
 <!-- Begin Footer $include_path/footer.html -->
 <div id="footer">
 <br>
