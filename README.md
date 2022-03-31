@@ -1,2 +1,2 @@
-# David Mcphee's Personal Webpage
+# David McPhee's Personal Webpage
 davidmcphee.ca

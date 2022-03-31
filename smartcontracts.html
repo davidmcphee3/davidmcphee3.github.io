@@ -84,7 +84,18 @@ now has 0.2 Eth (search the current conversion).
 Now that the wallet is set up with the Eth we can move onto actually writing the smart contract.
 <p />
 <div class="bSub"><p><b>Setting the Scene</b><p /></div>
-
+This project will be built using node js and npm. Node.js a runtime environment for network applications. Npm is a package manager for the
+node.js platform. The package.json file can be created by using the npm init command. This package contains the metadata of the project
+and package/application dependencies. <p />
+The other environment that is needed is Hardhat. This is used to test and debug the smart contracts prior to being deployed on the mainnet. The
+Hardhat package is executed and a hardhat.config.js is generated which will be used to sepcify the set up of the smart contract.
+<img class="bImg" src="/includes/projects/smartcontracts/img3.png" alt="Hardhat Initialized"></img>
+Inside the project there will be two types of code: contracts and scripts. Code such as the smart contract will fall under the contracts type
+while deployment and interaction code will fall under the latter.
+<div class="bSub"><p><b>The Smart Contract</b><p /></div>
+On the Ethereum Blockchain, the smart contracts are written in a language called Solidity which can be viewed as a mix of Python, C++, and
+javascript. It contains enough unique features to warrent its own language. Recall that an NFT is a ERC-721 token. Using a library called
+OpenZeppelin, the ERC-721 toekn can be created. Each token has a set of standards that must be followed to be considered a valid token. 
 </div>
 <!-- Begin Footer $include_path/footer.html -->
 <div id="footer">
