@@ -37,7 +37,53 @@
 <img class="bImg" src="/includes/projects/crtoons/thumbnail.jpg" alt="Thumbnail for smart contracts"></img>
 This could be considered a nostalgia machine, a old CRT that has been upgraded with internet capabilities
 which enables viewing of cartoons from years past. Specifically the TV show from 1967: Spiderman (in color!)
-<div class="bSub"><p><b>The Plan</b><p /></div>
+<div class="bSub"><p><b>The Backstory</b><p /></div>
+A quick note: A CRT is an old TV that used cathode ray tubes to project an image through a vacuum. IoT stands
+for Internet of Things and basically means giving internet/network capabilities to devices that otherwise
+didn't have any.<p />
+I was given a Raspberry Pi from my father many years ago and I didn't have a clue what to make with it. I knew
+what it was and that there was a whole community around it, but I just couldn't think of anything. It's ironic
+that this device basically had endless possibilities yet it sat in my desk drawer for years. Covid hit and
+everyone was stuck at home and on video calls. This is when an idea finally manifested in my head; a CRT that
+continuously loops old cartoons! There shouldn't be any need to press the power, change the channel, etc. Just
+plug and watch. It could be placed in the background as kind of a piece of art. Sadly the project was shelved
+when my computer couldn't create an 8hr video file of old looney toons.<p />
+Later the RPi was turned into a server so the project was put even deeper into the shelf. Whilst at work I was
+learning some bash scripting and it occured to me that I could use bash to loop through many smaller videos
+rather than trying to make a single, very long video. Now I needed some more pi. Because of the chip shortage,
+the prices of microprocessors were astronomical. They were out of stock from the retailer and heavily marked
+up on the second-hand market. I finally found some gen 1 pis in Toronto. The seller happily mailed them to me
+and thus the project was afoot.
+<div class="bSub"><p><b>Procurement</b><p /></div>
+The CRT needs a microprocessor and most CRTs only communicate via Component cables. Secondly the pi needs an
+external memory device and power. Third the microprocessor needs to be programmed. Each part was not trivial to
+obtain.
+<p />
+<b>CRT-</b> This was actually the last device to obtain because an external monitor could substitute for awhile.
+Second-hand marketplaces had a few but they were marked up because the seller thought they were worth even $20.
+There was almost a deal for $15 but the seller backed out at the last minute to because apparently his son wanted
+it. Eventually a free one was found and picked up near the end of the project (see thumbnail).
+<p />
+<b>Component Cables-</b> Also a marketplace buy, this time easier and cheap. There was a glaring issue with the cables
+however...
+<p />
+<b>External Memory-</b> The original pi only takes a SD card, not a micro SD, just a SD. Many marketplace sellers seemed
+sketchy, as if they bought them in bulk from Ali baba and were upselling them here. Anyway it was a much safer option just
+to go to <i>The Source</i>
+<div class="bSub"><p><b>Cable Drama</b><p /></div>
+HDMI cables are neat. tidy, and consistent. However they are also new-<i>ish</i>. This means that CRTs do not have an HDMI
+port, only component ports. An option would be to convert from HDMI to component but but but this would mean buying an
+adapter. It is non-trivial to DIY an adapter because HDMI does not send data in the same way a component cable does. This
+DIY would involve adding a microcontroller to the mix and coding the conversion. A more simple approach would be to just use
+component cables. The RPi has a component video output but no audio out. Instead it has a 3.5mm port (headphone jack). Therefore
+the headphone cable needs to be converted to component. These two types of cables both work the same on a basic level so it
+can be done.<p />
+Both cables are coaxial cables. This means that there is a data cable in the middle with a ground sheath wrapped around it. Thats
+it for components but headphones have more than one data cable.
+<img class="bImg" src="/includes/adventures/crtoons/img0.jpg" alt="headphone jack"></img>
+The black bands on the jack are insulators.
+
+
 </div>
 <!-- Begin Footer $include_path/footer.html -->
 <div id="footer">
