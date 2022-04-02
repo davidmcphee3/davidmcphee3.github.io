@@ -80,10 +80,36 @@ the headphone cable needs to be converted to component. These two types of cable
 can be done.<p />
 Both cables are coaxial cables. This means that there is a data cable in the middle with a ground sheath wrapped around it. Thats
 it for components but headphones have more than one data cable.
-<img class="bImg" src="/includes/adventures/crtoons/img0.jpg" alt="headphone jack"></img>
-The black bands on the jack are insulators.
-
-
+<img class="bImg" src="/includes/projects/crtoons/img0.jpg" alt="headphone jack"></img>
+The black bands on the jack are insulators that separate the serial data. Typically the ground is nearest to the base and then
+it goes: left audio, right audio, microphone. If the jack only has 2 bands (and thus 3 seperate serial streams) then there is most
+likely no microphone. Furthermore if there is only one band then it is just mono-audio. The headphone cable that will be used has
+two bands but since component cables only have one data stream, the two audio sections can be combined. The RPi 3.5mm port supports
+four bands and since we will only use the ground and mono-audio, it will work fine.
+<img class="bImg" src="/includes/projects/crtoons/img1.jpg" alt="headphone jack"></img>
+For this DIY soldering was a great option. This required a soldering iron, solder, wire snips, and electrical tape. The soldering
+iron and snips were borrowed from work and the others were purchased. The plan was to cut both cables open and connect the two cables
+however when the headphone cables are of very high gauge. There were only about one or two copper strands in each sheath. This led to
+tearing apart the actual connector which revealed quite a bit more soldering real estate.<p />
+The connector had insulation around the base so it wasn't possible to tell how the jack was connected just by looking. The best tool
+for the job would've been a multimeter to test the continuity... but I do not own one. The second best(?) tool was a LED in a circuit.
+Insert the connector to the circuit and if the LED turns on, they are connected.
+<img class="bImg" src="/includes/projects/crtoons/img2.jpg" alt="headphone jack"></img>
+<img class="bImg" src="/includes/projects/crtoons/img3.jpg" alt="headphone jack"></img>
+Once the 3.5mm connector was defined, it was on to the component cable. After cutting this open, the grounding sheath was twisted into a
+wire and the inner material was stripped as well. Now the inner wires needed to be soldered to the mono-audio part and the sheath needed
+to be soldered to the grounding part of the 3.5mm jack.
+<img class="bImg" src="/includes/projects/crtoons/img4.jpg" alt="headphone jack"></img>
+<img class="bImg" src="/includes/projects/crtoons/img5.jpg" alt="headphone jack"></img>
+After the data cable was soldered it needed to be wrapped in electrical tape. This is because if the grounding sheath was just soldered at
+the same time, there would be a high chance of the two wires touching and causing a short. The first solder was tested using the same
+ad-hoc continuity tester as before.
+<img class="bImg" src="/includes/projects/crtoons/img6.jpg" alt="headphone jack"></img>
+<img class="bImg" src="/includes/projects/crtoons/img7.jpg" alt="headphone jack"></img>
+It worked! The electrical tape was added and the grounding sheath was soldered.
+<img class="bImg" src="/includes/projects/crtoons/img8.jpg" alt="headphone jack"></img>
+Not bad. Now the RPi could be connected to both video and audio of the CRT.
+<div class="bSub"><p><b>The Code</b><p /></div>
 </div>
 <!-- Begin Footer $include_path/footer.html -->
 <div id="footer">
