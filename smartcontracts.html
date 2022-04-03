@@ -95,7 +95,125 @@ while deployment and interaction code will fall under the latter.
 <div class="bSub"><p><b>The Smart Contract</b><p /></div>
 On the Ethereum Blockchain, the smart contracts are written in a language called Solidity which can be viewed as a mix of Python, C++, and
 javascript. It contains enough unique features to warrent its own language. Recall that an NFT is a ERC-721 token. Using a library called
-OpenZeppelin, the ERC-721 toekn can be created. Each token has a set of standards that must be followed to be considered a valid token. 
+OpenZeppelin, the ERC-721 toekn can be created. Each token has a set of standards that must be followed to be considered a valid token. The
+following smart contract is from <a href="https://github.com/ethereum/ethereum-org-website/tree/dev/src/content/developers/tutorials/how-to-mint-an-nft">here</a>
+which was based on <a href="https://docs.openzeppelin.com/contracts/3.x/erc721">this</a> all under the MIT license. The first step is to import
+four classes from the openzeppelin library: ERC721.sol, Counters.sol, Ownable.sol, and ERC721URIStorage.sol.<p />
+As mentioned previously, a token must meet a certian set of requirements to be considered valid. These requirements are contained in the ERC721 class. The
+counter and ownable classes are pretty starightforward, the former counts each NFT minted (for uniqueness) and the latter means only the owner (me) can
+use this contract to mint NFTs. The last imported class creates a token with storage basen URI management which means that the metadata for the token is
+stored on the blockchain. After the imports there is the following contract:
+<p style="font-family:'Courier New'">
+  contract MyNFT is ERC721URIStorage, Ownable {<br>
+      using Counters for Counters.Counter;<br>
+      Counters.Counter private _tokenIds;<br>
+  <br>
+      constructor() ERC721("MyNFT", "NFT") {}<br>
+  <br>
+      function mintNFT(address recipient, string memory tokenURI)<br>
+          public onlyOwner<br>
+          returns (uint256)<br>
+      {<br>
+          _tokenIds.increment();<br>
+  <br>
+          uint256 newItemId = _tokenIds.current();<br>
+          _mint(recipient, newItemId);<br>
+          _setTokenURI(newItemId, tokenURI);<br>
+  <br>
+          return newItemId;<br>
+      }<br>
+  }<br>
+</p><p />
+The first three lines initialize the contract and sets up the counter so the minted NFTs have a unique number (1,2,3,..). The forth line is a constructor
+which is automatically ran when the contract is called and calls the imported class with two variables (smart contract name and ticker symbol). Finally
+the function mintNFT takes two variables and mints the NFT. The fist variable is the address of my wallet where the NFT will be sent to. Second is the NFTs
+metadata, <i>data about the data</i>. This function only allows the owner to call it, creates the tokens ID and returns that ID value.<p />
+An .env file is then created with my wallets private key. This .env file is used in the hardhat.config.js file and then the contract is compiled. The NFT
+can now be created but it still needs to be deployed to the blockchain to work. This requires another script to put the contract on the blockchain.
+<p style="font-family:'Courier New'">
+  async function main() {<br>
+    const MyNFT = await ethers.getContractFactory("MyNFT")<br>
+  <br>
+    const myNFT = await MyNFT.deploy()<br>
+    await myNFT.deployed()<br>
+    console.log("Contract deployed to address:", myNFT.address)<br>
+  }<br>
+  <br>
+  main()<br>
+    .then(() => process.exit(0))<br>
+    .catch((error) => {<br>
+      console.error(error)<br>
+      process.exit(1)<br>
+    })<br>
+</p><p />
+Again this script is adapted from <a href="https://ethereum.org/en/developers/tutorials/how-to-write-and-deploy-an-nft/">this</a>. This script uses the
+ethers.js and deploys the smart contract to an address. Because the blockchain is public, the contract deployment can be veiwed on a Ethereum (Ropsten)
+scanner.
+<div class="bSub"><p><b>Configuring the Data and it's Data</b><p /></div>
+The NFT and it's data will be stored on an IPFS (Interplanetary File System) which is a protocol used for storing the data in a decentralized peer-to-peer
+network. The metadata for my NFT is pretty simple because it is not a part of a collection or anything like that. NFTs from popular collections will contain
+the data of which variations the image has (type of hair, color, accessories, etc). Since the contract is already deployed to the blockchain, we just need
+its address to be able to interact with it which again can be found on a blockchain scanner.
+<p style="font-family:'Courier New'">
+require("dotenv").config()<br>
+const API_URL = process.env.API_URL<br>
+const PUBLIC_KEY = process.env.PUBLIC_KEY<br>
+const PRIVATE_KEY = process.env.PRIVATE_KEY<br>
+<br>
+const { createAlchemyWeb3 } = require("@alch/alchemy-web3")<br>
+const web3 = createAlchemyWeb3(API_URL)<br>
+<br>
+const contract = require("../artifacts/contracts/MyNFT.sol/MyNFT.json")<br>
+const contractAddress = "0x9e40c2bc662056cf3c1cc4046061cfa25720b4f6"<br>
+const nftContract = new web3.eth.Contract(contract.abi, contractAddress)<br>
+<br>
+async function mintNFT(tokenURI) {<br>
+  const nonce = await web3.eth.getTransactionCount(PUBLIC_KEY, "latest")<br>
+  const tx = {<br>
+    from: PUBLIC_KEY,<br>
+    to: contractAddress,<br>
+    nonce: nonce,<br>
+    gas: 500000,<br>
+    data: nftContract.methods.mintNFT(PUBLIC_KEY, tokenURI).encodeABI(),<br>
+  }<br>
+<br>
+  const signPromise = web3.eth.accounts.signTransaction(tx, PRIVATE_KEY)<br>
+  signPromise<br>
+    .then((signedTx) => {<br>
+      web3.eth.sendSignedTransaction(<br>
+        signedTx.rawTransaction,<br>
+        function (err, hash) {<br>
+          if (!err) {<br>
+            console.log(<br>
+              "The hash of your transaction is: ",<br>
+              hash,<br>
+              "\nCheck Alchemy's Mempool to view the status of your transaction!"<br>
+            )<br>
+          } else {<br>
+            console.log(<br>
+              "Something went wrong when submitting your transaction:",<br>
+              err<br>
+            )<br>
+          }<br>
+        }<br>
+      )<br>
+    })<br>
+    .catch((err) => {<br>
+      console.log("Promise failed:", err)<br>
+    })<br>
+}<br>
+<br>
+mintNFT(<br>
+    "https://gateway.pinata.cloud/ipfs/QmV8GbzM59tsos5QCyVC67YUqGLg7RmCGzbehdnEMZTwhf"<br>
+)<br>
+</p><p />
+There are many lines of housekeeping at the beginning of the script which includes the NFT and it' metadata as well as the address of the
+contract that was deployed. Next the mintNFT function mints the NFT and is signed. Running this will mint our NFT using the smart contract!
+Using <a href="https://ropsten.etherscan.io/">Ropsten Etherscan</a>, the transaction can be viewed.
+<div class="bSub"><p><b>Twitter NFT Profile</b><p /></div>
+The NFT has successfully made it to the MetaMask wallet:
+<img class="bImg" src="/includes/projects/smartcontracts/img4.PNG" alt="NFT in MetaMask Wallet"></img>
+
 </div>
 <!-- Begin Footer $include_path/footer.html -->
 <div id="footer">
