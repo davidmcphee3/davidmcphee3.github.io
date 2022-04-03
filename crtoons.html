@@ -56,7 +56,7 @@ up on the second-hand market. I finally found some gen 1 pis in Toronto. The sel
 and thus the project was afoot.
 <div class="bSub"><p><b>Procurement</b><p /></div>
 The CRT needs a microprocessor and most CRTs only communicate via Component cables. Secondly the pi needs an
-external memory device and power. Third the microprocessor needs to be programmed. Each part was not trivial to
+external memory device and power. Third, the microprocessor needs to be programmed. Each part was not trivial to
 obtain.
 <p />
 <b>CRT-</b> This was actually the last device to obtain because an external monitor could substitute for awhile.
@@ -86,7 +86,7 @@ it goes: left audio, right audio, microphone. If the jack only has 2 bands (and 
 likely no microphone. Furthermore if there is only one band then it is just mono-audio. The headphone cable that will be used has
 two bands but since component cables only have one data stream, the two audio sections can be combined. The RPi 3.5mm port supports
 four bands and since we will only use the ground and mono-audio, it will work fine.
-<img class="bImg" src="/includes/projects/crtoons/img1.jpg" alt="headphone jack"></img>
+<img class="bImg" src="/includes/projects/crtoons/img1.jpg" alt="Solder Setup"></img>
 For this DIY soldering was a great option. This required a soldering iron, solder, wire snips, and electrical tape. The soldering
 iron and snips were borrowed from work and the others were purchased. The plan was to cut both cables open and connect the two cables
 however when the headphone cables are of very high gauge. There were only about one or two copper strands in each sheath. This led to
@@ -94,22 +94,47 @@ tearing apart the actual connector which revealed quite a bit more soldering rea
 The connector had insulation around the base so it wasn't possible to tell how the jack was connected just by looking. The best tool
 for the job would've been a multimeter to test the continuity... but I do not own one. The second best(?) tool was a LED in a circuit.
 Insert the connector to the circuit and if the LED turns on, they are connected.
-<img class="bImg" src="/includes/projects/crtoons/img2.jpg" alt="headphone jack"></img>
-<img class="bImg" src="/includes/projects/crtoons/img3.jpg" alt="headphone jack"></img>
+<img class="bImg" src="/includes/projects/crtoons/img2.jpg" alt="Testing continuity of jack led off"></img>
+<img class="bImg" src="/includes/projects/crtoons/img3.jpg" alt="Testing continuity of jack led on"></img>
 Once the 3.5mm connector was defined, it was on to the component cable. After cutting this open, the grounding sheath was twisted into a
 wire and the inner material was stripped as well. Now the inner wires needed to be soldered to the mono-audio part and the sheath needed
 to be soldered to the grounding part of the 3.5mm jack.
-<img class="bImg" src="/includes/projects/crtoons/img4.jpg" alt="headphone jack"></img>
-<img class="bImg" src="/includes/projects/crtoons/img5.jpg" alt="headphone jack"></img>
+<img class="bImg" src="/includes/projects/crtoons/img4.jpg" alt="component cable cut in half"></img>
+<img class="bImg" src="/includes/projects/crtoons/img5.jpg" alt="component soldered to jack"></img>
 After the data cable was soldered it needed to be wrapped in electrical tape. This is because if the grounding sheath was just soldered at
 the same time, there would be a high chance of the two wires touching and causing a short. The first solder was tested using the same
 ad-hoc continuity tester as before.
-<img class="bImg" src="/includes/projects/crtoons/img6.jpg" alt="headphone jack"></img>
-<img class="bImg" src="/includes/projects/crtoons/img7.jpg" alt="headphone jack"></img>
+<img class="bImg" src="/includes/projects/crtoons/img6.jpg" alt="Testing continuity of solder led off"></img>
+<img class="bImg" src="/includes/projects/crtoons/img7.jpg" alt="Testing continuity of solder led on"></img>
 It worked! The electrical tape was added and the grounding sheath was soldered.
-<img class="bImg" src="/includes/projects/crtoons/img8.jpg" alt="headphone jack"></img>
+<img class="bImg" src="/includes/projects/crtoons/img8.jpg" alt="Finished cable"></img>
 Not bad. Now the RPi could be connected to both video and audio of the CRT.
 <div class="bSub"><p><b>The Code</b><p /></div>
+The software has three pieces: a directory of videos, a script to play the videos randomly, and another script to start the first script on boot-up.
+The videos were obtained on an archive website of old content and transferred to the pi via Filezilla. It was at this moment disaster struck.
+<div class="bSub"><p><b>Disaster</b><p /></div>
+The wife got sick of looking at a TV and RPi in the living room and moved everything out to the garage. Fine. An old laptop was dug up from storage
+and became <b><i>The WorkStation.</i></b> This workstation was not good, but it was not its fault. It was an old computer trying to run the newest version
+of Windows. The computer was installed with Linux Mint and it worked like new! The workstation has a leg up on the RPi because it has wifi capabilities.
+The wifi router was in the basement and the project was in the garage. There was thought of stringing an ethernet cable through the drywall but I have already
+done enough drywall damage to my house as is. The second option was to get a wireless access point, or better yet, turn the workstation into a wireless access
+point. In the ethernet settings of the workstation, the <i>share with other computers</i> option was enabled for ipv4 settings. Secondly the IP of the WorkStation
+was added as a DNS server for the RPi. Boom now the RPi has the internet. Back to the code.
+<img class="bImg" src="/includes/projects/crtoons/img10.jpg" alt="Garage setup"></img>
+<div class="bSub"><p><b>The Code Take 2</b><p /></div>
+The code is not too complex, however this was my first attempt at bash so it was a great learning experience. First is the randomly looping video script. The
+first thing is to check if a video is running, if it is then sleep. If a video isn't playing then pick a random video and play it. The random number was
+generated by <p />
+<p style="font-family:'Courier New'">i=0<br>rand=$[$RANDOM%77+1]</p><p />
+This will generate a random number between 1 and 77 (the amount of video files). Next is the loop:
+<p style="font-family:'Courier New'">for entry in $VPATH/*<br>do<br>if [[ $rand -eq $i ]]<br>then<br>clear<br>omxplayer -r $entry > /dev/null<br>fi<br>((i++))</p><p />
+This loops through every file in the directory and if the random number is equal to the index of the video then it will play it.<p />
+This code is all wrapped in a while true loop which will loop the random videos forever. This file needs to be given executable permissions with chmod 755.
+<p />
+The autostart file is placed in the /etc/init.d directory and only has two lines of code:
+<p style="font-family:'Courier New'">/home/crt/randloop.sh<br>esac</p><p />
+This will start the random loop file and then escape so the rest of the boot can happen. This file too needs the executable permissions. Finally the rc.d file needs to be
+updated to run autostart on start up with update-rc.d autostart defaults.
 </div>
 <!-- Begin Footer $include_path/footer.html -->
 <div id="footer">
