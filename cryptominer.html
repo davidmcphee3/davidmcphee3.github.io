@@ -48,10 +48,39 @@ Computers compete to verify the block the quickest to add it to the chain. The l
 as long as less than 51% of the computers are bad actors, only valid transactions will be recorded.
 <div class="bSub"><p><b>The Introduction</b><p /></div>
 Using cash as a medium for trade can be secure, anonymous, trustless, and irreversible, however it only works for in-person or
-local transactions. This system worked great for awhile, but globalization took over and now anything could be bought from anywhere
-for the lowest price. The solution for internet transactions where banks serving as third parties in the verification and maintenance
-of the ledger. This third party system requires both the buyer and seller to trust the bank to maintain the ledger. The bank also must
-act as a mediator in the case of a dispute which means that transactions can be reversible.
+local transactions. This system worked great for awhile, but globalization took over and now anything can be bought from anywhere
+for the lowest price. The solution for internet transactions inolves banks serving as third parties in the verification and maintenance
+of the ledger. The ledger is a history of all transactions made using the bank. We can think of all the banks of the world as just one
+bank, the third party bank. <p />
+<div class="cText"><p />
+<b>The Double-Spending Example Without a Third Party</b><i>
+Abby finds a $10 bill on the ground<p />
+Abby calls Matthew and promises to give $10 if Matthew gives her a clue for the Daily Wordle<p />
+Matthew agrees and gives Abby a clue and will get the $10 the next time they meet up<p />
+Abby still cannot figure out the Wordle so she calls Simon and makes the same deal<p />
+Simon agrees to give Abby a clue because he is not aware that Abby already promised the $10 to Matthew<p />
+</i></div>
+Even if Matthew and Simon figure out that Abby double-spent her money, it is too late, the boys cannot take back the clues they gave her.
+A solution to this problem is to involve a third party, the bank.
+<div class="cText"><p />
+<b>The Double-Spending Example With a Third Party</b><i>
+Abby finds a $10 bill on the ground<p />
+Abby calls Matthew and offers $10 if Matthew gives her a clue for the Daily Wordle<p />
+Matthew agrees and tells Abby to send him the money first<p />
+Abby goes to the bank and gives them the $10<p />
+The bank then gives Matthew the $10<p />
+After Matthew sees the money he gives Abby the clue<p />
+Abby still cannot figure out the Wordle so she calls Simon and makes the same deal<p />
+Simon agrees and tells Abby to send him the money first<p />
+Abby tells the bank to give Simon $10, but since the bank knows Abby already spent it, they refuse the transaction<p />
+Simon doesn't receive the money so he doesn't give Abby the clue<p />
+</i></div>
+In this sernario, the boys only accept money that has come from the bank. This third party system requires both the buyer and seller
+to trust the bank to maintain the ledger. The bank knew that Abby already spent the money because they can look back in their records.
+An obvious question arises: What if Matthew accepts the money but doesn't give Abby a clue?<br>
+This forces the bank to take on another role, mediator. Abby can dispute the transaction and if she can prove Matthew didn't give her
+a clue then the bank can revesre the transaction. Overall the third party must be trusted, know the identies of all parties, and have
+the ability to revesre transacitons. The third party gets a lot of trust and personal information from the participates.
 
 </div>
 <!-- Begin Footer $include_path/footer.html -->
