@@ -96,7 +96,7 @@ Every account (or person, but a person can have many accounts) has a Public/Priv
 doesn't mean that there is an identity attached to it. Rather it means that a certain transaction used this PK. The Private(Secret) Key (SK)
 is secret and should never be shared with anyone, ever. An example of a transaction is:<br>
 <i>Abby gives Matthew $10</i><p />
-This example transaction can be combined with Abbys PK to make a hash, lets label it called TR.Abby must sign this transaction, meaning that
+This example transaction can be combined with Abbys PK to make a hash, lets label it called TR. Abby must sign this transaction, meaning that
 she in fact does want to transfer $10 to Matthew. The signature is created using Abby's SK (this is why the SK must remain secret, or anyone
 could fake your signature). An example of Abby's signature is:<br>
 <i>TR + SK = Signature</i><p />
@@ -108,15 +108,17 @@ Signature are all known, the SK cannot be calculated. This means that if there i
 fraudulent. More formally the signature equation looks like this:<br>
 <i>SHA(TR, SK) = Signature</i><p />
 Another question, how is the signature verified if the SK is unknown. That is where the PK comes in to create a second equation. The PK and
-the signature goes into a verification function that returns either true or false. Since all variables are known to the public there is no need
-for it to be too complicated:
-<i>VERIFICATION(Signature, PK) = True or False</i><p />
+the signature goes into a verification function, VER, that returns either true or false. Since all variables are known to the public there is no
+need for it to be too complicated:
+<i>VER(Signature, PK) = True or False</i><p />
 These two equations are great for verifying transactions but they cannot verify that Abby hasn't sent the same $10 to two different people. Since
 a coin is just a list of previous transactions, it can fork into two different chains of transactions and the receivers may never know. This
 again can be solved with the bank. If all transactions must go through the bank, the bank can check its ledger to verify no coin was double-spent.
 The only way for everyone to know about all transactions without the use of a third party is to publicly announce each transaction and agree on a
 public ledger. There needs to be a way to know which transaction was first and also that all (valid) transactions get included on the ledger.
-
+This could mean that everyone puts each transaction on a website, but that involves a third party, the websites webmaster.
+<div class="bSub"><p><b>The Timestamp Server</b><p /></div>
+The solution to the double-spend problem is to add a timestamp to each transaction.
 
 </div>
 <!-- Begin Footer $include_path/footer.html -->
