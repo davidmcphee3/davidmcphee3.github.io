@@ -49,7 +49,7 @@ as long as less than 51% of the computers are bad actors, only valid transaction
 <div class="bSub"><p><b>The Introduction</b><p /></div>
 Using cash as a medium for trade can be secure, anonymous, trustless, and irreversible, however it only works for in-person or
 local transactions. This system worked great for awhile, but globalization took over and now anything can be bought from anywhere
-for the lowest price. The solution for internet transactions inolves banks serving as third parties in the verification and maintenance
+for the lowest price. The solution for internet transactions involves banks serving as third parties in the verification and maintenance
 of the ledger. The ledger is a history of all transactions made using the bank. We can think of all the banks of the world as just one
 bank, the third party bank. <p />
 <div class="cText"><p />
@@ -67,7 +67,7 @@ A solution to this problem is to involve a third party, the bank.
 Abby finds a $10 bill on the ground<p />
 Abby calls Matthew and offers $10 if Matthew gives her a clue for the Daily Wordle<p />
 Matthew agrees and tells Abby to send him the money first<p />
-Abby goes to the bank and gives them the $10<p />
+Abby goes to the bank and deposits the $10<p />
 The bank then gives Matthew the $10<p />
 After Matthew sees the money he gives Abby the clue<p />
 Abby still cannot figure out the Wordle so she calls Simon and makes the same deal<p />
@@ -75,12 +75,48 @@ Simon agrees and tells Abby to send him the money first<p />
 Abby tells the bank to give Simon $10, but since the bank knows Abby already spent it, they refuse the transaction<p />
 Simon doesn't receive the money so he doesn't give Abby the clue<p />
 </i>
-In this sernario, the boys only accept money that has come from the bank. This third party system requires both the buyer and seller
+In this scenario, the boys only accept money that has come from the bank. This third party system requires both the buyer and seller
 to trust the bank to maintain the ledger. The bank knew that Abby already spent the money because they can look back in their records.
 An obvious question arises: What if Matthew accepts the money but doesn't give Abby a clue?<br>
 This forces the bank to take on another role, mediator. Abby can dispute the transaction and if she can prove Matthew didn't give her
-a clue then the bank can revesre the transaction. Overall the third party must be trusted, know the identies of all parties, and have
-the ability to revesre transacitons. The third party gets a lot of trust and personal information from the participates.
+a clue then the bank can reverse the transaction. Overall the third party must be trusted, know the identities of all parties, and have
+the ability to reverse transactions. The third party gets a lot of trust and personal information from the participates just for acting
+as a middleman of a transaction. In this system some fraud is unavoidable because transactions are not instant like in cash trades.
+Two people can physically swap goods but the same is not true on the internet.<p />
+The paper proposes a solution that replaces trust with cryptographic proof. In this context, "cryptographic" means irreversible calculations.
+More simply it means that the only way to get proof of the transaction is by actually doing the transaction. People cannot fake transactions
+that didn't happen because they do not have the cryptographic proof.
+<div class="bSub"><p><b>The Transactions</b><p /></div>
+A "bitcoin" is defined as a series of transactions. This means that a "bitcoin" is not a physical coin or even a digital image of a coin rather
+it <i>is</i> the combination of all of the previous transactions/transfers. Each transfer adds and updates the coins data. An obvious question
+is what is a transaction? The white paper includes this image:
+<img class="bImg" src="/includes/projects/cryptominer/img1.png" alt="Transaction image from bitcoin white paper"></img>
+It is best to go through each term and fully define it.<p />
+Every account (or person, but a person can have many accounts) has a Public/Private Key pair. The Public Key (PK) is public knowledge but this
+doesn't mean that there is an identity attached to it. Rather it means that a certain transaction used this PK. The Private(Secret) Key (SK)
+is secret and should never be shared with anyone, ever. An example of a transaction is:<br>
+<i>Abby gives Matthew $10</i><p />
+This example transaction can be combined with Abbys PK to make a hash, lets label it called TR.Abby must sign this transaction, meaning that
+she in fact does want to transfer $10 to Matthew. The signature is created using Abby's SK (this is why the SK must remain secret, or anyone
+could fake your signature). An example of Abby's signature is:<br>
+<i>TR + SK = Signature</i><p />
+More formally TR and SK are inputs to a cryptographic function. Recall that a cryptographic function means it can be computed one way but not the
+other. Imagine a machine that takes two inputs (TR and SK) and outputs a Signature:
+<img class="bImg" src="/includes/projects/cryptominer/img2.png" alt="cryptographic function visual"></img>
+The machine is called SHA and only works one way which means the SK cannot be reversed calculated. Even though the TR, SHA function, and the
+Signature are all known, the SK cannot be calculated. This means that if there is a signed transaction, it is extremely unlikely for it to be
+fraudulent. More formally the signature equation looks like this:<br>
+<i>SHA(TR, SK) = Signature</i><p />
+Another question, how is the signature verified if the SK is unknown. That is where the PK comes in to create a second equation. The PK and
+the signature goes into a verification function that returns either true or false. Since all variables are known to the public there is no need
+for it to be too complicated:
+<i>VERIFICATION(Signature, PK) = True or False</i><p />
+These two equations are great for verifying transactions but they cannot verify that Abby hasn't sent the same $10 to two different people. Since
+a coin is just a list of previous transactions, it can fork into two different chains of transactions and the receivers may never know. This
+again can be solved with the bank. If all transactions must go through the bank, the bank can check its ledger to verify no coin was double-spent.
+The only way for everyone to know about all transactions without the use of a third party is to publicly announce each transaction and agree on a
+public ledger. There needs to be a way to know which transaction was first and also that all (valid) transactions get included on the ledger.
+
 
 </div>
 <!-- Begin Footer $include_path/footer.html -->
