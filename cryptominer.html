@@ -118,7 +118,57 @@ The only way for everyone to know about all transactions without the use of a th
 public ledger. There needs to be a way to know which transaction was first and also that all (valid) transactions get included on the ledger.
 This could mean that everyone puts each transaction on a website, but that involves a third party, the websites webmaster.
 <div class="bSub"><p><b>The Timestamp Server</b><p /></div>
-The solution to the double-spend problem is to add a timestamp to each transaction.
+The solution to the double-spend problem is to add a timestamp so the order in which transactions happen are known. This solves the issues of
+transactions happening in quick succession. The paper suggests to take many items, forming a block, and taking the hash of the block. The hash is
+then annouced publicly. Recall that hashs are one-way functions, so the only way to produce the hash would be for the transactions to actually happen.
+A block in the case of Bitcoin contains 2,400 transactions and the hash of the previous block. The inclusion of the previous hash means that all the
+transactions in the previous hash must have happened before the transactions in the current hash. Since the only way to get a hash is for the previous
+transactions to have actually happened, we know that the previous block happened before the current block. This solves the problem of the double-spend
+because the history of the transactions are now publicly known. Each of the blocks are connected to the previous because they contain the hash of the
+previous block. This mains a chain of blocks or a <i>blockchain</i>.<p />
+There is still one major problem with this solution, how do we know which chain is the real chain? Let's say Abby transfered Simon $1,000 dollars. Since
+Abby is sending the money, she needs to sign the transaction with her private key, pretty straightforward. After that transaction 15 more blocks of
+transactions have been added to the chain. Abby nows tries to steal Simons money by going back 15 blocks and changing the transaction to say $1 instead
+of $1,000. She then adds the same 15 blocks to the alterd transaction. We now have two chains of equal length and the only difference is that single
+transaction 15 blocks ago. The solution to this problem is to always assume that the longest blockchain is correct AND make it hard for blocks to be
+added to the chain. If we go back to the example, Abby has to add 15 blocks to her altered transaction whislt the unaltered chain is 15 blocks ahead. This
+means that everyone will ignore Abby's shorter, altered chain and opt for the longer, unaltered chain. If blocks are hard to add then Abby will have a tricky
+time catching up and overtaking the unaltered chain. Now, how do we make it hard to add blocks to the chain?
+<div class="bSub"><p><b>Proof of Work</b><p /></div>
+Remember Bitcoin is a peer-to-peer network which means that the transactions, blocks, are added by people like you or me. More formally CPUs maintain the
+blockchain that we control. We can make it hard to add blocks if we force the CPU to solve a complex problem before being allowed to add a block to the chain.
+This complex problem is so hard that the computers simply need to guess the answer randomly until they get it. This complex problem can be modified so that on
+average all the CPUs contributing to the blockchain take about 10 minutes to solve it and thus add a block to the chain. Only a single CPU needs to find the right
+answer because then they tell everyone else because the are proving that they did the work to add the block. Lets go back to the stealing example. If there are
+10 CPUs maintaining the blockchain, including Abby's, then on average the complex problem will take 10 CPUs about 10 minutes to solve. When Abby goes back 15
+blocks to alter the transaction, she needs to create 15 new blocks to catch up with the unaltered chain. Since Abby only has 1 CPU it will taker her ~10x longer
+to solve the problem and add a block to her altered chain. There is no way that Abby will be able to catch up with only 1 CPU and thus the fraud cannot occur.
+<div class="bSub"><p><b>The Complex Problem</b><p /></div>
+What problem is so hard that a computer just has to guess? A cryptographic equation! If we give the CPU the hash and the input message for the first equation
+exampled, then the only way to find the private key is to guess and check. In this case the message is the block and the hash is a 256-bit number will x leading
+zeros where x is a varying number between 0 and 256. The higher the x, the harder the problem. The more nodes trying to solve the problem, the higher x goes.
+Running CPUs take power and effort so how are these CPUs (other names: nodes/miners) rewarded for their honest efforts?
+<div class="bSub"><p><b>The Incentive</b><p /></div>
+The lucky CPU to actually solve the complex problem gets to place a block on the chain. The reason why this is a good thing is because the first transaction of a
+given block is a reward transaction. The transaction is simply that the node gives themselves a set amount of bitcoin. This means that nodes earn bitcoin for
+maintaining the blockchain. People transfering bitcoin to eachother can also "tip" the miners. This tip is another reward for their efforts. The set amount of bitcoin
+that a node receives for adding a block goes down as the total supply of bitcoin goes up until a limit and then there is no reward for adding a block. The miners then
+have to fully rely on tips. This bitcoin limit is estimated to be reached in the 2100s (21 million bitcoin).<p />
+The paper also theorizes that this incentive will encourage nodes to refain from trying to steal. This is because they can either direct their CPU toward stealing or mining.
+If they steal, they make the average bitcoin user weary of the asset. But if they simply mine then they are rewarded with bitcoin. Their stealing may undermine and devalue
+the exact asset that they are trying to get more of whislt mining strengthens the asset.
+<div class="bSub"><p><b>The Network</b><p /></div>
+The paper explains the bitcoin protocal in this way:<br>
+1. New transactions are broadcast to all nodes<br>
+2. Each node collects 2,400 transactions to make a block<br>
+3. Each node then trys to solve the complex problem of their block<br>
+4. Once a node solves the problem they broadcast the block and the answer to all the other nodes<br>
+5. All other nodes verify the block and start working on the next one<p />
+Nodes always work on the longest chain. If two chains are tied then nodes chose whichever chain to mine on and eventually one chain will become longer than the other.
+So long as 51% of the nodes are honest, then the true chain will be longer and will always be considerd correct. The more and more blocks added after a transactions, the more
+sure the participates can be that the transaction is valid. Because ofthe 51% rule it is okay if some of the nodes miss the most recent block because once they do finally get
+a new block they will relize they are missing one and request it from other nodes. They will know they are missing a block because the hash of the previous block is stored
+within the current block.
 
 </div>
 <!-- Begin Footer $include_path/footer.html -->
