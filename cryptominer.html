@@ -39,14 +39,14 @@ For this project a raspberry pi will be converted to a miner, working with a poo
 cryptographic puzzles. To fully understand this process we must start with the whitepaper.
 <div class="bSub"><p><b>The Bitcoin Whitepaper</b><p /></div>
 A whitepaper is a document that is produced to define and explain an idea or project at "high-level". The paper was written
-by a person (or group) named Satoshi Nakamoto [1]. The main problem that this paper attempts solves is how to remove the third
+by a person (or group) named Satoshi Nakamoto<sup>[1]</sup>. The main problem that this paper attempts solves is how to remove the third
 party from financial transactions. When people exchange electronic money, they need the banks to record it on a ledger. The
 banks verify the purchase and maintain the ledger. Through the use of digital signatures people can verify their own transactions,
 but cannot maintain a common ledger. This common ledger problem is solved using what is known as a blockchain.<p />
 The blockchain is a list of time-stamped transactions that are verified in a peer-to-peer network using Proof of Work (PoW).
 Computers compete to verify the block the quickest to add it to the chain. The longest chain is considered valid which means so
 as long as less than 51% of the computers are bad actors, only valid transactions will be recorded.
-<div class="sText"><p>[1] This whitepaper is referred to throughout the text and some of the images are included. The paper
+<div class="sText"><p><sup>[1]</sup> This whitepaper is referred to throughout the text and some of the images are included. The paper
 uses the MIT license which means anyone can use, modify, merge, publish, distribute, sublicense, and/or sell copies of the
 work so long as they maintain this MIT license. Therefore the paper is hosted
 <a href="https://davidmcphee.ca/includes/projects/cryptominer/bitcoinwhitepaper.pdf">here</a>
@@ -225,20 +225,48 @@ The reason for the summation is because if the attacker shortens the difference 
 The simplified version of the summation equation is<br>
 <img class="bImg" src="/includes/projects/cryptominer/img6.png" alt="Poisson Density equation"></img>
 The paper suggests waiting until there is less than a 0.1% chance of the attacker catching up. This means if the attacker has 10% of the total computing power (q) then the receiver should wait 5
-blocks (z). More values are given:<br>
+blocks (z). More values are given:<br><i>
 q = 15%, z = 8<br>
 q = 20%, z = 11<br>
 q = 25%, z = 15<br>
 q = 30%, z = 24<br>
 q = 35%, z = 41<br>
 q = 40%, z = 89<br>
-q = 45%, z = 340
+q = 45%, z = 340</i>
 <div class="bSub"><p><b>The Conclusion</b><p /></div>
 Bitcoin is created to remove the bank from online transactions and all other forms of trust. Each transaction has a signature with a secret key that only the sender knows which makes it
 nearly impossible for an attacker to forge a transaction. The double-spending problem is resolved via a peer-to-peer network that requires nodes to prove that the block of transactions are
 valid by using up CPU. The nodes are rewarded with bitcoin for their efforts. Nodes do not need to be identified and can leave and rejoin the network whenever they please. So long as honest
 nodes control the majority of the CPU, the chain is safe and secure. Now that we fully understand the bitcoin blockchain we can start mining it!
 <div class="bSub"><p><b>The Mining</b><p /></div>
+Bitcoin is the token of the Bitcoin Blockchain which is the most popular cryptocurrency on the market. Because of this popularity, the barriers to entry for mining have become quite steep. Recall
+how the complex problem gets harder the more nodes there are. A consumer CPU is no match for purpose built machines. The goal is to be able to mine some crypto on a raspberry pi so we need to
+choose a different coin. Monero, the third most popular coin is the token for the job. Monero has a slightly different protocol than Bitcoin but the important difference is that Monero was designed
+to be mined on consumer-grade CPUs. This experiment can be generalized for many different tokens.
+<div class="bSub"><p><b>The Pi Setup</b><p /></div>
+The only purpose of this CPU will be to mine crypto so when we are choosing a linux distro, we should get something lightweight. This means for RaspOS we want a lite version which has no desktop.
+The headless install is straightforward with the raspberry pi imager.
+<img class="bImg" src="/includes/projects/cryptominer/img7.png" alt="Rasp pi imager"></img>
+With this OS installed and the SSH and WiFi enabled during the imaging, the pi can be powered on and ready to go. The IP was found by pinging the hostname of the pi. The next step in the set up is
+to install git and the other files needed for the CPU to be turned into a mining machine.
+<img class="bImg" src="/includes/projects/cryptominer/img8.png" alt="Installing libs on Raspberry Pi"></img>
+After that the Pi is set up and can now be installed with the mining software of choice.
+<div class="bSub"><p><b>The Mining Software</b><p /></div>
+The Monero ticker is XMR and we will be using a XMR rig on github. The XMRIG is installed like any other git repository.
+<img class="bImg" src="/includes/projects/cryptominer/img9.png" alt="Installing XMR Repo on pi"></img>
+With the repo all set up the only thing left to do is make the project.
+<img class="bImg" src="/includes/projects/cryptominer/img10.png" alt="Making XMRIG"></img>
+The rig took awhile to build but now the Pi is ready to mine Monero.
+<div class="bSub"><p><b>The Mine</b><p /></div>
+The Raspberry Pi CPU is quite small and will not be able to make many guesses for the complex problem per second. This means that it would be almost impossible to ever put a block on the chain. Small
+CPUs work best when they join a mining pool. A mining pool is a collection of other CPUs that all guess on the small block and split the reward if they guess the right answer. The split of the pot will
+be proportional to the amount of work put into guessing the solution. The pool that the pi will join is called Moneroocean. The final item needed is wallet address to send the earned Monero to. The
+app Cake Wallet offers Monero addresses so that will be used. The rig can be started as seen below.
+<img class="bImg" src="/includes/projects/cryptominer/img11.png" alt="Starting the mining"></img>
+The Raspberry Pi is now mining for Monero and the rewards are automatically sent to the address provided. How does the CPU stack up?
+<img class="bImg" src="/includes/projects/cryptominer/img12.png" alt="RPi hashes"></img>
+We are getting around 18 hashes a second. This means that the Pi is making 18 guesses toward the complex problem per second. For reference purpose built machines can mine Bitcoin at a trillion hashes per
+second. So the mine isn't good... at all. But this process can be implemented on just about any CPU so if we find a more powerful CPU, we can easily set it up to mine Monero.
 
 </div>
 <!-- Begin Footer $include_path/footer.html -->
