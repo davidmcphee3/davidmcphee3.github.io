@@ -38,7 +38,7 @@ a:hover{
 	font-size: 14px;
 }
 .cText{
-	text-align:center;	
+	text-align:center;
 }
 
 .headerimg{
@@ -80,7 +80,7 @@ a:hover{
 	margin-top:13px;
 	margin-bottom:10px;
 	border: 3x solid #626262;
-}	
+}
 
 /*This is the box that the nav is in*/
 #nav{
@@ -158,8 +158,9 @@ a:hover{
 	margin: 30px auto;
 	border: 2px solid #626262;
 	border-radius: 5px;
-	max-height: 300px;
-	
+	max-height: 350px;
+	max-width: 610px;
+
 }
 
 .projw{
@@ -216,7 +217,7 @@ table{
         margin-right:auto;
 }
 th, td{
-	padding:5px;	
+	padding:5px;
 	background:#626262;
 	border:2px solid black;
 }
