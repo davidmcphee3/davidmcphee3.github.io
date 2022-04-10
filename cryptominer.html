@@ -39,13 +39,18 @@ For this project a raspberry pi will be converted to a miner, working with a poo
 cryptographic puzzles. To fully understand this process we must start with the whitepaper.
 <div class="bSub"><p><b>The Bitcoin Whitepaper</b><p /></div>
 A whitepaper is a document that is produced to define and explain an idea or project at "high-level". The paper was written
-by a person (or group) named Satoshi Nakamoto. The main problem that this paper attempts solves is how to remove the third
+by a person (or group) named Satoshi Nakamoto [1]. The main problem that this paper attempts solves is how to remove the third
 party from financial transactions. When people exchange electronic money, they need the banks to record it on a ledger. The
 banks verify the purchase and maintain the ledger. Through the use of digital signatures people can verify their own transactions,
 but cannot maintain a common ledger. This common ledger problem is solved using what is known as a blockchain.<p />
 The blockchain is a list of time-stamped transactions that are verified in a peer-to-peer network using Proof of Work (PoW).
 Computers compete to verify the block the quickest to add it to the chain. The longest chain is considered valid which means so
 as long as less than 51% of the computers are bad actors, only valid transactions will be recorded.
+<div class="sText"><p>[1] This whitepaper is referred to throughout the text and some of the images are included. The paper
+uses the MIT license which means anyone can use, modify, merge, publish, distribute, sublicense, and/or sell copies of the
+work so long as they maintain this MIT license. Therefore the paper is hosted
+<a href="https://davidmcphee.ca/includes/projects/cryptominer/bitcoinwhitepaper.pdf">here</a>
+on the website under the same license.<p /></div>
 <div class="bSub"><p><b>The Introduction</b><p /></div>
 Using cash as a medium for trade can be secure, anonymous, trustless, and irreversible, however it only works for in-person or
 local transactions. This system worked great for awhile, but globalization took over and now anything can be bought from anywhere
@@ -96,7 +101,7 @@ Every account (or person, but a person can have many accounts) has a Public/Priv
 doesn't mean that there is an identity attached to it. Rather it means that a certain transaction used this PK. The Private(Secret) Key (SK)
 is secret and should never be shared with anyone, ever. An example of a transaction is:<br>
 <i>Abby gives Matthew $10</i><p />
-This example transaction can be combined with Abbys PK to make a hash, lets label it called TR. Abby must sign this transaction, meaning that
+This example transaction can be combined with Abbys PK to make a hash, let's label it called TR. Abby must sign this transaction, meaning that
 she in fact does want to transfer $10 to Matthew. The signature is created using Abby's SK (this is why the SK must remain secret, or anyone
 could fake your signature). An example of Abby's signature is:<br>
 <i>TR + SK = Signature</i><p />
@@ -116,22 +121,22 @@ a coin is just a list of previous transactions, it can fork into two different c
 again can be solved with the bank. If all transactions must go through the bank, the bank can check its ledger to verify no coin was double-spent.
 The only way for everyone to know about all transactions without the use of a third party is to publicly announce each transaction and agree on a
 public ledger. There needs to be a way to know which transaction was first and also that all (valid) transactions get included on the ledger.
-This could mean that everyone puts each transaction on a website, but that involves a third party, the websites webmaster.
+This could mean that everyone puts each transaction on a website, but that involves a third party, the website's webmaster.
 <div class="bSub"><p><b>The Timestamp Server</b><p /></div>
 The solution to the double-spend problem is to add a timestamp so the order in which transactions happen are known. This solves the issues of
-transactions happening in quick succession. The paper suggests to take many items, forming a block, and taking the hash of the block. The hash is
-then annouced publicly. Recall that hashs are one-way functions, so the only way to produce the hash would be for the transactions to actually happen.
+transactions happening in quick succession. The paper suggests taking many items, forming a block, and taking the hash of the block. The hash is
+then announced publicly. Recall that hashes are one-way functions, so the only way to produce the hash would be for the transactions to actually happen.
 A block in the case of Bitcoin contains 2,400 transactions and the hash of the previous block. The inclusion of the previous hash means that all the
 transactions in the previous hash must have happened before the transactions in the current hash. Since the only way to get a hash is for the previous
 transactions to have actually happened, we know that the previous block happened before the current block. This solves the problem of the double-spend
 because the history of the transactions are now publicly known. Each of the blocks are connected to the previous because they contain the hash of the
 previous block. This mains a chain of blocks or a <i>blockchain</i>.<p />
-There is still one major problem with this solution, how do we know which chain is the real chain? Let's say Abby transfered Simon $1,000 dollars. Since
+There is still one major problem with this solution, how do we know which chain is the real chain? Let's say Abby transferred Simon $1,000 dollars. Since
 Abby is sending the money, she needs to sign the transaction with her private key, pretty straightforward. After that transaction 15 more blocks of
 transactions have been added to the chain. Abby nows tries to steal Simons money by going back 15 blocks and changing the transaction to say $1 instead
-of $1,000. She then adds the same 15 blocks to the alterd transaction. We now have two chains of equal length and the only difference is that single
+of $1,000. She then adds the same 15 blocks to the altered transaction. We now have two chains of equal length and the only difference is that single
 transaction 15 blocks ago. The solution to this problem is to always assume that the longest blockchain is correct AND make it hard for blocks to be
-added to the chain. If we go back to the example, Abby has to add 15 blocks to her altered transaction whislt the unaltered chain is 15 blocks ahead. This
+added to the chain. If we go back to the example, Abby has to add 15 blocks to her altered transaction whilst the unaltered chain is 15 blocks ahead. This
 means that everyone will ignore Abby's shorter, altered chain and opt for the longer, unaltered chain. If blocks are hard to add then Abby will have a tricky
 time catching up and overtaking the unaltered chain. Now, how do we make it hard to add blocks to the chain?
 <div class="bSub"><p><b>Proof of Work</b><p /></div>
@@ -139,36 +144,101 @@ Remember Bitcoin is a peer-to-peer network which means that the transactions, bl
 blockchain that we control. We can make it hard to add blocks if we force the CPU to solve a complex problem before being allowed to add a block to the chain.
 This complex problem is so hard that the computers simply need to guess the answer randomly until they get it. This complex problem can be modified so that on
 average all the CPUs contributing to the blockchain take about 10 minutes to solve it and thus add a block to the chain. Only a single CPU needs to find the right
-answer because then they tell everyone else because the are proving that they did the work to add the block. Lets go back to the stealing example. If there are
+answer because then they tell everyone else because they are proving that they did the work to add the block. Let's go back to the stealing example. If there are
 10 CPUs maintaining the blockchain, including Abby's, then on average the complex problem will take 10 CPUs about 10 minutes to solve. When Abby goes back 15
-blocks to alter the transaction, she needs to create 15 new blocks to catch up with the unaltered chain. Since Abby only has 1 CPU it will taker her ~10x longer
+blocks to alter the transaction, she needs to create 15 new blocks to catch up with the unaltered chain. Since Abby only has 1 CPU it will take her ~10x longer
 to solve the problem and add a block to her altered chain. There is no way that Abby will be able to catch up with only 1 CPU and thus the fraud cannot occur.
 <div class="bSub"><p><b>The Complex Problem</b><p /></div>
 What problem is so hard that a computer just has to guess? A cryptographic equation! If we give the CPU the hash and the input message for the first equation
-exampled, then the only way to find the private key is to guess and check. In this case the message is the block and the hash is a 256-bit number will x leading
+example, then the only way to find the private key is to guess and check. In this case the message is the block and the hash is a 256-bit number will x leading
 zeros where x is a varying number between 0 and 256. The higher the x, the harder the problem. The more nodes trying to solve the problem, the higher x goes.
 Running CPUs take power and effort so how are these CPUs (other names: nodes/miners) rewarded for their honest efforts?
 <div class="bSub"><p><b>The Incentive</b><p /></div>
 The lucky CPU to actually solve the complex problem gets to place a block on the chain. The reason why this is a good thing is because the first transaction of a
 given block is a reward transaction. The transaction is simply that the node gives themselves a set amount of bitcoin. This means that nodes earn bitcoin for
-maintaining the blockchain. People transfering bitcoin to eachother can also "tip" the miners. This tip is another reward for their efforts. The set amount of bitcoin
+maintaining the blockchain. People transfering bitcoin to each other can also "tip" the miners. This tip is another reward for their efforts. The set amount of bitcoin
 that a node receives for adding a block goes down as the total supply of bitcoin goes up until a limit and then there is no reward for adding a block. The miners then
 have to fully rely on tips. This bitcoin limit is estimated to be reached in the 2100s (21 million bitcoin).<p />
-The paper also theorizes that this incentive will encourage nodes to refain from trying to steal. This is because they can either direct their CPU toward stealing or mining.
+The paper also theorizes that this incentive will encourage nodes to refrain from trying to steal. This is because they can either direct their CPU toward stealing or mining.
 If they steal, they make the average bitcoin user weary of the asset. But if they simply mine then they are rewarded with bitcoin. Their stealing may undermine and devalue
-the exact asset that they are trying to get more of whislt mining strengthens the asset.
+the exact asset that they are trying to get more of whilst mining strengthens the asset.
 <div class="bSub"><p><b>The Network</b><p /></div>
-The paper explains the bitcoin protocal in this way:<br>
+The paper explains the bitcoin protocol in this way:<br>
 1. New transactions are broadcast to all nodes<br>
 2. Each node collects 2,400 transactions to make a block<br>
 3. Each node then trys to solve the complex problem of their block<br>
 4. Once a node solves the problem they broadcast the block and the answer to all the other nodes<br>
 5. All other nodes verify the block and start working on the next one<p />
-Nodes always work on the longest chain. If two chains are tied then nodes chose whichever chain to mine on and eventually one chain will become longer than the other.
-So long as 51% of the nodes are honest, then the true chain will be longer and will always be considerd correct. The more and more blocks added after a transactions, the more
-sure the participates can be that the transaction is valid. Because ofthe 51% rule it is okay if some of the nodes miss the most recent block because once they do finally get
-a new block they will relize they are missing one and request it from other nodes. They will know they are missing a block because the hash of the previous block is stored
-within the current block.
+Nodes always work on the longest chain. If two chains are tied then nodes choose whichever chain to mine on and eventually one chain will become longer than the other.
+So long as 51% of the nodes are honest, then the true chain will be longer and will always be considered correct. The more and more blocks added after a transactions, the more
+sure the participants can be that the transaction is valid. Because of the 51% rule it is okay if some of the nodes miss the most recent block because once they do finally get
+a new block they will realize they are missing and request it from other nodes. They will know they are missing a block because the hash of the previous block is stored
+within the current block
+<div class="bSub"><p><b>The Disk Space</b><p /></div>
+As of 2022 the entire bitcoin blockchain is about ~400 GB. To save nodes from having to have the entire chain stored locally, the paper suggests using a Merkle Tree of Transaction
+hashes to save space. Each transaction gets a hash and is entered into a "March Madness" style bracket where instead of the two hashes playing basketball, they simply get hashed into a
+single hash. If there are 2,400 transactions in a block, then they get paired into 1,200 hashes, and then 600, 300, 150 ,75, 36, 13, 7, 4, 2, and finally 1. Whenever there is an odd
+number of hashes, the odd one out hashes with itself. This root hash is stored in the header of a given block. This type of storing means that 2,400 transactions are accounted for in
+a single hash. Specific transactions can then be queried if desired on the full blockchain and the Merkle Tree can be traced. This typically happens with transactions that happened many
+blocks ago and thus are not relevant in current transactions. For example if a store clerk gave me change, I don't really care who gave him the change in the first place.
+<div class="bSub"><p><b>The Simplified Payment Verification</b><p /></div>
+A faster and more simple way of verifying payments is to store the block headers on the local computer. If the transaction is linked to a Merkle root on the longest chain, then the verifier
+can be sure that the other nodes have accepted the transaction. The paper includes this image:<br>
+Note: In this image each block only contains 4 transactions, but the Merkle shape is obvious.
+<img class="bImg" src="/includes/projects/cryptominer/img3.png" alt="Verifying payments using the merkle tree"></img>
+Transactions can contain multiple inputs and outputs to simply processes such as over-payments and tipping.
+<div class="bSub"><p><b>The Privacy</b><p /></div>
+Privacy and security are some of the major selling factors about cryptocurrency. A major issue with having banks as a third party this that they know an excessive amount of personal information
+about both parties in a transaction. A bank knows exactly who you are, where you live, and what you are buying and selling. The third parties typically do a good job of controlling that
+information, but they are in control, not you. On the blockchain the transactions are public, but there are no names attached to the public addresses of the buyer or seller. The public
+can see all the transactions but unless the addresses are disclosed by the owners the public will have nary a clue who is behind each address. People can create as many accounts (PK, SK) as
+they would like to prevent people from tracking the same account throughout the blockchain. The paper has a great visual on where the train of information stops in each model:
+<img class="bImg" src="/includes/projects/cryptominer/img4.png" alt="traditional vs new privacy model"></img>
+<div class="bSub"><p><b>The Math</b><p /></div>
+As mentioned before, the only way for someone to steal is to change one of their previous transactions. This is because the buyer must always sign the transaction to make it valid. Since
+signatures cannot be created without the SK, the only way to steal is to reduce the amount of money the attacker sent to another address in a previous transaction. We made a claim that
+an attacker would have to change a previous transaction and then add more blocks to the modified chain to be longer than the unaltered chain. But what if the attacker gets lucky? How lucky
+does the attacker really have to be?<p />
+The paper suggests that the race for the altered chain to catch up to the previous chain can be described as a Binomial Random Walk. Adding a block to the unaltered chain is a +1 and a block
+to the altered chain is a -1. Further reading can be done by researching the Gambler's Ruin problem. Going through the calculations of the probability that the altered chain will catch the
+unaltered chain is as follows:
+<i>p</i> = probability an honest node solves the complex problem and adds a block<br>
+<i>q</i> = probability the stealer solves the complex problem and adds a block<br>
+<i>q<sub>z</sub></i> = probability the stealer will catch up from z blocks behind<p />
+
+<i>q<sub>z</sub> = 1 if p ≤ q</i><br>
+<i>q<sub>z</sub> = (q/p)<sup>z</sup> if p > q</i><p />
+
+The first equation is trivial because it is how we defined the problem. If the altered chain has more CPU then it will catch up to the unaltered chain. This is why it is
+best to wait until the transaction has been buried under a couple of blocks to be sure that it has been accepted as the longest chain. The plot for the altered chain catching up is given below,
+it is assumed that there are more honest nodes than attacking nodes (<i> p > q</i>).
+<img class="bImg" src="/includes/projects/cryptominer/img5.png" alt="plot of attacker catching up to honest nodes"></img>
+We can see that the chances are very slim for attackers even with a large minority of the CPU power. After about 10 blocks there is a 0.00000003%, 0.0001%, 0.02%, and 1.7% chance an attacker will
+be able to catch up, respectively. 10 blocks seems like a very safe amount of time to wait until the receiver can be sure that the sender will not try to alter the transaction. How many z blocks should
+the receiver waits until they are sure the transaction is secure? If they waited 10 it would be very good but that would take 10 x 10 minutes or just under 2 hours. That is far too long for today's
+society. The attacker will make progress with a Poisson distribution:<br>
+<i>λ = z * q/p</i><p />
+Where z is the amount of blocks needed for a transaction to be considered "safe". To get the probability that the altered chain can catch up, the Poisson density is multiplied by each amount of
+progress the attacker may have made.
+The reason for the summation is because if the attacker shortens the difference in length by 1, the previous equation changes to<br>
+<i>λ = (z-1) * q/p</i><p />
+The simplified version of the summation equation is<br>
+<img class="bImg" src="/includes/projects/cryptominer/img6.png" alt="Poisson Density equation"></img>
+The paper suggests waiting until there is less than a 0.1% chance of the attacker catching up. This means if the attacker has 10% of the total computing power (q) then the receiver should wait 5
+blocks (z). More values are given:<br>
+q = 15%, z = 8<br>
+q = 20%, z = 11<br>
+q = 25%, z = 15<br>
+q = 30%, z = 24<br>
+q = 35%, z = 41<br>
+q = 40%, z = 89<br>
+q = 45%, z = 340
+<div class="bSub"><p><b>The Conclusion</b><p /></div>
+Bitcoin is created to remove the bank from online transactions and all other forms of trust. Each transaction has a signature with a secret key that only the sender knows which makes it
+nearly impossible for an attacker to forge a transaction. The double-spending problem is resolved via a peer-to-peer network that requires nodes to prove that the block of transactions are
+valid by using up CPU. The nodes are rewarded with bitcoin for their efforts. Nodes do not need to be identified and can leave and rejoin the network whenever they please. So long as honest
+nodes control the majority of the CPU, the chain is safe and secure. Now that we fully understand the bitcoin blockchain we can start mining it!
+<div class="bSub"><p><b>The Mining</b><p /></div>
 
 </div>
 <!-- Begin Footer $include_path/footer.html -->
