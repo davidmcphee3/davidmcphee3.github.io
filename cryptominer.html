@@ -39,7 +39,7 @@ For this project a raspberry pi will be converted to a miner, working with a poo
 cryptographic puzzles. To fully understand this process we must start with the whitepaper.
 <div class="bSub"><p><b>The Bitcoin Whitepaper</b><p /></div>
 A whitepaper is a document that is produced to define and explain an idea or project at "high-level". The paper was written
-by a person (or group) named Satoshi Nakamoto<sup>[1]</sup>. The main problem that this paper attempts solves is how to remove the third
+by a person (or group) named Satoshi Nakamoto<sup>[1]</sup>. The main problem that this paper attempts to solve is how to remove the third
 party from financial transactions. When people exchange electronic money, they need the banks to record it on a ledger. The
 banks verify the purchase and maintain the ledger. Through the use of digital signatures people can verify their own transactions,
 but cannot maintain a common ledger. This common ledger problem is solved using what is known as a blockchain.<p />
@@ -60,7 +60,7 @@ bank, the third party bank. <p />
 <div class="cText"><p />
 <b>The Double-Spending Example Without a Third Party</b><i><p/></div>
 Abby finds a $10 bill on the ground<p />
-Abby calls Matthew and promises to give $10 if Matthew gives her a clue for the Daily Wordle<p />
+Abby calls Matthew and promises to give him $10 if he gives her a clue for the Daily Wordle<p />
 Matthew agrees and gives Abby a clue and will get the $10 the next time they meet up<p />
 Abby still cannot figure out the Wordle so she calls Simon and makes the same deal<p />
 Simon agrees to give Abby a clue because he is not aware that Abby already promised the $10 to Matthew<p />
@@ -70,7 +70,7 @@ A solution to this problem is to involve a third party, the bank.
 <div class="cText"><p />
 <b>The Double-Spending Example With a Third Party</b><i></div>
 Abby finds a $10 bill on the ground<p />
-Abby calls Matthew and offers $10 if Matthew gives her a clue for the Daily Wordle<p />
+Abby calls Matthew and promises to give him $10 if he gives her a clue for the Daily Wordle<p />
 Matthew agrees and tells Abby to send him the money first<p />
 Abby goes to the bank and deposits the $10<p />
 The bank then gives Matthew the $10<p />
@@ -86,36 +86,36 @@ An obvious question arises: What if Matthew accepts the money but doesn't give A
 This forces the bank to take on another role, mediator. Abby can dispute the transaction and if she can prove Matthew didn't give her
 a clue then the bank can reverse the transaction. Overall the third party must be trusted, know the identities of all parties, and have
 the ability to reverse transactions. The third party gets a lot of trust and personal information from the participates just for acting
-as a middleman of a transaction. In this system some fraud is unavoidable because transactions are not instant like in cash trades.
+as a middleman of a transaction. In this system some fraud is unavoidable because of the third party mediator.
 Two people can physically swap goods but the same is not true on the internet.<p />
 The paper proposes a solution that replaces trust with cryptographic proof. In this context, "cryptographic" means irreversible calculations.
-More simply it means that the only way to get proof of the transaction is by actually doing the transaction. People cannot fake transactions
+Moreover it means that the only way to get proof of the transaction is by actually doing the transaction. People cannot fake transactions
 that didn't happen because they do not have the cryptographic proof.
 <div class="bSub"><p><b>The Transactions</b><p /></div>
-A "bitcoin" is defined as a series of transactions. This means that a "bitcoin" is not a physical coin or even a digital image of a coin rather
+A "Bitcoin" is defined as a series of transactions. This means that a Bitcoin is not a physical coin or even a digital image of a coin, rather
 it <i>is</i> the combination of all of the previous transactions/transfers. Each transfer adds and updates the coins data. An obvious question
 is what is a transaction? The white paper includes this image:
 <img class="bImg" src="/includes/projects/cryptominer/img1.png" alt="Transaction image from bitcoin white paper"></img>
 It is best to go through each term and fully define it.<p />
 Every account (or person, but a person can have many accounts) has a Public/Private Key pair. The Public Key (PK) is public knowledge but this
 doesn't mean that there is an identity attached to it. Rather it means that a certain transaction used this PK. The Private(Secret) Key (SK)
-is secret and should never be shared with anyone, ever. An example of a transaction is:<br>
-<i>Abby gives Matthew $10</i><p />
+is secret and should never be shared with anyone, ever. An example of a transaction is:<p />
+<div class="cText"><i>Abby gives Matthew $10</i><p /></div>
 This example transaction can be combined with Abbys PK to make a hash, let's label it called TR. Abby must sign this transaction, meaning that
 she in fact does want to transfer $10 to Matthew. The signature is created using Abby's SK (this is why the SK must remain secret, or anyone
-could fake your signature). An example of Abby's signature is:<br>
-<i>TR + SK = Signature</i><p />
+could fake your signature). An example of Abby's signature is:<p />
+<div class="cText"><i>TR + SK = Signature</i><p /></div>
 More formally TR and SK are inputs to a cryptographic function. Recall that a cryptographic function means it can be computed one way but not the
 other. Imagine a machine that takes two inputs (TR and SK) and outputs a Signature:
 <img class="bImg" src="/includes/projects/cryptominer/img2.png" alt="cryptographic function visual"></img>
-The machine is called SHA and only works one way which means the SK cannot be reversed calculated. Even though the TR, SHA function, and the
+The machine is called SHA and only works one way which means the SK cannot be reverse calculated. Even though the TR, SHA function, and the
 Signature are all known, the SK cannot be calculated. This means that if there is a signed transaction, it is extremely unlikely for it to be
-fraudulent. More formally the signature equation looks like this:<br>
-<i>SHA(TR, SK) = Signature</i><p />
-Another question, how is the signature verified if the SK is unknown. That is where the PK comes in to create a second equation. The PK and
+fraudulent. More formally the signature equation looks like this:<p />
+<div class="cText"><i>SHA(TR, SK) = Signature</i><p /></div>
+Another question, how is the signature verified if the SK is unknown? That is where the PK comes in to create a second equation. The PK and
 the signature goes into a verification function, VER, that returns either true or false. Since all variables are known to the public there is no
-need for it to be too complicated:
-<i>VER(Signature, PK) = True or False</i><p />
+need for it to be too complicated:<p />
+<div class="cText"><i>VER(Signature, PK) = True or False</i><p /></div>
 These two equations are great for verifying transactions but they cannot verify that Abby hasn't sent the same $10 to two different people. Since
 a coin is just a list of previous transactions, it can fork into two different chains of transactions and the receivers may never know. This
 again can be solved with the bank. If all transactions must go through the bank, the bank can check its ledger to verify no coin was double-spent.
