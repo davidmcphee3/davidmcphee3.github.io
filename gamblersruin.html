@@ -36,42 +36,54 @@
 <div class="bTitle"><p><u><strong>The Gambler's Ruin</strong></u><p /></div>
 <img class="bImg" src="/includes/other/gamblersruin/thumbnail.png" alt="Thumbnail for The Gambler's Ruin"></img>
 The Gambler's Ruin is a statistical concept that is used to prove the security of Bitcoin and other
-blockchain-based technologies. This concept lacks explanation and proof in the Bitcoin whitepaper. The thumbnail
-graph and equation will be fully explored to prove the validity and clear ambiguities.
+blockchain-based technologies. This concept lacks explanation and proof in the Bitcoin whitepaper which is the inspiration for
+this project. The thumbnail graph and equation will be fully explored to prove the validity and clear ambiguities.
 <div class="bSub"><p><b>The Motivation</b><p /></div>
 Whilst reading the <a href="https://davidmcphee.ca/includes/projects/cryptominer/bitcoinwhitepaper.pdf">Bitcoin Whitepaper</a>,
-there was a section that involved proving the sercuity of the blockchain. The blockchain is maintained by nodes (CPUs, computers, etc)
-and the author of the paper claims that so long as more than 51% of the nodes are honest, the blockchain is secure. The paper then
-explains compares this to the Gambler's Ruin and shows the equation in the thumbnail with no other context. For clairty in
-<a href="https://davidmcphee.ca/cryptominer.html">this project</a>, I created and provided a plot of the equation. For me this
+there was a section that involved proving the security of the blockchain. The blockchain is maintained by nodes (CPUs, computers, etc)
+and the author of the paper claims that so long as more than 51% of the nodes are honest, the blockchain is secure. The paper compares
+this to the Gambler's Ruin and shows the equation in the thumbnail with no other proof. For clarity, in
+<a href="https://davidmcphee.ca/cryptominer.html">this project</a> I created and provided a plot of the equation. For me this
 actually made things more confusing and I spent a couple of nights awake thinking about it.
 <div class="bSub"><p><b>The Blockchain Problem</b><p /></div>
 On the blockchain the longest chain is the accepted chain. Transactions can be altered somewhat by attackers but the catch is that they
-have to shorten their chain. Since the altered chain is shorter than the unaltered chain, the altered chain is considered invalid and
-none of their altered transactions will be reconigzed. If they are somehow able to get their chain longer than the unaltered chain, then
-their chain becomes the accepted chain and thus they have successful stolen bitcoin.<p />
-The blockchain is lengthened by node guessing the right answer to a complex problem. For the sake of the Gambler's Ruin, the percentage of
-honest nodes is represented by <i>p</i> and the percentage of dishonest nodes <i>q</i>. These definitiions imply that<p />
+have to shorten their chain to make the alteration. Since the altered chain is shorter than the unaltered chain, the altered chain is
+considered invalid and none of their altered transactions will be recognized. If they are somehow able to get their chain longer than
+the unaltered chain, then their chain becomes the accepted chain and thus they have successful stolen bitcoin.<p />
+The blockchain is lengthened by nodes guessing the right answer to a complex problem. For the sake of the this problem, the percentage of
+honest nodes is represented by <i>p</i> and the percentage of dishonest nodes <i>q</i>. These definitions imply that:<p />
 <img class="bImg" src="/includes/other/gamblersruin/img1.png" alt="1 = p + q"></img>
 We can assume that the attackers are <i>z</i> blocks behind the honest nodes. What is the probability that the attacking nodes will ever
 catch up to the honest nodes?
-<div class="bSub"><p><b>The Gambler's Ruin</b><p /></div>
+<div class="bSub"><p><b>The Gambler's Ruin Problem</b><p /></div>
 The Gambler's Ruin is a concept that states that a gambler starts with 1 penny and on each betting round either wins or loses a penny.
 The gambler is betting on a weighted coin flip and bets heads every time. This means that there is a <i>r</i> chance it lands on heads
 and a <i>s</i> chance it lands on tails. This implies:
 <img class="bImg" src="/includes/other/gamblersruin/img2.png" alt="1 = r + s"></img>
-What are the odds that the gambler attains a forture of <i>N</i> pennies before getting ruined (i.e going broke)?
-<div class="bSub"><p><b>Combining the Two</b><p /></div>
+What are the odds that the gambler attains a fortune of <i>N</i> pennies before getting ruined (i.e going broke)?
+<div class="bSub"><p><b>Bitcoin x Gambler's Ruin</b><p /></div>
 These two statistical events seem related but the differences are important. In the blockchain example, the attacker is at a deficit of blocks
 relative to the honest nodes and is trying to get to a zero block deficit. This is the opposite of the gambler who starts at a surplus and is
 trying <i>not</i> to reach 0 pennies. With each example there is also the other perspective. In the blockchain example the honest nodes are
 trying to be an infinite number of blocks ahead of the attackers before the attackers catch up. This perspective sounds a lot more like the
-gambler. OK, so the gambler and the honest nodes are the same, for now lets assume that the honest nodes only need to get <i>N</i> blocks
+gambler. OK, so the gambler and the honest nodes are the same, for now let's assume that the honest nodes only need to get <i>N</i> blocks
 ahead of the attackers.<p />
-The blockchain problem can now be thought of as a weighted coin-flip where agian <i>p</i> is the weight of the side that the honest nodes pick and
-<i>q</i> is the weight of the side that the attackers pick. For simplicity lets assume the honest nodes always pick heads and dishonest nodes
+The blockchain problem can now be thought of as a weighted coin-flip where again <i>p</i> is the weight of the side that the honest nodes pick and
+<i>q</i> is the weight of the side that the attackers pick. For simplicity let's assume the honest nodes always pick heads and dishonest nodes
 always pick tails. The honest nodes start <i>z</i> blocks ahead of the dishonest nodes and are trying to reach <i>N</i> nodes ahead before the
-attackers catch up.
+attackers catch up.<p />
+Now lets fully define the problem with more general variables.<br> What is the probability that the honest nodes will get <i>N</i> blocks ahead of
+the dishonest nodes using a weighted coin with weight <i>p</i> for the honest nodes and <i>q</i> for the dishonest nodes? Assume that the honest
+nodes start <i>z</i> blocks ahead of the dishonest nodes. By definition of a coin flip, <i>1 = q + p</i>. <i>0 < z < N</i> because either the
+attackers have caught up if <i>z = 0</i> or the honest nodes have gotten far enough way when <i>z = N</i><p />
+<div class="sText"><p>Note: To clear up any confusion, <i>p</i> and <i>q</i> are probabilities which means they can be thought of as a percentage or
+a decimal. In the case of percentage, the equation is <i>100% = q + p</i>.</div><p />
+<i>P<sub>z</sub></i> is the probability that the honest nodes will reach <i>N</i> blocks ahead before the attackers catch up. If
+<i>z = 0</i> then the attackers have caught up and the honest nodes lose <i>P<sub>0</sub> = 0</i>. If <i>z = N</i> then the honest have gotten
+sufficiently far away and won <i>P<sub>N</sub> = 1</i> (Remember 0 = 0% and 1 = 100% in this context). Now the tricky part, what is <i>P<sub>z</sub></i>
+for the values between 0 and <i>N<i/>? In other terms, what is the probability that the honest nodes will get sufficiently far away from the dishonest
+nodes before the dishonest nodes catch up if the dishonest nodes start at a block deficit of 1 (or 2 or 3 or ... or N-1)?
+
 
 
 </div>
