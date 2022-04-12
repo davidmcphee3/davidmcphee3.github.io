@@ -51,7 +51,7 @@ have to shorten their chain to make the alteration. Since the altered chain is s
 considered invalid and none of their altered transactions will be recognized. If they are somehow able to get their chain longer than
 the unaltered chain, then their chain becomes the accepted chain and thus they have successful stolen bitcoin.<p />
 The blockchain is lengthened by nodes guessing the right answer to a complex problem. For the sake of the this problem, the percentage of
-honest nodes is represented by <i>p</i> and the percentage of dishonest nodes <i>q</i>. These definitions imply that:<p />
+honest nodes is represented by <i>p</i> and the percentage of dishonest nodes <i>q</i>. These definitions imply that (Eq. 1):<p />
 <img class="bImg" src="/includes/other/gamblersruin/img1.png" alt="1 = p + q"></img>
 We can assume that the attackers are <i>z</i> blocks behind the honest nodes. What is the probability that the attacking nodes will ever
 catch up to the honest nodes?
@@ -81,9 +81,33 @@ a decimal. In the case of percentage, the equation is <i>100% = q + p</i>.</div>
 <i>P<sub>z</sub></i> is the probability that the honest nodes will reach <i>N</i> blocks ahead before the attackers catch up. If
 <i>z = 0</i> then the attackers have caught up and the honest nodes lose <i>P<sub>0</sub> = 0</i>. If <i>z = N</i> then the honest have gotten
 sufficiently far away and won <i>P<sub>N</sub> = 1</i> (Remember 0 = 0% and 1 = 100% in this context). Now the tricky part, what is <i>P<sub>z</sub></i>
-for the values between 0 and <i>N<i/>? In other terms, what is the probability that the honest nodes will get sufficiently far away from the dishonest
-nodes before the dishonest nodes catch up if the dishonest nodes start at a block deficit of 1 (or 2 or 3 or ... or N-1)?
-
+for the values between 0 and <i>N</i>? In other terms, what is the probability that the honest nodes will get sufficiently far away from the dishonest
+nodes before the dishonest nodes catch up if the dishonest nodes start at a block deficit of 1 (or 2 or 3 or ... or N-1)?<p />
+<div class="bSub"><p><b>Recursion Derivation</b><p /></div>
+Each added block changes the probability that the honest nodes will win (reach <i>N</i> before the dishonest nodes catch up). If they start with a probability
+of <i>P<sub>z</sub></i> and create a block, their probability of winning changes to <i>P<sub>z+1</sub></i> and if they lose it changes to <i>P<sub>z-1</sub></i>.
+This changing problability based on the total outcomes of all of the previous blocks is called the Markov property. Therefore based on the definitions of
+<i>p</i> and <i>q</i> the <i>P<sub>z</sub></i> of any <i>z</i> can be written as (Eq. 2):
+<img class="bImg" src="/includes/other/gamblersruin/img3.png" alt="Pz = p*P(z+1) + q*P(z-1)"></img>
+This is because there is a <i>p</i> chance of the honest nodes making a block and thus the probability of winning turns to <i>P<sub>z+1</sub></i> and a <i>q</i>
+of the dishonest nodes winning a block and thus the probability of winning turns to <i>P<sub>z-1</sub></i>. This equation is recursive which means that it
+calls on itself to be solved. It can technically be solved by hand or computaionally but the best method is to remove the recursion.<p />
+Because of (Eq. 1), (Eq. 2) can be rewritten as:
+<img class="bImg" src="/includes/other/gamblersruin/img4.png" alt="(1)*Pz = p*P(z+1) + q*P(z-1)"></img>
+<img class="bImg" src="/includes/other/gamblersruin/img5.png" alt="(p + q)*Pz = p*P(z+1) + q*P(z-1)"></img>
+<img class="bImg" src="/includes/other/gamblersruin/img5.png" alt="p*Pz + q*Pz = p*P(z+1) + q*P(z-1)"></img>
+<img class="bImg" src="/includes/other/gamblersruin/img6.png" alt="P(z+1) - Pz = (q/p)*(Pz - P(z-1))"></img>
+Lets solve for <i>z</i> = 1.
+<img class="bImg" src="/includes/other/gamblersruin/img7.png" alt="P(2) - P(1) = (q/p)*(P(1) - P(0))"></img>
+Recall that <i>P<sub>0</sub> = 0</i> because the attackers caught up and thus the honest nodes lost. So (Eq. 3)
+<img class="bImg" src="/includes/other/gamblersruin/img8.png" alt="P(2) - P(1) = (q/p)*P(1)"></img>
+Now lets solve for <i>z</i> = 2.
+<img class="bImg" src="/includes/other/gamblersruin/img9.png" alt="P(3) - P(2) = (q/p)*(P(2) - P(1))"></img>
+We see a <i>(P<sub>2</sub> - P<sub>1</sub>)</i> term so we can replace it with (Eq. 3) to yield:
+<img class="bImg" src="/includes/other/gamblersruin/img10.png" alt="P(3) - P(2) = (q/p)*((q/p)*P(1))"></img>
+<img class="bImg" src="/includes/other/gamblersruin/img11.png" alt="P(3) - P(2) = (q/p)^2*P(1))"></img>
+If we keep solving for increasing <i>z</i> we can get the general equation so long as <i>0 < z < N</i>:
+<img class="bImg" src="/includes/other/gamblersruin/img12.png" alt="P(z+1) - P(z) = (q/p)^z*P(1))"></img>
 
 
 </div>
