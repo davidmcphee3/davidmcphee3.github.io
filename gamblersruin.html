@@ -55,14 +55,14 @@ considered invalid and none of their altered transactions will be recognized. If
 the unaltered chain, then their chain becomes the accepted chain and thus they have successful stolen bitcoin.<p />
 The blockchain is lengthened by nodes guessing the right answer to a complex problem. For the sake of the this problem, the percentage of
 honest nodes is represented by <i>p</i> and the percentage of dishonest nodes <i>q</i>. These definitions imply that (Eq. 1):<p />
-<img class="bImg" src="/includes/other/gamblersruin/img1.png" alt="1 = p + q"></img>
+<img class="bEqu" src="/includes/other/gamblersruin/img1.png" alt="1 = p + q"></img>
 We can assume that the attackers are <i>z</i> blocks behind the honest nodes. What is the probability that the attacking nodes will ever
 catch up to the honest nodes?
 <div class="bSub"><p><b>The Gambler's Ruin Problem</b><p /></div>
 The Gambler's Ruin is a concept that states that a gambler starts with 1 penny and on each betting round either wins or loses a penny.
 The gambler is betting on a weighted coin flip and bets heads every time. This means that there is a <i>r</i> chance it lands on heads
 and a <i>s</i> chance it lands on tails. This implies:
-<img class="bImg" src="/includes/other/gamblersruin/img2.png" alt="1 = r + s"></img>
+<img class="bEqu" src="/includes/other/gamblersruin/img2.png" alt="1 = r + s"></img>
 What are the odds that the gambler attains a fortune of <i>N</i> pennies before getting ruined (i.e going broke)?
 <div class="bSub"><p><b>Bitcoin x Gambler's Ruin</b><p /></div>
 These two statistical events seem related but the differences are important. In the blockchain example, the attacker is at a deficit of blocks
@@ -91,78 +91,78 @@ Each added block changes the probability that the honest nodes will win (reach <
 of <i>P<sub>z</sub></i> and create a block, their probability of winning changes to <i>P<sub>z+1</sub></i> and if they lose it changes to <i>P<sub>z-1</sub></i>.
 This changing probability based on the total outcomes of all of the previous blocks is called the Markov property. Therefore based on the definitions of
 <i>p</i> and <i>q</i> the <i>P<sub>z</sub></i> of any <i>z</i> can be written as (Eq. 2):
-<img class="bImg" src="/includes/other/gamblersruin/img3.png" alt="Pz = p*P(z+1) + q*P(z-1)"></img>
+<img class="bEqu" src="/includes/other/gamblersruin/img3.png" alt="Pz = p*P(z+1) + q*P(z-1)"></img>
 This is because there is a <i>p</i> chance of the honest nodes making a block and thus the probability of winning turns to <i>P<sub>z+1</sub></i> and a <i>q</i>
 of the dishonest nodes winning a block and thus the probability of winning turns to <i>P<sub>z-1</sub></i>. This equation is recursive which means that it
 calls on itself to be solved. It can technically be solved by hand or computationally but the best method is to remove the recursion.<p />
 Because of (Eq. 1), (Eq. 2) can be rewritten as:
-<img class="bImg" src="/includes/other/gamblersruin/img4.png" alt="(1)*Pz = p*P(z+1) + q*P(z-1)"></img>
-<img class="bImg" src="/includes/other/gamblersruin/img5.png" alt="(p + q)*Pz = p*P(z+1) + q*P(z-1)"></img>
-<img class="bImg" src="/includes/other/gamblersruin/img5.png" alt="p*Pz + q*Pz = p*P(z+1) + q*P(z-1)"></img>
-<img class="bImg" src="/includes/other/gamblersruin/img6.png" alt="P(z+1) - Pz = (q/p)*(Pz - P(z-1))"></img>
+<img class="bEqu" src="/includes/other/gamblersruin/img4.png" alt="(1)*Pz = p*P(z+1) + q*P(z-1)"></img>
+<img class="bEqu" src="/includes/other/gamblersruin/img5.png" alt="(p + q)*Pz = p*P(z+1) + q*P(z-1)"></img>
+<img class="bEqu" src="/includes/other/gamblersruin/img5.png" alt="p*Pz + q*Pz = p*P(z+1) + q*P(z-1)"></img>
+<img class="bEqu" src="/includes/other/gamblersruin/img6.png" alt="P(z+1) - Pz = (q/p)*(Pz - P(z-1))"></img>
 Let's solve for <i>z</i> = 1.
-<img class="bImg" src="/includes/other/gamblersruin/img7.png" alt="P(2) - P(1) = (q/p)*(P(1) - P(0))"></img>
+<img class="bEqu" src="/includes/other/gamblersruin/img7.png" alt="P(2) - P(1) = (q/p)*(P(1) - P(0))"></img>
 Recall that <i>P<sub>0</sub> = 0</i> because the attackers caught up and thus the honest nodes lost. So (Eq. 3)
-<img class="bImg" src="/includes/other/gamblersruin/img8.png" alt="P(2) - P(1) = (q/p)*P(1)"></img>
+<img class="bEqu" src="/includes/other/gamblersruin/img8.png" alt="P(2) - P(1) = (q/p)*P(1)"></img>
 Now let's solve for <i>z</i> = 2.
-<img class="bImg" src="/includes/other/gamblersruin/img9.png" alt="P(3) - P(2) = (q/p)*(P(2) - P(1))"></img>
+<img class="bEqu" src="/includes/other/gamblersruin/img9.png" alt="P(3) - P(2) = (q/p)*(P(2) - P(1))"></img>
 We see a <i>(P<sub>2</sub> - P<sub>1</sub>)</i> term so we can replace it with (Eq. 3) to yield:
-<img class="bImg" src="/includes/other/gamblersruin/img10.png" alt="P(3) - P(2) = (q/p)*((q/p)*P(1))"></img>
-<img class="bImg" src="/includes/other/gamblersruin/img11.png" alt="P(3) - P(2) = (q/p)^2*P(1))"></img>
+<img class="bEqu" src="/includes/other/gamblersruin/img10.png" alt="P(3) - P(2) = (q/p)*((q/p)*P(1))"></img>
+<img class="bEqu" src="/includes/other/gamblersruin/img11.png" alt="P(3) - P(2) = (q/p)^2*P(1))"></img>
 If we keep solving for increasing <i>z</i> we can get the general equation so long as <i>0 < z < N</i> (Eq. 4):
-<img class="bImg" src="/includes/other/gamblersruin/img12.png" alt="P(z+1) - P(z) = (q/p)^z*P(1))"></img>
+<img class="bEqu" src="/includes/other/gamblersruin/img12.png" alt="P(z+1) - P(z) = (q/p)^z*P(1))"></img>
 There is a statistical pattern that looks like this (Eq. 5):
-<img class="bImg" src="/includes/other/gamblersruin/img13.png" alt="P(z+1) - P(1) = sum from n=1 to z of (P(n+1) - P(n))"></img>
+<img class="bEqu" src="/includes/other/gamblersruin/img13.png" alt="P(z+1) - P(1) = sum from n=1 to z of (P(n+1) - P(n))"></img>
 Let's do an example of (Eq. 5) for z = 3:
-<img class="bImg" src="/includes/other/gamblersruin/img14.png" alt="P(3+1) - P(1) = sum from n=1 to 3 of (P(n+1) - P(n))"></img>
-<img class="bImg" src="/includes/other/gamblersruin/img15.png" alt="P(3+1) - P(1) = (P(1+1) - P(1))+(P(2+1) - P(2))+(P(3+1) - P(3)))"></img>
-<img class="bImg" src="/includes/other/gamblersruin/img16.png" alt="P(4) - P(1) = (P(2) - P(1))+(P(3) - P(2))+(P(4) - P(3)))"></img>
-<img class="bImg" src="/includes/other/gamblersruin/img17.png" alt="P(4) - P(1) = P(2) - P(1) + P(3) - P(2) + P(4) - P(3)"></img>
-<img class="bImg" src="/includes/other/gamblersruin/img18.png" alt="P(4) - P(1) = P(4) - P(1)"></img>
+<img class="bEqu" src="/includes/other/gamblersruin/img14.png" alt="P(3+1) - P(1) = sum from n=1 to 3 of (P(n+1) - P(n))"></img>
+<img class="bEqu" src="/includes/other/gamblersruin/img15.png" alt="P(3+1) - P(1) = (P(1+1) - P(1))+(P(2+1) - P(2))+(P(3+1) - P(3)))"></img>
+<img class="bEqu" src="/includes/other/gamblersruin/img16.png" alt="P(4) - P(1) = (P(2) - P(1))+(P(3) - P(2))+(P(4) - P(3)))"></img>
+<img class="bEqu" src="/includes/other/gamblersruin/img17.png" alt="P(4) - P(1) = P(2) - P(1) + P(3) - P(2) + P(4) - P(3)"></img>
+<img class="bEqu" src="/includes/other/gamblersruin/img18.png" alt="P(4) - P(1) = P(4) - P(1)"></img>
 Now that we know (Eq. 5) works, we can substitute (Eq. 4) into the summation:
-<img class="bImg" src="/includes/other/gamblersruin/img19.png" alt="P(z+1) - P(1) = sum from n=1 to z of (q/p)^n*P(1))"></img>
-<img class="bImg" src="/includes/other/gamblersruin/img20.png" alt="P(z+1) = P(1) + P(1)*sum from n=1 to z of (q/p)^n)"></img>
+<img class="bEqu" src="/includes/other/gamblersruin/img19.png" alt="P(z+1) - P(1) = sum from n=1 to z of (q/p)^n*P(1))"></img>
+<img class="bEqu" src="/includes/other/gamblersruin/img20.png" alt="P(z+1) = P(1) + P(1)*sum from n=1 to z of (q/p)^n)"></img>
 Any ratio of <i>p/q</i> raised to the 0<sup>th</sup> power is 1 which is multiplied with <i>P<sub>1</sub></i> is <i>P<sub>1</sub></i>
 which means we can change the value <i>n</i> starts at and simplify to (Eq. 6):
-<img class="bImg" src="/includes/other/gamblersruin/img21.png" alt="P(z+1) = P(1)*sum from n=0 to z of (q/p)^n)"></img>
+<img class="bEqu" src="/includes/other/gamblersruin/img21.png" alt="P(z+1) = P(1)*sum from n=0 to z of (q/p)^n)"></img>
 <div class="bSub"><p><b>Into the Weeds</b><p /></div>
 There is a geometric series for any <i>a</i> and integer <i>i ≥ 0</i>:
-<img class="bImg" src="/includes/other/gamblersruin/img22.png" alt="sum from n=0 to i of a^i = (1-a^(i+1))/(1-a)"></img>
+<img class="bEqu" src="/includes/other/gamblersruin/img22.png" alt="sum from n=0 to i of a^i = (1-a^(i+1))/(1-a)"></img>
 This can be used in (Eq. 6) for <i>a = (q/p)</i> and <i>i = k</i> which results in (Eq. 7):
-<img class="bImg" src="/includes/other/gamblersruin/img23.png" alt="P(i+1) = {P(1)*(1-(q/p)^(z+1))/(1-(q/p))} if p does not equal q and {P(1)*(z+1)} if p = q = 0.5"></img>
+<img class="bEqu" src="/includes/other/gamblersruin/img23.png" alt="P(i+1) = {P(1)*(1-(q/p)^(z+1))/(1-(q/p))} if p does not equal q and {P(1)*(z+1)} if p = q = 0.5"></img>
 Note: the bottom pis-wise equation can be seen in (Eq. 6) because it is the sum of 1s from 0 to <i>z</i>, or <i>z+1</i>. This equation will always solve for the
 probability of winning at <i>z + 1</i> and since we know that <i>P<sub>N</sub> = 1</i> lets set <i>z + 1 = N</i> which results in:
-<img class="bImg" src="/includes/other/gamblersruin/img24.png" alt="P(N) = 1 = {P(1)*(1-(q/p)^(N))/(1-(q/p))} if p does not equal q and {P(1)*(N)} if p = q = 0.5"></img>
+<img class="bEqu" src="/includes/other/gamblersruin/img24.png" alt="P(N) = 1 = {P(1)*(1-(q/p)^(N))/(1-(q/p))} if p does not equal q and {P(1)*(N)} if p = q = 0.5"></img>
 We can pull out the common term and thus (Eq. 8):
-<img class="bImg" src="/includes/other/gamblersruin/img25.png" alt="P(1) = {(1-(q/p))/(1-(q/p)^(N))} if p does not equal q and {1/N} if p = q = 0.5"></img>
+<img class="bEqu" src="/includes/other/gamblersruin/img25.png" alt="P(1) = {(1-(q/p))/(1-(q/p)^(N))} if p does not equal q and {1/N} if p = q = 0.5"></img>
 In (Eq. 7), since there are only <i>z + 1</i> terms, we can replace it with just <i>z</i> and insert (Eq. 8) which results in:
-<img class="bImg" src="/includes/other/gamblersruin/img26.png" alt="P(z) = {[(1-(q/p))/(1-(q/p)^(N))]*[1-(q/p)^(z))/(1-(q/p)]} if p does not equal q and {[1/N]*[P(1)*(z)]} if p = q = 0.5"></img>
+<img class="bEqu" src="/includes/other/gamblersruin/img26.png" alt="P(z) = {[(1-(q/p))/(1-(q/p)^(N))]*[1-(q/p)^(z))/(1-(q/p)]} if p does not equal q and {[1/N]*[P(1)*(z)]} if p = q = 0.5"></img>
 After some simplification we get (Eq. 9):
-<img class="bImg" src="/includes/other/gamblersruin/img27.png" alt="P(z) = {(1-(q/p))/(1-(q/p)^N)} if p does not equal q and {1/N} if p = q = 0.5"></img>
+<img class="bEqu" src="/includes/other/gamblersruin/img27.png" alt="P(z) = {(1-(q/p))/(1-(q/p)^N)} if p does not equal q and {1/N} if p = q = 0.5"></img>
 In conclusion, the probability that honest nodes will successfully get <i>N</i> blocks ahead of dishonest nodes whilst starting <i>z<i/> blocks ahead before the dishonest nodes catch up is
 <i>(1-(q/p))/(1-(q/p)<sup>N</sup>)</i> where <i>p</i> is the probability that the honest nodes will make a block <i>q</i> that the dishonest nodes will make a block so
 long as <i>p ≠ q </i>. If <i>p = q </i> then the probability is <i>z/N</i> however the Bitcoin paper only claims the chain is secure if <i>p > q</i>.
 <div class="bSub"><p><b>Infinite Blocks Ahead</b><p /></div>
 Recall that the Bitcoin problem actually requires the honest nodes to get infinitely ahead of the dishonest nodes. To do this we can take the limit of (Eq. 9) as <i>N</i> approaches infinity.
 Let's start with the case where <i>p = q = 0.5</i>. As <i>N</i> gets very large, <i>z/N</i> gets very small. More formally (Eq. 10):
-<img class="bImg" src="/includes/other/gamblersruin/img28.png" alt="lim as N -> infinity P(z) = 0"></img>
+<img class="bEqu" src="/includes/other/gamblersruin/img28.png" alt="lim as N -> infinity P(z) = 0"></img>
 We can see the same trend for <i>p < 0.5</i> which means (Eq. 10) holds for any value of <i>p ≤ 0.5</i>.<p />
 For <i>p > 0.5</i>, the denominator, <i>1 - (q/p)<sup>N</sup></i>, approaches 1 as <i>N</i> gets very large. More formally (Eq. 11):
-<img class="bImg" src="/includes/other/gamblersruin/img29.png" alt="lim as N -> infinity P(z) = 1 - (q/p)^z"></img>
+<img class="bEqu" src="/includes/other/gamblersruin/img29.png" alt="lim as N -> infinity P(z) = 1 - (q/p)^z"></img>
 What do these results mean? If the honest nodes control less than or equal to 50% of the CPU power, there is a 0% chance they get infinite blocks ahead before the attackers catch up. If the
 honest nodes control more than 50%, there is a <i>1 - (q/p)<sup>z</sup></i> chance they will get infinite blocks ahead.<p />
 This is very close to the equation provided in the Bitcoin paper, the only difference is that the paper is from the perspective of the attackers. We can switch our equations to the other
 perspective because <i>P<sub>z, attackers</sub> = 100% - P<sub>z, honest nodes</sub></i> or <i>P<sub>z, attackers</sub> = 1 - P<sub>z, honest nodes</sub></i> which results in:
-<img class="bImg" src="/includes/other/gamblersruin/img30.png" alt="P(z) = {(q/p)^z} if p > q and {1} if p <= q"></img>
+<img class="bEqu" src="/includes/other/gamblersruin/img30.png" alt="P(z) = {(q/p)^z} if p > q and {1} if p <= q"></img>
 This is identical to the claim in the paper (here for reference):
-<img class="bImg" src="/includes/other/gamblersruin/img31.png" alt="Probability of attackers catching up from Bitcoin Paper"></img>
+<img class="bEqu" src="/includes/other/gamblersruin/img31.png" alt="Probability of attackers catching up from Bitcoin Paper"></img>
 We have now proven that it in fact <i>does</i> make sense that the attackers have a 67% chance of catching up from a 1 block deficit if they control 40% of the CPUs.
 <div class="bSub"><p><b>Another Way</b><p /></div>
 My intuition for the problem was that the attackers would have a 40% chance of catching up, not a 67% chance. Even with the stats in front of me it didn't make sense. The way that finally convinced me was
 a different method. The problem is stated as: What is the chance the attackers will <i>ever</i> catch up? This means that if they start at a 1 block deficit and it turns into a 2 block deficit,
 they can still catch up, they just need to get two blocks in a row. What are the odds the attackers get the fist block and thus catch up to the honest nodes? 40%. But what if they lose the
 first block? Well they would just need to get lucky, or 40% * 40% = 16%. Here is a table for block deficits 1 through 10:
-<img class="bImg" src="/includes/other/gamblersruin/img32.png" alt="table of block deficits from 1 through 10 with q = 40%"></img>
+<img class="bEqu" src="/includes/other/gamblersruin/img32.png" alt="table of block deficits from 1 through 10 with q = 40%"></img>
 If we sum up all these percentages we get... 67%!
 <div class="bSub"><p><b>Final Thoughts</b><p /></div>
 We are now certain that so long as honest nodes control more that 50% of the chain, the system is safe and secure. However people cannot wait forever to know that their transaction was secure,

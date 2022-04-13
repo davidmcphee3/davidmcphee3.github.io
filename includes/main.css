@@ -163,6 +163,16 @@ a:hover{
 
 }
 
+.bEqu{
+	display: block;
+	margin: 30px auto;
+	border: none;
+	border-radius: 5px;
+	max-height: 30px;
+	max-width: none;
+
+}
+
 .projw{
 	display: block;
 	background: #626262;
