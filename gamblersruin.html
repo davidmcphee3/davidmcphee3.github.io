@@ -1,3 +1,4 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
@@ -13,11 +14,11 @@
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-C8K8BK48K1"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+ window.dataLayer = window.dataLayer || [];
+ function gtag(){dataLayer.push(arguments);}
+ gtag('js', new Date());
 
-  gtag('config', 'G-C8K8BK48K1');
+ gtag('config', 'G-C8K8BK48K1');
 </script>
 
 <body style="background-color:#121212;">
@@ -86,28 +87,51 @@ nodes before the dishonest nodes catch up if the dishonest nodes start at a bloc
 <div class="bSub"><p><b>Recursion Derivation</b><p /></div>
 Each added block changes the probability that the honest nodes will win (reach <i>N</i> before the dishonest nodes catch up). If they start with a probability
 of <i>P<sub>z</sub></i> and create a block, their probability of winning changes to <i>P<sub>z+1</sub></i> and if they lose it changes to <i>P<sub>z-1</sub></i>.
-This changing problability based on the total outcomes of all of the previous blocks is called the Markov property. Therefore based on the definitions of
+This changing probability based on the total outcomes of all of the previous blocks is called the Markov property. Therefore based on the definitions of
 <i>p</i> and <i>q</i> the <i>P<sub>z</sub></i> of any <i>z</i> can be written as (Eq. 2):
 <img class="bImg" src="/includes/other/gamblersruin/img3.png" alt="Pz = p*P(z+1) + q*P(z-1)"></img>
 This is because there is a <i>p</i> chance of the honest nodes making a block and thus the probability of winning turns to <i>P<sub>z+1</sub></i> and a <i>q</i>
 of the dishonest nodes winning a block and thus the probability of winning turns to <i>P<sub>z-1</sub></i>. This equation is recursive which means that it
-calls on itself to be solved. It can technically be solved by hand or computaionally but the best method is to remove the recursion.<p />
+calls on itself to be solved. It can technically be solved by hand or computationally but the best method is to remove the recursion.<p />
 Because of (Eq. 1), (Eq. 2) can be rewritten as:
 <img class="bImg" src="/includes/other/gamblersruin/img4.png" alt="(1)*Pz = p*P(z+1) + q*P(z-1)"></img>
 <img class="bImg" src="/includes/other/gamblersruin/img5.png" alt="(p + q)*Pz = p*P(z+1) + q*P(z-1)"></img>
 <img class="bImg" src="/includes/other/gamblersruin/img5.png" alt="p*Pz + q*Pz = p*P(z+1) + q*P(z-1)"></img>
 <img class="bImg" src="/includes/other/gamblersruin/img6.png" alt="P(z+1) - Pz = (q/p)*(Pz - P(z-1))"></img>
-Lets solve for <i>z</i> = 1.
+Let's solve for <i>z</i> = 1.
 <img class="bImg" src="/includes/other/gamblersruin/img7.png" alt="P(2) - P(1) = (q/p)*(P(1) - P(0))"></img>
 Recall that <i>P<sub>0</sub> = 0</i> because the attackers caught up and thus the honest nodes lost. So (Eq. 3)
 <img class="bImg" src="/includes/other/gamblersruin/img8.png" alt="P(2) - P(1) = (q/p)*P(1)"></img>
-Now lets solve for <i>z</i> = 2.
+Now let's solve for <i>z</i> = 2.
 <img class="bImg" src="/includes/other/gamblersruin/img9.png" alt="P(3) - P(2) = (q/p)*(P(2) - P(1))"></img>
 We see a <i>(P<sub>2</sub> - P<sub>1</sub>)</i> term so we can replace it with (Eq. 3) to yield:
 <img class="bImg" src="/includes/other/gamblersruin/img10.png" alt="P(3) - P(2) = (q/p)*((q/p)*P(1))"></img>
 <img class="bImg" src="/includes/other/gamblersruin/img11.png" alt="P(3) - P(2) = (q/p)^2*P(1))"></img>
-If we keep solving for increasing <i>z</i> we can get the general equation so long as <i>0 < z < N</i>:
+If we keep solving for increasing <i>z</i> we can get the general equation so long as <i>0 < z < N</i> (Eq. 4):
 <img class="bImg" src="/includes/other/gamblersruin/img12.png" alt="P(z+1) - P(z) = (q/p)^z*P(1))"></img>
+There is a statistical pattern that looks like this (Eq. 5):
+<img class="bImg" src="/includes/other/gamblersruin/img13.png" alt="P(z+1) - P(1) = sum from n=1 to z of (P(n+1) - P(n))"></img>
+Let's do an example of (Eq. 5) for z = 3:
+<img class="bImg" src="/includes/other/gamblersruin/img14.png" alt="P(3+1) - P(1) = sum from n=1 to 3 of (P(n+1) - P(n))"></img>
+<img class="bImg" src="/includes/other/gamblersruin/img15.png" alt="P(3+1) - P(1) = (P(1+1) - P(1))+(P(2+1) - P(2))+(P(3+1) - P(3)))"></img>
+<img class="bImg" src="/includes/other/gamblersruin/img16.png" alt="P(4) - P(1) = (P(2) - P(1))+(P(3) - P(2))+(P(4) - P(3)))"></img>
+<img class="bImg" src="/includes/other/gamblersruin/img17.png" alt="P(4) - P(1) = P(2) - P(1) + P(3) - P(2) + P(4) - P(3)"></img>
+<img class="bImg" src="/includes/other/gamblersruin/img18.png" alt="P(4) - P(1) = P(4) - P(1)"></img>
+Now that we know (Eq. 5) works, we can substitute (Eq. 4) into the summation:
+<img class="bImg" src="/includes/other/gamblersruin/img19.png" alt="P(z+1) - P(1) = sum from n=1 to z of (q/p)^n*P(1))"></img>
+<img class="bImg" src="/includes/other/gamblersruin/img20.png" alt="P(z+1) = P(1) + P(1)*sum from n=1 to z of (q/p)^n)"></img>
+Any ratio of <i>p/q</i> raised to the 0<sup>th</sup> power is 1 which is multiplied with <i>P<sub>1</sub></i> is <i>P<sub>1</sub></i>
+which means we can change the value <i>n</i> starts at and simplify to (Eq. 6):
+<img class="bImg" src="/includes/other/gamblersruin/img21.png" alt="P(z+1) = P(1)*sum from n=0 to z of (q/p)^n)"></img>
+<div class="bSub"><p><b>Into the Weeds</b><p /></div>
+There is a geometric series for any <i>a</i> and integer <i>i ≥ 0</i>:
+<img class="bImg" src="/includes/other/gamblersruin/img22.png" alt="sum from n=0 to i of a^i = (1-a^(i+1))/(1-a)"></img>
+This can be used in (Eq. 6) for <i>a = (q/p)</i> and <i>i = k</i> which results in:
+<img class="bImg" src="/includes/other/gamblersruin/img23.png" alt="P(i+1) = {P(1)*(1-(q/p)^(z+1))/(1-(q/p))} if p does not equal q and {P(1)*(z+1)} if p = q = 0.5"></img>
+Note: the bottom pis-wise equation can be seen in (Eq. 6) because it is the sum of 1s from 0 to <i>z</i>, or <i>z+1</i>. This equation will always solve for the
+probability of winning at <i>z + 1</i> and since we know that <i>P<sub>N</sub> = 1</i> lets set <i>z + 1 = N</i> which results in:
+<img class="bImg" src="/includes/other/gamblersruin/img24.png" alt="P(N) = 1 = {P(1)*(1-(q/p)^(N))/(1-(q/p))} if p does not equal q and {P(1)*(N)} if p = q = 0.5"></img>
+
 
 
 </div>
@@ -121,8 +145,8 @@ david.mcphee3@gmail.com | not copyrighted, no rights reserved
 
 <div id="content">
 <!-- begin wwww.htmlcommentbox.com -->
- <div id="HCB_comment_box"><a href="http://www.htmlcommentbox.com">Comment Box</a> is loading comments...</div>
- <script type="text/javascript" id="hcb"> /*<!--*/ if(!window.hcb_user){hcb_user={};} (function(){var s=document.createElement("script"), l=hcb_user.PAGE || (""+window.location).replace(/'/g,"%27"), h="https://www.htmlcommentbox.com";s.setAttribute("type","text/javascript");s.setAttribute("src", h+"/jread?page="+encodeURIComponent(l).replace("+","%2B")+"&mod=%241%24wq1rdBcg%24Xk1c2cCSlprFkr2MjLvTb."+"&opts=16662&num=10&ts=1644780820414");if (typeof s!="undefined") document.getElementsByTagName("head")[0].appendChild(s);})(); /*-->*/ </script>
+<div id="HCB_comment_box"><a href="http://www.htmlcommentbox.com">Comment Box</a> is loading comments...</div>
+<script type="text/javascript" id="hcb"> /*<!--*/ if(!window.hcb_user){hcb_user={};} (function(){var s=document.createElement("script"), l=hcb_user.PAGE || (""+window.location).replace(/'/g,"%27"), h="https://www.htmlcommentbox.com";s.setAttribute("type","text/javascript");s.setAttribute("src", h+"/jread?page="+encodeURIComponent(l).replace("+","%2B")+"&mod=%241%24wq1rdBcg%24Xk1c2cCSlprFkr2MjLvTb."+"&opts=16662&num=10&ts=1644780820414");if (typeof s!="undefined") document.getElementsByTagName("head")[0].appendChild(s);})(); /*-->*/ </script>
 <style>
 #HCB_comment_box textarea{width:50%;
 }
@@ -140,7 +164,7 @@ david.mcphee3@gmail.com | not copyrighted, no rights reserved
 .hcb-link{color:white;text-decoration:underline}
 .hcb-mod i{color:#00008b}
 
- </style>
+</style>
 <!-- end www.htmlcommentbox.com -->
 </div>
 
