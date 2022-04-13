@@ -45,7 +45,9 @@ there was a section that involved proving the security of the blockchain. The bl
 and the author of the paper claims that so long as more than 51% of the nodes are honest, the blockchain is secure. The paper compares
 this to the Gambler's Ruin and shows the equation in the thumbnail with no other proof. For clarity, in
 <a href="https://davidmcphee.ca/cryptominer.html">this project</a> I created and provided a plot of the equation. For me this
-actually made things more confusing and I spent a couple of nights awake thinking about it.
+actually made things more confusing and I spent a couple of nights awake thinking about it.<p />
+What kept me up was this: If honest nodes control 60% of the CPUs and dishonest node control 40%, there is a 67% chance that the dishonest
+nodes will catch up to the honest nodes from a 1 block deficit...
 <div class="bSub"><p><b>The Blockchain Problem</b><p /></div>
 On the blockchain the longest chain is the accepted chain. Transactions can be altered somewhat by attackers but the catch is that they
 have to shorten their chain to make the alteration. Since the altered chain is shorter than the unaltered chain, the altered chain is
@@ -126,13 +128,48 @@ which means we can change the value <i>n</i> starts at and simplify to (Eq. 6):
 <div class="bSub"><p><b>Into the Weeds</b><p /></div>
 There is a geometric series for any <i>a</i> and integer <i>i ≥ 0</i>:
 <img class="bImg" src="/includes/other/gamblersruin/img22.png" alt="sum from n=0 to i of a^i = (1-a^(i+1))/(1-a)"></img>
-This can be used in (Eq. 6) for <i>a = (q/p)</i> and <i>i = k</i> which results in:
+This can be used in (Eq. 6) for <i>a = (q/p)</i> and <i>i = k</i> which results in (Eq. 7):
 <img class="bImg" src="/includes/other/gamblersruin/img23.png" alt="P(i+1) = {P(1)*(1-(q/p)^(z+1))/(1-(q/p))} if p does not equal q and {P(1)*(z+1)} if p = q = 0.5"></img>
 Note: the bottom pis-wise equation can be seen in (Eq. 6) because it is the sum of 1s from 0 to <i>z</i>, or <i>z+1</i>. This equation will always solve for the
 probability of winning at <i>z + 1</i> and since we know that <i>P<sub>N</sub> = 1</i> lets set <i>z + 1 = N</i> which results in:
 <img class="bImg" src="/includes/other/gamblersruin/img24.png" alt="P(N) = 1 = {P(1)*(1-(q/p)^(N))/(1-(q/p))} if p does not equal q and {P(1)*(N)} if p = q = 0.5"></img>
-
-
+We can pull out the common term and thus (Eq. 8):
+<img class="bImg" src="/includes/other/gamblersruin/img25.png" alt="P(1) = {(1-(q/p))/(1-(q/p)^(N))} if p does not equal q and {1/N} if p = q = 0.5"></img>
+In (Eq. 7), since there are only <i>z + 1</i> terms, we can replace it with just <i>z</i> and insert (Eq. 8) which results in:
+<img class="bImg" src="/includes/other/gamblersruin/img26.png" alt="P(z) = {[(1-(q/p))/(1-(q/p)^(N))]*[1-(q/p)^(z))/(1-(q/p)]} if p does not equal q and {[1/N]*[P(1)*(z)]} if p = q = 0.5"></img>
+After some simplification we get (Eq. 9):
+<img class="bImg" src="/includes/other/gamblersruin/img27.png" alt="P(z) = {(1-(q/p))/(1-(q/p)^N)} if p does not equal q and {1/N} if p = q = 0.5"></img>
+In conclusion, the probability that honest nodes will successfully get <i>N</i> blocks ahead of dishonest nodes whilst starting <i>z<i/> blocks ahead before the dishonest nodes catch up is
+<i>(1-(q/p))/(1-(q/p)<sup>N</sup>)</i> where <i>p</i> is the probability that the honest nodes will make a block <i>q</i> that the dishonest nodes will make a block so
+long as <i>p ≠ q </i>. If <i>p = q </i> then the probability is <i>z/N</i> however the Bitcoin paper only claims the chain is secure if <i>p > q</i>.
+<div class="bSub"><p><b>Infinite Blocks Ahead</b><p /></div>
+Recall that the Bitcoin problem actually requires the honest nodes to get infinitely ahead of the dishonest nodes. To do this we can take the limit of (Eq. 9) as <i>N</i> approaches infinity.
+Let's start with the case where <i>p = q = 0.5</i>. As <i>N</i> gets very large, <i>z/N</i> gets very small. More formally (Eq. 10):
+<img class="bImg" src="/includes/other/gamblersruin/img28.png" alt="lim as N -> infinity P(z) = 0"></img>
+We can see the same trend for <i>p < 0.5</i> which means (Eq. 10) holds for any value of <i>p ≤ 0.5</i>.<p />
+For <i>p > 0.5</i>, the denominator, <i>1 - (q/p)<sup>N</sup></i>, approaches 1 as <i>N</i> gets very large. More formally (Eq. 11):
+<img class="bImg" src="/includes/other/gamblersruin/img29.png" alt="lim as N -> infinity P(z) = 1 - (q/p)^z"></img>
+What do these results mean? If the honest nodes control less than or equal to 50% of the CPU power, there is a 0% chance they get infinite blocks ahead before the attackers catch up. If the
+honest nodes control more than 50%, there is a <i>1 - (q/p)<sup>z</sup></i> chance they will get infinite blocks ahead.<p />
+This is very close to the equation provided in the Bitcoin paper, the only difference is that the paper is from the perspective of the attackers. We can switch our equations to the other
+perspective because <i>P<sub>z, attackers</sub> = 100% - P<sub>z, honest nodes</sub></i> or <i>P<sub>z, attackers</sub> = 1 - P<sub>z, honest nodes</sub></i> which results in:
+<img class="bImg" src="/includes/other/gamblersruin/img30.png" alt="P(z) = {(q/p)^z} if p > q and {1} if p <= q"></img>
+This is identical to the claim in the paper (here for reference):
+<img class="bImg" src="/includes/other/gamblersruin/img31.png" alt="Probability of attackers catching up from Bitcoin Paper"></img>
+We have now proven that it in fact <i>does</i> make sense that the attackers have a 67% chance of catching up from a 1 block deficit if they control 40% of the CPUs.
+<div class="bSub"><p><b>Another Way</b><p /></div>
+My intuition for the problem was that the attackers would have a 40% chance of catching up, not a 67% chance. Even with the stats in front of me it didn't make sense. The way that finally convinced me was
+a different method. The problem is stated as: What is the chance the attackers will <i>ever</i> catch up? This means that if they start at a 1 block deficit and it turns into a 2 block deficit,
+they can still catch up, they just need to get two blocks in a row. What are the odds the attackers get the fist block and thus catch up to the honest nodes? 40%. But what if they lose the
+first block? Well they would just need to get lucky, or 40% * 40% = 16%. Here is a table for block deficits 1 through 10:
+<img class="bImg" src="/includes/other/gamblersruin/img32.png" alt="table of block deficits from 1 through 10 with q = 40%"></img>
+If we sum up all these percentages we get... 67%!
+<div class="bSub"><p><b>Final Thoughts</b><p /></div>
+We are now certain that so long as honest nodes control more that 50% of the chain, the system is safe and secure. However people cannot wait forever to know that their transaction was secure,
+but the whitepaper goes into detail about this and shows their steps to show how many blocks a person would have to wait for there to be less than a 0.1% chance of the attackers catching up.
+Case closed... but wait. Honest and dishonest nodes are not actually competing against each other for blocks because they are mining different blocks so even if the honest nodes get a block, it
+does not mean that the dishonest have to discard their work on the block they were currently mining. How does this change the probability and does it mean that the chain is more or <i>less</i>
+secure than we think it is?
 
 </div>
 <!-- Begin Footer $include_path/footer.html -->
