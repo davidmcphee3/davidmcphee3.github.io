@@ -145,7 +145,7 @@ long as <i>p ≠ q </i>. If <i>p = q </i> then the probability is <i>z/N</i> how
 <div class="bSub"><p><b>Infinite Blocks Ahead</b><p /></div>
 Recall that the Bitcoin problem actually requires the honest nodes to get infinitely ahead of the dishonest nodes. To do this we can take the limit of (Eq. 9) as <i>N</i> approaches infinity.
 Let's start with the case where <i>p = q = 0.5</i>. As <i>N</i> gets very large, <i>z/N</i> gets very small. More formally (Eq. 10):
-<img class="bEqu" height="70px" src="/includes/other/gamblersruin/img29.png" alt="lim as N -> infinity P(z) = 0"></img>
+<img class="bEqu" height="43px" src="/includes/other/gamblersruin/img29.png" alt="lim as N -> infinity P(z) = 0"></img>
 We can see the same trend for <i>p < 0.5</i> which means (Eq. 10) holds for any value of <i>p ≤ 0.5</i>.<p />
 For <i>p > 0.5</i>, the denominator, <i>1 - (q/p)<sup>N</sup></i>, approaches 1 as <i>N</i> gets very large. More formally (Eq. 11):
 <img class="bEqu" height="60px" src="/includes/other/gamblersruin/img30.png" alt="lim as N -> infinity P(z) = 1 - (q/p)^z"></img>
@@ -153,7 +153,7 @@ What do these results mean? If the honest nodes control less than or equal to 50
 honest nodes control more than 50%, there is a <i>1 - (q/p)<sup>z</sup></i> chance they will get infinite blocks ahead.<p />
 This is very close to the equation provided in the Bitcoin paper, the only difference is that the paper is from the perspective of the attackers. We can switch our equations to the other
 perspective because <i>P<sub>z, attackers</sub> = 100% - P<sub>z, honest nodes</sub></i> or <i>P<sub>z, attackers</sub> = 1 - P<sub>z, honest nodes</sub></i> which results in:
-<img class="bEqu" height="43px" src="/includes/other/gamblersruin/img31.png" alt="P(z) = {(q/p)^z} if p > q and {1} if p <= q"></img>
+<img class="bEqu" height="70px" src="/includes/other/gamblersruin/img31.png" alt="P(z) = {(q/p)^z} if p > q and {1} if p <= q"></img>
 This is identical to the claim in the paper (here for reference):
 <img class="bImg" src="/includes/other/gamblersruin/img32.png" alt="Probability of attackers catching up from Bitcoin Paper"></img>
 We have now proven that it in fact <i>does</i> make sense that the attackers have a 67% chance of catching up from a 1 block deficit if they control 40% of the CPUs.
