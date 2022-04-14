@@ -157,12 +157,16 @@ perspective because <i>P<sub>z, attackers</sub> = 100% - P<sub>z, honest nodes</
 This is identical to the claim in the paper (here for reference):
 <img class="bImg" src="/includes/other/gamblersruin/img32.png" alt="Probability of attackers catching up from Bitcoin Paper"></img>
 We have now proven that it in fact <i>does</i> make sense that the attackers have a 67% chance of catching up from a 1 block deficit if they control 40% of the CPUs.
+<div class="bSub"><p><b>The Graph</b><p /></div>
+<img class="bImg" src="/includes/other/gamblersruin/img33.png" alt="table of block deficits from 1 through 10 with q = 40%"></img>
+The graph in the thumbnail now makes sense and is fully proven. If the attackers have a large minority of the CPUs and get a lucky first or second block, they could become the longest chain
+however even at a 2 or 3 block deficit, their chances drop exponentially.
 <div class="bSub"><p><b>Another Way</b><p /></div>
 My intuition for the problem was that the attackers would have a 40% chance of catching up, not a 67% chance. Even with the stats in front of me it didn't make sense. The way that finally convinced me was
 a different method. The problem is stated as: What is the chance the attackers will <i>ever</i> catch up? This means that if they start at a 1 block deficit and it turns into a 2 block deficit,
 they can still catch up, they just need to get two blocks in a row. What are the odds the attackers get the fist block and thus catch up to the honest nodes? 40%. But what if they lose the
 first block? Well they would just need to get lucky, or 40% * 40% = 16%. Here is a table for block deficits 1 through 10:
-<img class="bImg" src="/includes/other/gamblersruin/img33.png" alt="table of block deficits from 1 through 10 with q = 40%"></img>
+<img class="bImg" src="/includes/other/gamblersruin/img34.png" alt="table of block deficits from 1 through 10 with q = 40%"></img>
 If we sum up all these percentages we get... 67%!
 <div class="bSub"><p><b>Final Thoughts</b><p /></div>
 We are now certain that so long as honest nodes control more that 50% of the chain, the system is safe and secure. However people cannot wait forever to know that their transaction was secure,

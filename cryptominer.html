@@ -200,8 +200,8 @@ signatures cannot be created without the SK, the only way to steal is to reduce 
 an attacker would have to change a previous transaction and then add more blocks to the modified chain to be longer than the unaltered chain. But what if the attacker gets lucky? How lucky
 does the attacker really have to be?<p />
 The paper suggests that the race for the altered chain to catch up to the previous chain can be described as a Binomial Random Walk. Adding a block to the unaltered chain is a +1 and a block
-to the altered chain is a -1. Further reading can be done by researching the Gambler's Ruin problem. Going through the calculations of the probability that the altered chain will catch the
-unaltered chain is as follows:
+to the altered chain is a -1. A deep-dive into the Gambler's Ruin problem can be found <a href="/gamblersruin.html">here</a>.
+Going through the calculations of the probability that the altered chain will catch the unaltered chain is as follows:
 <i>p</i> = probability an honest node solves the complex problem and adds a block<br>
 <i>q</i> = probability the stealer solves the complex problem and adds a block<br>
 <i>q<sub>z</sub></i> = probability the stealer will catch up from z blocks behind<p />
