@@ -38,19 +38,19 @@
 There is more to creating a website than just buying a cool domain name as I have found out. This project
 uses a raspberry pi to host the files of this website <i>meta</i>. This is a very low cost way to experiment with
 web hosting and was one of the driving factors for this project. This project attempts to build and host a
-website whilst spending as little as possible. 
+website whilst spending as little as possible.
 <p />
 I originally just wanted to have a personal website that would contain my CV and other "professional" nick
-nacks. I thought it was going to be as cheap as just buying a domain but as I discovered there are a lot more 
-steps. For the most basic website there needs to be: website files (the data), a place to store them, and a 
+nacks. I thought it was going to be as cheap as just buying a domain but as I discovered there are a lot more
+steps. For the most basic website there needs to be: website files (the data), a place to store them, and a
 connection to the World Wide Web. For any chance of people visiting the website there also needs to be a domain
 name. This is more or less cosmetic but people would much rather go to <i>davidmcphee.ca</i> than 204.83.45.209.
 I spent $24.00 to lease this domain for 2 years, not bad. The only work-around is to get a free domain but that
-looks something like: <i>davidmcphee.notascam.tk</i>. 
+looks something like: <i>davidmcphee.notascam.tk</i>.
 <img class="bImg" src="/includes/projects/webserver/img6.png" alt="DNS records of website"></img>
 <div class="bSub"><p><b>Which Computer to Use</b><p /></div>
 For the sake of this project a server is just a different way to use a computer. With this statement as an axiom,
-my personal laptop could have been used to host the website. I conducted an experiment in which I wrote a couple 
+my personal laptop could have been used to host the website. I conducted an experiment in which I wrote a couple
 of scripts for a computer to host some files and transfer them to itself. It worked locally but the entire file
 system was exposed to the receiving script. This is a super sketchy and bad idea for a public website. Welcome
 the Raspberry Pi. The RPi is a tiny computer that can do almost anything a normal computer can do... like host
@@ -61,24 +61,24 @@ operating system. Normal computers have a hard drive for storage but the RPi jus
 USB to SD reader to connect to my personal computer.
 <img class="bImg" src="/includes/projects/webserver/img5.jpg" alt="USB to SD Reader"></img>
 The Raspberry Pi OS could then be installed on the SD card (which is all of the RPi's memory) using the Raspberry
-Pi Imager. Once this was finished the RPi was basically <i>factory reset</i>. I then wanted to be able to 
+Pi Imager. Once this was finished the RPi was basically <i>factory reset</i>. I then wanted to be able to
 <b>SSH</b> into the RPi from a remote computer but to do so I first needed to activate the feature on the RPi.
 This meant that I had to connect the RPi to a keyboard, monitor, and mouse. The RPi, like any other computer, needs
 power and internet connection.
-<img class="bImg" src="/includes/projects/webserver/img1.jpg" alt="RPi connected to KVM"></img> 
+<img class="bImg" src="/includes/projects/webserver/img1.jpg" alt="RPi connected to KVM"></img>
 My router is right beside my breaker which makes for a bit of a comical set up. The RPi is connected to a power
 cable, ethernet, wireless keyboard/mouse, and a HDMI cable. This was only temporary as I just needed to enable
-SSH and find the IP address. Even after that explaination my wife was still a little alarmed. A quick note to 
+SSH and find the IP address. Even after that explaination my wife was still a little alarmed. A quick note to
 would-be hackers, I have changed both the username and password of the RPi from the defaults. Once the changes
-were made I removed the keyboard, mouse, and HDMI cable and secured the RPi as seen in the header image. 
-<div class="sText"><p>Note: I did mess some software up later on so I had to redo all the previous steps, 
+were made I removed the keyboard, mouse, and HDMI cable and secured the RPi as seen in the header image.
+<div class="sText"><p>Note: I did mess some software up later on so I had to redo all the previous steps,
 lol<p /></div>
 <div class="bSub"><p><b>Transform Computer to Server</b><p /></div>
 The moment every computer dreams of, turning into a server. But first, a rough explanation of how visiting
 websites work: Every website is hosted on a computer, called a server. When another computer, you, wants to visit
 a website you actually request the webpage data. You ask the server for a webpage and the server sends you over
 the files that make up a webpage. A web browser does all of this for you but cannot act as a server. Therefore the
-RPi needs a different tool to serve the web files. This tool is called Apache and is open source for my purposes. 
+RPi needs a different tool to serve the web files. This tool is called Apache and is open source for my purposes.
 <div class="bSub"><p><b>The Birth of a Webpage</b><p /></div>
 Apache is capable of serving HTML files over HTTP and HTTPS web protocols. The files on the RPi server are .html
 and Chrome, or another browser, connects via HTTP(S). After the installation, a default landing page has been made
@@ -88,19 +88,19 @@ in the /var/www/html/ directory. Now when a computer makes a HTTP connection the
 The IP address in the default landing page is not the one for this website but rather a local IP address. To allow
 public computers access, the router needs to be configured. The RPi is connected via ethernet and given a static
 IP to avoid dynamic IP/domain configurations. A server service had to be created in the Port Forwarding section
-of the routers settings. This service opens port 80 for TCP/UDP to the RPi and not any other computer on the 
+of the routers settings. This service opens port 80 for TCP/UDP to the RPi and not any other computer on the
 network. Now when someone connects to the public IP assigned to the router, they are directed to the RPi which in
-turn sends them the HTML <i>this website</i>. 
+turn sends them the HTML <i>this website</i>.
 <div class="bSub"><p><b>Whats Next?</b><p /></div>
-Now that I have a host and a domain name the actual website can be coded. This is found in the next project and 
+Now that I have a host and a domain name the actual website can be coded. This is found in the next project and
 goes into what files have replaced the default one that Apache created. Buckle up for the wild ride that is HTML,
-CSS, and internet domains. 
+CSS, and internet domains.
 </div>
 
 <!-- Begin Footer $include_path/footer.html -->
 <div id="footer">
 <br>
-david.mcphee3@gmail.com | not copyrighted, no rights reserved
+david.mcphee3@gmail.com | MIT license unless otherwise stated
 </div>
 
 </div>
