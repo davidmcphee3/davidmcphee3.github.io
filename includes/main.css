@@ -120,6 +120,9 @@ a:hover{
 	font-family:Arial;
 	font-size:18px;
 }
+#nav li a:hover {
+  background-color: #9E9E9E;
+}
 
 #footer{
 	height:50px;
