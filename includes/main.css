@@ -119,6 +119,7 @@ a:hover{
 	border-radius: 20px;
 	font-family:Arial;
 	font-size:18px;
+	transition: 0.3s;
 }
 #nav li a:hover {
   background-color: #9E9E9E;
