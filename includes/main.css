@@ -196,6 +196,15 @@ a:hover{
 	line-height: 1;
 }
 
+.projw:hover{
+	transition: 0.3s;
+	background-color: #F48FB1;
+}
+
+.proj hdr{
+	font-weight: bold;
+}
+
 .proj{
 	display: block;
 	background: #626262;
