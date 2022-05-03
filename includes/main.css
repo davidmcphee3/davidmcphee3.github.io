@@ -216,6 +216,10 @@ a:hover{
 	line-height: 1;
 }
 
+.proj:hover{
+	background-color: #9E9E9E;
+}
+
 .projimg{
 	float: left;
 	width:168px;
