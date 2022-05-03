@@ -211,6 +211,11 @@ a:hover{
 	color: #FFFFFF;
 }
 
+.proj hdr{
+	color: #A5D6A7;
+	font-weight: bold;
+}
+
 .proj span{
 	font-size:16px;
 	line-height: 1;
