@@ -217,7 +217,9 @@ a:hover{
 }
 
 .proj:hover{
-	background-color: #9E9E9E;
+	transition: 0.3s;
+	background-color: #808080;
+	border: 4px solid #808080;
 }
 
 .projimg{
