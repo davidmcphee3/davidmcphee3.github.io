@@ -38,8 +38,29 @@
 I visited Malaysia for five weeks to visit Kuala Lumpur and Cyberjaya for work. Most days were
 very long but I still managed to fit in some tourist activities such as seeing the Twin Towers, Batu Caves,
 and eating lots of street food.
+
+<div class="w3-content">
+<img class="travel_work_slides" src="/includes/adventures/malaysia/travel_work/img1.jpg" style="width:100%">
+<div class="w3-display-topleft w3-large w3-container w3-padding-16 w3-black">
+  Beautiful Mountains
+</div>
+<img class="travel_work_slide" src="/includes/adventures/malaysia/travel_work/img2.jpg" style="width:100%">
+<div class="w3-display-topleft w3-large w3-container w3-padding-16 w3-black">
+  Beautiful Mountains
+</div>
+<img class="travel_work_slide" src="/includes/adventures/malaysia/travel_work/img3.jpg" style="width:100%">
+<div class="w3-display-topleft w3-large w3-container w3-padding-16 w3-black">
+  Beautiful Mountains
+</div>
+<img class="travel_work_slide" src="/includes/adventures/malaysia/travel_work/img4.jpg" style="width:100%">
+<div class="w3-display-topleft w3-large w3-container w3-padding-16 w3-black">
+  Beautiful Mountains
+</div>
+<button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1, 0)">&#10094;</button>
+<button class="w3-button w3-black w3-display-right" onclick="plusDivs(1, 0)">&#10095;</button>
 </div>
 
+</div>
 <!-- Begin Footer $include_path/footer.html -->
 <div id="footer">
 <br>
@@ -72,6 +93,28 @@ david.mcphee3@gmail.com | MIT license unless otherwise stated
  </style>
 <!-- end www.htmlcommentbox.com -->
 </div>
+
+<script>
+var slideIndex = [1,1];
+var slideId = ["travel_work_slides", "mySlides2"]
+showDivs(1, 0);
+showDivs(1, 1);
+
+function plusDivs(n, no) {
+  showDivs(slideIndex[no] += n, no);
+}
+
+function showDivs(n, no) {
+  var i;
+  var x = document.getElementsByClassName(slideId[no]);
+  if (n > x.length) {slideIndex[no] = 1}
+  if (n < 1) {slideIndex[no] = x.length}
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  x[slideIndex[no]-1].style.display = "block";
+}
+</script>
 
 </body>
 </html>
