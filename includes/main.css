@@ -136,6 +136,19 @@ a:hover{
 	color:#b3b3b3;
 }
 
+#note{
+	height: auto;
+	display: block;
+  margin: auto;
+  width: 60%;
+	padding: 10px;
+	text-align:center;
+	background-color:#626262;
+	font-family:Arial;
+	border-radius: 20px;
+	color:#ffffff;
+}
+
 .main{
 	float:left;
 	width:610px;
