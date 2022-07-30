@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<title>David's Doorbell</title>
+
+<style type="text/css">
+a:link{
+  color:#BB86FC;
+}
+a:visited{
+  color:#BB86FC;
+}
+a:hover{
+  color:#03DAC6;
+}
+.sText{
+  font-size: 14px;
+}
+.cText{
+  text-align:center;
+}
+
+.title{
+  text-align:center;
+  font-size:72px;
+}
+
+#content{
+  width:800px;
+  margin-right:auto;
+  margin-left:auto;
+  margin-top:30px;
+  border:3px solid #222222;
+  background-color: #3B3B3B;
+  /*need a border for the content*/
+  padding:5px;
+  border-radius: 20px;
+  /*pad everything*/
+}
+
+.subContent{
+  width:650px;
+  margin-right:auto;
+  margin-left:auto;
+  margin-top:30px;
+  border:3px solid #515151;
+  background-color: #626262;
+  /*need a border for the content*/
+  padding:5px;
+  border-radius: 20px;
+  /*pad everything*/
+  text-align:center;
+  font-size:60px;
+}
+
+#header{
+  float:center;
+  font-family:Arial;
+  font-size:72px;
+  color:#ffffff;
+  width:200px;
+  height:150px;
+  margin-top:10px;
+  margin-left:30px;
+  margin-bottom:2px;
+}
+
+/*This is the box that the nav is in*/
+#nav{
+  width:50%;
+  text-align: center;
+  margin: 0 auto;
+}
+
+
+#nav ul{
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  list-style: none;
+  width: auto;
+}
+
+
+#nav ul li a{
+  display: inline-block;
+  float: none;
+  top: 10%;
+  text-align: center;
+  text-decoration: none;
+  color: #515151;
+  background: #A5D6A7;
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid #515151;
+  border-radius: 20px;
+  font-family:Arial;
+  line-height: normal;
+  font-size:48px;
+}
+
+#nav li a:hover {
+  background-color: #388E3C
+}
+
+#footer{
+  height:50px;
+  clear:both;
+  text-align:center;
+  background-color:#626262;
+  font-family:Arial;
+  font-size:21px;
+  border-radius: 20px;
+  color:#b3b3b3;
+}
+
+.main{
+  float:left;
+  width:610px;
+  padding-left:5%;
+  margin: 30px 45px;
+  padding-top:10px;
+  font-family:Arial;
+  font-size:21px;
+  color:#ffffff;
+  line-height: 1.6;
+}
+
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size:21px;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #A5D6A7;
+  color: black;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size:21px;
+}
+
+input[type=submit]:hover {
+  background-color: #388E3C;
+}
+
+.customText {
+  border-radius: 5px;
+  background-color: #626262;
+  padding: 20px;
+}
+</style>
+
+</head>
+<body style="background-color:#121212;" onload="myFunction()">
+
+<div id="content">
+
+<div class="main">
+<div class="title">David's Doorbell</div>
+Welcome to the screen on my doorbell. Are are (or will be) 3
+options to chose from. The first is a preset message for
+quick access. The second is a custom message. Finally there
+is an image upload. The latter two can also be added in
+a repeating sequence.
+
+<div class="subContent">
+Quick Message
+<div id="nav">
+<ul>
+<li><a href="/sleep">Anne is Sleeping!</a></li>
+<li><a href="/awake">Anne is Awake!</a></li>
+</ul>
+</div></div>
+
+<div class="subContent">
+Custom Message
+<div class="customText">
+<form action="/msg" method="POST">
+<input type="text" name="Message" id="message" placeholder="message"/>
+<input type="submit" value="Send">
+</form>
+</div></div>
+
+<div class="subContent">
+Quick Image
+<div id="nav">
+<ul>
+<li><a href="/img1">Mom and Anne</a></li>
+<li><a href="/img2">Racecar</a></li>
+</ul>
+</div></div>
+<br>The whole project plus two reference files for this project are listed on
+<a href="https://davidmcphee.ca/doorbell.html">davidmcphee.ca</a>
+which refer to the color scheme and how to add more buttons to the Quick Message and
+Quick Image options.
+</div>
+
+<!-- Begin Footer $include_path/footer.html -->
+<div id="footer">
+<br>
+david.mcphee3@gmail.com | MIT license unless otherwise stated
+</div>
+</div>
+
+</div>
+</body>
+</html>

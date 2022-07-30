@@ -35,9 +35,55 @@
 <div class="main">
 <div class="bTitle"><p><u><strong>OLED Doorbell</strong></u><p /></div>
 <img class="bImg" src="/includes/projects/doorbell/thumbnail.jpg" alt="Thumbnail for OLED doorbell"></img>
-Intro
-<div class="bSub"><p><b>Example section header</b><p /></div>
-text
+This is a OLED attachment to the doorbell to display messages and images. It is connected via WiFi
+and can be controlled via a phone with internet. This all started with the wife needing a way to
+stop people from ringing the doorbell whilst Anne was sleeping.
+<div class="bSub"><p><b>Parts List</b><p /></div>
+Here is the list of materials and tools used for this project. Arduino software
+as well as FreeCAD was used for the programming and 3D design, respectively.
+<div class="cText"><p />
+1. ESP 8266 Microcontroller with WiFi<p />
+2. Adafruit 128x64 OLED screen<p />
+3. Custom 3D printed case<p />
+4. Cables and soldering<p />
+3. Multimeter / Oscilloscope<p /></div>
+<div class="bSub"><p><b>Hardware</b><p /></div>
+The ESP 8266 microcontroller is a good choice for this project because it has a large RAM,
+WiFi enabled, and small form-factor. The Adafruit OLED has pins for serial connection
+and power supply from the ESP board. These two pieces of hardware were connected with
+via a breadboard for the software design and integration.
+<img class="bImg" src="/includes/projects/doorbell/img1" alt="Hardware on breadboard"></img>
+<div class="bSub"><p><b>Software</b><p /></div>
+The ESP board uses C code and was coded with the Ardunio IDE. To enable WiFi communication,
+the ESP8266WebServer library was used to initialize the controller. The board first
+initializes the OLED screen and then attempts to connect to the WiFi network. After
+a successful connection, the URL is printed on the OLED screen. The server (ESP board)
+waits until another computer requests an http connection at which point it sends the
+index page. <a href="/includes/projects/doorbell/example_doorbell_index.html">Here</a> is an
+example of the webpage hosted by the ESP board. The page has three different options to
+display messages on the OLED screen. The first two large buttons for quick messages.
+When a user selects a button, the approprite text is written to the OLED screen and a
+conformation page is sent back to the user. The second message option is custom text.
+The custom text is entered by the user and sent to the server to display on the OLED.
+The final message type is an image. These images are preset but can be altered within
+the ardunio code. Users cannot upload images due to the lack of RAM on the ESP board.
+The bitmaps of the preset images are stored in the bitmaps.h file on the github repo and
+can be changed using <a href="/includes/projects/doorbell/image2oled.html">this tool</a>
+that I have published on this website.
+<div class="bSub"><p><b>3D Design and Printing</b><p /></div>
+The plan for this project was to mount the OLED attachment to the doorbell which meant
+it would be outside and for everyone to see. Therefore presentation is important which
+meant that I could not just shove it in a recycled container and nail it to the wall.
+I used FreeCAD 0.19 which worked very well and I highly recommend it for anyone looking
+to create something similar in scale. I followed a couple of tutorials and soon enough
+I had a good design. The local library has a 3D printer and it only cost $4 which is
+significantly cheaper than buying my own 3D printer. The first interation was okay but the
+lid was too big for the box and did not slide on. I went back to freeCAD and added some
+margin for machine-error and tried again. This time the lid did fit which made me pleased.
+<img class="bImg" src="/includes/projects/doorbell/img2" alt="3D Case 1 of 3"></img>
+<img class="bImg" src="/includes/projects/doorbell/img3" alt="3D Case 2 of 3"></img>
+<img class="bImg" src="/includes/projects/doorbell/img4" alt="3D Case 3 of 3"></img>
+
 
 </div>
 <!-- Begin Footer $include_path/footer.html -->
