@@ -136,6 +136,24 @@ went back to my computer and plugged in my board to the dynamic power supply. I 
 my computer that the device I connected was requesting more power than the computer could deliver, uh oh.
 After about 5 seconds I heard a pop and smoke starting coming from the board. I destroyed the regulator and
 thus the board.
+<div class="bSub"><p><b>Investigation</b><p /></div>
+I decided to investigate why the power output of my adapter wasn't what I expected. Firstly I verified the
+output of the doorbell power. I used an oscilloscope this time to give a proper 2D representation of the
+power.
+<img class="bImg" src="/includes/projects/doorbell/img17.jpg" alt=""></img>
+The scope is old and not the most accurate, however it does clearly show the AC sine wave from the bell.
+When I add the rectifier into the circuit I get the following:
+<img class="bImg" src="/includes/projects/doorbell/img18.jpg" alt=""></img>
+The rectifier eliminates the negative voltage, but we still see a drop in voltage, this is because there is
+no smoothing, ie the diodes do not hold any charge so the AC pattern slips through. To remove this I added
+a smoothing capacitor between the two outputs.
+<img class="bImg" src="/includes/projects/doorbell/img19.jpg" alt=""></img>
+This plot is not that different from without the capacitor. Therefore one of the issues with my
+custom adapter was that I was not using the proper size of capacitor for the system. I also observed that
+when I connected my oscilloscope, the light in the doorbell dimmed. This meant that the power across it
+decreased which was not expected behavior. The doorbell transformer was not designed for an additional
+load such as an oscilloscope or my OLED attachment. These findings are useful because I have learned
+more about how residential power works and its related limitations.
 <div class="bSub"><p><b>Try, Try Again</b><p /></div>
 I ordered a new ESP board from Amazon and decided to abandon the custom power-supply and just use the
 manufactor's plug. It looks slightly more messy but it works.
