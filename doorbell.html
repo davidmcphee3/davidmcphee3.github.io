@@ -91,7 +91,7 @@ combination of both.
 <img class="bImg" src="/includes/projects/doorbell/img5.jpg" alt="Hardware installed (2/2)"></img>
 With everything installed I powered it on using a microUSB plugged into a hole I added to
 the side of the casing. It worked well and the only thing left to do was install it onto the wall.
-<img class="bImg" src="/includes/projects/doorbell/img7.jpg" alt="Working electronics in case"></img>
+<img class="bImg" src="/includes/projects/doorbell/img7.png" alt="Working electronics in case"></img>
 <div class="bSub"><p><b>Power Supply</b><p /></div>
 The ESP board requires 3.3V DC power. Typically this can be achieved one of two ways. Either via
 a dynamic power supply such as a computer, or a special adapter. The former works with a USB
@@ -120,7 +120,7 @@ the two resistors on the two outputs.
 The equation for the output power was supplied in the datasheet and I used Python to calculate
 the ideal resistor ratio. I did the math for the correct resistors and bought the components
 from Digi-Key.
-<img class="bImg" src="/includes/projects/doorbell/img16.jpg" alt="Regulator math"></img>
+<img class="bImg" src="/includes/projects/doorbell/img15.png" alt="Regulator math"></img>
 When I installed everything, I didn't get the output power I expected which was odd. I double-checked
 my math and the circuit connections. I found when I installed the regulator in different orientations,
 I got slightly better results.
@@ -128,7 +128,7 @@ I got slightly better results.
 <img class="bImg" src="/includes/projects/doorbell/img14.jpg" alt="Testing step-up"></img>
 I dug through my resistor collection and started trying different combinations. The problem was that
 I am colorblind so I couldn't read the resistor code. I got my wife to help and had a set-up like this:
-<img class="bImg" src="/includes/projects/doorbell/img16.jpg" alt="Testing step-up"></img>
+<img class="bImg" src="/includes/projects/doorbell/img16.png" alt="Testing step-up"></img>
 I kept testing the resistors but my predictions always missed the actual results. At one point I did
 have an output power of 3.3V yet the ESP power was not powering on. I decided to start hot-swapping
 resistors which was a terrible idea. I started to smell burning and quickly unplugged everything. I
