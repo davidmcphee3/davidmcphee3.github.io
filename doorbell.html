@@ -35,7 +35,7 @@
 <div class="main">
 <div class="bTitle"><p><u><strong>OLED Doorbell</strong></u><p /></div>
 <img class="bImg" src="/includes/projects/doorbell/thumbnail.jpg" alt="Thumbnail for OLED doorbell"></img>
-This is a OLED attachment to the doorbell to display messages and images. It is connected via WiFi
+This is an OLED attachment to the doorbell to display messages and images. It is connected via WiFi
 and can be controlled via a phone with internet. This all started with the wife needing a way to
 stop people from ringing the doorbell whilst Anne was sleeping.
 <div class="bSub"><p><b>Parts List</b><p /></div>
@@ -54,7 +54,7 @@ and power supply from the ESP board. These two pieces of hardware were connected
 via a breadboard for the software design and integration.
 <img class="bImg" src="/includes/projects/doorbell/img1.jpg" alt="Hardware on breadboard"></img>
 <div class="bSub"><p><b>Software</b><p /></div>
-The ESP board uses C code and was coded with the Ardunio IDE. To enable WiFi communication,
+The ESP board uses C code and was coded with the Arduino IDE. To enable WiFi communication,
 the ESP8266WebServer library was used to initialize the controller. The board first
 initializes the OLED screen and then attempts to connect to the WiFi network. After
 a successful connection, the URL is printed on the OLED screen. The server (ESP board)
@@ -62,11 +62,11 @@ waits until another computer requests an http connection at which point it sends
 index page. <a href="/includes/projects/doorbell/example_doorbell_index.html">Here</a> is an
 example of the webpage hosted by the ESP board. The page has three different options to
 display messages on the OLED screen. The first two large buttons for quick messages.
-When a user selects a button, the approprite text is written to the OLED screen and a
-conformation page is sent back to the user. The second message option is custom text.
+When a user selects a button, the appropriate text is written to the OLED screen and a
+confirmation page is sent back to the user. The second message option is custom text.
 The custom text is entered by the user and sent to the server to display on the OLED.
 The final message type is an image. These images are preset but can be altered within
-the ardunio code. Users cannot upload images due to the lack of RAM on the ESP board.
+the arduino code. Users cannot upload images due to the lack of RAM on the ESP board.
 The bitmaps of the preset images are stored in the bitmaps.h file on the github repo and
 can be changed using <a href="/includes/projects/doorbell/image2oled.html">this tool</a>
 that I have published on this website.
@@ -77,13 +77,68 @@ meant that I could not just shove it in a recycled container and nail it to the 
 I used FreeCAD 0.19 which worked very well and I highly recommend it for anyone looking
 to create something similar in scale. I followed a couple of tutorials and soon enough
 I had a good design. The local library has a 3D printer and it only cost $4 which is
-significantly cheaper than buying my own 3D printer. The first interation was okay but the
+significantly cheaper than buying my own 3D printer. The first iteration was okay but the
 lid was too big for the box and did not slide on. I went back to freeCAD and added some
-margin for machine-error and tried again. This time the lid did fit which made me pleased.
+margin for machine-error and tried again. This time the lid did fit which was relieving.
 <img class="bImg" src="/includes/projects/doorbell/img2.jpg" alt="3D Case 1 of 3"></img>
 <img class="bImg" src="/includes/projects/doorbell/img3.jpg" alt="3D Case 2 of 3"></img>
 <img class="bImg" src="/includes/projects/doorbell/img4.jpg" alt="3D Case 3 of 3"></img>
-
+<div class="bSub"><p><b>All Together</b><p /></div>
+I installed the hardware and cabling into the case with some solder and electrical tape.
+The pins on both boards are catered toward jumper cables rather than solder so I did a
+combination of both.
+<img class="bImg" src="/includes/projects/doorbell/img6.jpg" alt="Hardware installed (1/2)"></img>
+<img class="bImg" src="/includes/projects/doorbell/img5.jpg" alt="Hardware installed (2/2)"></img>
+With everything installed I powered it on using a microUSB plugged into a hole I added to
+the side of the casing. It worked well and the only thing left to do was install it onto the wall.
+<img class="bImg" src="/includes/projects/doorbell/img7.jpg" alt="Working electronics in case"></img>
+<div class="bSub"><p><b>Power Supply</b><p /></div>
+The ESP board requires 3.3V DC power. Typically this can be achieved one of two ways. Either via
+a dynamic power supply such as a computer, or a special adapter. The former works with a USB
+cable and the ESP board and computer communicate to deliver the correct amount of power. The latter
+works because the manufacturer supplies a wall plug that converts the 120V AC power to 3.3V DC.
+There are no computers near the doorbell so my best option was to go with the wall plug, however
+the closest wall plug is about 10ft away. This led me to a great, but disastrous, idea. The
+doorbell has power so I could just create a custom power adapter that converts the doorbell
+power to ESP power.
+<p />
+After some research I realized that the doorbell is most likely powered with a lower level of AC
+power. To confirm this theory, I connected my multimeter across the doorbell to measure the power.
+(I also had some help with this step from my wife and daughter)
+<img class="bImg" src="/includes/projects/doorbell/img8.jpg" alt="Doorbell power (1/3)"></img>
+<img class="bImg" src="/includes/projects/doorbell/img9.jpg" alt="Doorbell power (2/3)"></img>
+<img class="bImg" src="/includes/projects/doorbell/img10.jpg" alt="Doorbell power (3/3)"></img>
+The measured power was around 21V AC which confirmed the research. This meant that I had to create
+an adapter that went from 21V AC to 3.3V DC. I planned this conversion to happen in two stages. The
+first was to rectify the AC power to DC and then step down the DC power to 3.3V. For AC to DC, one
+of the best circuits to use is called a Full Bridge Rectifier.
+<img class="bImg" src="/includes/projects/doorbell/img11.jpg" alt="Full Bridge Rectifier"></img>
+I installed the rectifier to the doorbell and sure enough it converted the power to DC. To step
+down the power I used an IC regulator. This regulator can have a variable output power by changing
+the two resistors on the two outputs.
+<img class="bImg" src="/includes/projects/doorbell/img12.jpg" alt="Circuit Diagram"></img>
+The equation for the output power was supplied in the datasheet and I used Python to calculate
+the ideal resistor ratio. I did the math for the correct resistors and bought the components
+from Digi-Key.
+<img class="bImg" src="/includes/projects/doorbell/img16.jpg" alt="Regulator math"></img>
+When I installed everything, I didn't get the output power I expected which was odd. I double-checked
+my math and the circuit connections. I found when I installed the regulator in different orientations,
+I got slightly better results.
+<img class="bImg" src="/includes/projects/doorbell/img13.jpg" alt="adapter connected to doorbell"></img>
+<img class="bImg" src="/includes/projects/doorbell/img14.jpg" alt="Testing step-up"></img>
+I dug through my resistor collection and started trying different combinations. The problem was that
+I am colorblind so I couldn't read the resistor code. I got my wife to help and had a set-up like this:
+<img class="bImg" src="/includes/projects/doorbell/img16.jpg" alt="Testing step-up"></img>
+I kept testing the resistors but my predictions always missed the actual results. At one point I did
+have an output power of 3.3V yet the ESP power was not powering on. I decided to start hot-swapping
+resistors which was a terrible idea. I started to smell burning and quickly unplugged everything. I
+went back to my computer and plugged in my board to the dynamic power supply. I got a notification on
+my computer that the device I connected was requesting more power than the computer could deliver, uh oh.
+After about 5 seconds I heard a pop and smoke starting coming from the board. I destroyed the regulator and
+thus the board.
+<div class="bSub"><p><b>Try, Try Again</b><p /></div>
+I ordered a new ESP board from Amazon and decided to abandon the custom power-supply and just use the
+manufactor's plug. It looks slightly more messy but it works.
 
 </div>
 <!-- Begin Footer $include_path/footer.html -->
