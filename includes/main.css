@@ -180,6 +180,14 @@ a:hover{
 
 }
 
+.inlineImg{
+	display: inline;
+	margin: 0 5px;
+	/*max-height: 350px;
+	max-width: 610px;*/
+}
+
+
 .bEqu{
 	display: block;
 	margin: 30px auto;
