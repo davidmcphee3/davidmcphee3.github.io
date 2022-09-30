@@ -4,49 +4,106 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-
+ 
 <title>David McPhee's Personal Homepage</title>
 <link href="/includes/main.css" rel="stylesheet" type="text/css" media="screen" />
-
+ 
 </head>
-
+ 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-C8K8BK48K1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
+ 
   gtag('config', 'G-C8K8BK48K1');
 </script>
-
+ 
 <body style="background-color:#121212;">
-
+ 
 <div id="content">
-
+ 
 <div id="nav">
 <ul>
 <li><a href="/other">Back To Other</a></li>
 </ul>
 </div>
-
+ 
 <!-- End Header $include_path/header.html -->
-
+ 
 <div class="main">
-<div class="bTitle"><p><u><strong>Reyonlds Number of Kitchen Tap</strong></u><p /></div>
+<div class="bTitle"><p><u><strong>Reynolds Number of Kitchen Tap</strong></u><p /></div>
 <img class="bImg" src="/includes/other/tap/thumbnail.jpg" alt="Thumbnail for tap"></img>
-Intro
+The tap in the kitchen appeared uniform and made me think that it could be laminar flow.
+A fluid dynamic engineer thought otherwise so I put it to the test.
 <div class="bSub"><p><b>Preface</b><p /></div>
-
+The flow of a fluid can be broadly grouped into two categories: laminar and turbulent. This refers to the relative direction
+each particle of the fluid is traveling with respect to one another. If the delta in the angle of travel is small enough, the
+flow is said to be laminar. Generally turbulent flow appears messy whilst laminar appears uniform.
+ 
+The state of the flow can be obtained via calculating the Reynolds Number. If this number is under 2,000 the flow is said to be laminar. If
+the number is above 2,000 the flow is said to be turbulent. Technically there is also critical flow between 2,000 and 4,000 but for simplicity I will
+leave it out. The Reynolds Number is dependent on characteristics of the flow which will be covered below.
+<div class="bSub"><p><b>Variables</b><p /></div>
+The equation for the Reyonalds Number I am using comes from <i>Transmission Pipeline Calculations and Simulations Manual</i> by E. Shashi Menon.
+The equation is:
+<img class="bEqu" height="30px" src="/includes/other/tap/img1.png" alt="R = 3160Q/vD"></img>
+Where <i>R</i> is the Reynolds Number, <i>Q</i> is the flow rate in gal/min, <i>v</i> is the kinematic viscosity in cSt, and <i>D</i> is the diameter of the pipe in
+inches.
+<p />
+The flow rate can be measured by filling a known volume with the liquid and timing it. The kinematic viscosity can be found using the
+<a href="https://www.omnicalculator.com/physics/water-viscosity">Water Viscosity Calculater</a>. From this calculator we see that the viscosity is only dependant on
+temperature. Finally the diameter of the pipe can be measured using a ruler.
+<div class="bSub"><p><b>The Experiment</b><p /></div>
+As seen in the thumbnail, I used a coffee pot to fill with the tap water. The moment I turned on the tap, I started a stopwatch on my phone. Again the moment I turned off
+the tap, I stopped the timer. The result was 21.21 seconds.
+<img class="bImg" src="/includes/other/tap/img2.png" alt="timer"></img>
+I put a thermometer in the liquid and got a result of 39.9 <sub>C</sub>.
+<p />
+Note: The image shows a different temperature (continuity error)
+<img class="bImg" src="/includes/other/tap/img3.jpg" alt="thermometer"></img>
+This was actually the second time because the first time I tried, the water was too cold for the thermometer. Since the thermometer is meant for bodies (~37.5<sub>C</sub>),
+20<sub>C</sub> was past its lower bounds.
+<p />
+I then poured the fluid from the coffee pot into a measuring cup to more accurately measure the volume. I filled the large measuring cup up 7 times and the small up just once.
+<img class="bImg" src="/includes/other/tap/img4.jpg" alt="large cup"></img>
+<img class="bImg" src="/includes/other/tap/img5.jpg" alt="small cup"></img>
+This worked out to be 1810 ml.
+<p />
+Finally I used a ruler to measure the inner diameter of the tap which was 12 mm.
+<img class="bImg" src="/includes/other/tap/img6.jpg" alt="bottom of tap"></img>
+<div class="bSub"><p><b>The Math</b><p /></div>
+Note: I kept all my sig figs but rounds to two decimals for the sake of readability.
+<p />
+Starting with flow rate, the equation needed gallons per minute. According to Google, the conversion from ml to gals is
+1 ml for every 0.00026 gallons. Next seconds to minutes is 60 seconds per minute. I now had 0.48 gallons in 0.35 minutes!
+This gives me a flow rate of 1.35 gal/min.
+<p />
+Next the kinematic viscosity was calculated using the Omni calculator which resulted in 0.66 cSt. The units are called centi-stoke
+and are equivalent to 1 mm<sup>2</sup>/s.
+<p />
+Finally the diameter was converted using 25.4 mm in one inch. This resulted in a diameter of 0.47 in.
+<p />
+Putting this all together and in the formula:
+<img class="bEqu" height="30px" src="/includes/other/tap/img7.png" alt="R = 3160Q/vD filled in"></img>
+<img class="bEqu" height="30px" src="/includes/other/tap/img8.png" alt="R = 3160Q/vD"></img>
+Not laminar... not even close. I was surprised when I calculated this! It makes me reconsider flows that I use to think where laminar but
+in reality probably are not.
+<img class="bImg" src="/includes/other/tap/img9.jpg" alt="spreadsheet"></img>
+Using my spreadsheet, the viscosity would have to increase to 4.5 cSt which according to the Omni calculator is not possible. The flowrate
+would have to decrease to 0.20 gal/min. It is interesting that the flow would actually need to slow down to get more laminar. I would think that
+laminar flow would be the most efficient and thus the highest flow rate but this says otherwise. This results in a time of 145 seconds for the
+same volume or 265 ml at the same time. Finally if the pipe was 82 mm the flow would become laminar.
 </div>
 <!-- Begin Footer $include_path/footer.html -->
 <div id="footer">
 <br>
 david.mcphee3@gmail.com | MIT license unless otherwise stated
 </div>
-
+ 
 </div>
-
+ 
 <div id="content">
 <!-- begin wwww.htmlcommentbox.com -->
  <div id="HCB_comment_box"><a href="http://www.htmlcommentbox.com">Comment Box</a> is loading comments...</div>
@@ -67,10 +124,13 @@ david.mcphee3@gmail.com | MIT license unless otherwise stated
 #HCB_comment_box span.home-desc{font-size:10px;opacity:.4}
 .hcb-link{color:white;text-decoration:underline}
 .hcb-mod i{color:#00008b}
-
+ 
  </style>
 <!-- end www.htmlcommentbox.com -->
 </div>
-
+ 
 </body>
 </html>
+ 
+ 
+
