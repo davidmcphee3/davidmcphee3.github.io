@@ -179,6 +179,24 @@ a:hover{
 
 }
 
+.bList1{
+	display: block;
+	margin: 30px auto;
+	border-radius: 5px;
+	max-width: 610px;
+	background-color: #626262;
+
+}
+
+.bList2{
+	display: block;
+	margin: 30px auto;
+	border-radius: 5px;
+	max-width: 610px;
+	background-color: #9E9E9E;
+
+}
+
 .inlineImg{
 	display: inline;
 	margin: 0 5px;
