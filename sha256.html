@@ -1,89 +1,97 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<meta name="keywords" content="" />
-<meta name="description" content="" />
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
- 
-<title>David McPhee's Personal Homepage</title>
-<link rel="shortcut icon" type="image/png" href="includes/favicon.png">
-<link href="includes/main.css" rel="stylesheet" type="text/css" media="screen" />
- 
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>David McPhee's Personal Homepage</title>
+    <link rel="shortcut icon" type="image/png" href="includes/favicon.png">
+    <link href="includes/main.css" rel="stylesheet" type="text/css" media="screen" />
 </head>
- 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-C8K8BK48K1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
- 
-  gtag('config', 'G-C8K8BK48K1');
-</script>
- 
 <body style="background-color:#121212;">
- 
-<div id="content">
- 
-<div id="nav">
-<ul>
-<li><a href="/projects">Back To Projects</a></li>
-</ul>
-</div>
- 
-<!-- End Header $include_path/header.html -->
- 
-<div class="main">
-<div class="bTitle"><p><u><strong>SHA-256</strong></u><p /></div>
-<img class="bImg" src="/includes/projects/sha256/thumbnail.jpeg" alt="Thumbnail for SHA-256"></img>
-The internet stores passwords as hashes resultant from algorthims such as
-the Secure Hash Algorthim (256 bits), to understand it more I recreated it in python. I used
-https://helix.stormhub.org/papers/SHA-256.pdf as the guideline and this video
-https://youtu.be/orIgy2MjqrA?si=4hF9WfaLAhn4Wl-F from RedBlockBlue which helped be verfied a couple intermidate steps. 
-It turns out it is somewhat hard to find some showing the intermidate steps. 
- 
-<div class="bSub"><p><b>The Plain Text Database</b><p /></div>
-  One of the simplest ways for a service to store a user's credentials is to create a table in a database (or in this case,
-  a file) with all user's username and password. 
-  <img class="bImg" src="/includes/projects/authmanager/img1.jpg" alt="drawing the outline"></img>
-  
- 
-
- 
- 
-</div>
-<!-- Begin Footer $include_path/footer.html -->
-<div id="footer">
-<br>
-david.mcphee3@gmail.com | MIT license unless otherwise stated
-</div>
- 
-</div>
- 
-<div id="content">
-<!-- begin wwww.htmlcommentbox.com -->
- <div id="HCB_comment_box"><a href="http://www.htmlcommentbox.com">Comment Box</a> is loading comments...</div>
- <script type="text/javascript" id="hcb"> /*<!--*/ if(!window.hcb_user){hcb_user={};} (function(){var s=document.createElement("script"), l=hcb_user.PAGE || (""+window.location).replace(/'/g,"%27"), h="https://www.htmlcommentbox.com";s.setAttribute("type","text/javascript");s.setAttribute("src", h+"/jread?page="+encodeURIComponent(l).replace("+","%2B")+"&mod=%241%24wq1rdBcg%24Xk1c2cCSlprFkr2MjLvTb."+"&opts=16662&num=10&ts=1644780820414");if (typeof s!="undefined") document.getElementsByTagName("head")[0].appendChild(s);})(); /*--!>*/ </script>
-<style>
-#HCB_comment_box textarea{width:50%;
-}
-#HCB_comment_box{font-family:arial;color:#FFFFFF;background-color:none;}
-#HCB_comment_box p.error{border:1px solid red;background-color:#fee}
-.hcb-mod b{color:#d34}
-#HCB_comment_box textarea,#hcb_form_name,#HCB_comment_box input.text{border:none;border-radius:5px;background-color:#FFFFFF}
-#HCB_comment_box .text-blur {color:none;}
-#HCB_comment_box blockquote{background-color:#626262;width:50%;padding:10px;border-radius:5px}
-#HCB_comment_box .hcb-wrapper-half{display:block;width:50%;float:left;}
-#HCB_comment_box .hcb-wrapper{clear:both}
-#HCB_comment_box input.text{display:block;width:75%}
-#HCB_comment_box input.submit{border-radius: 20px;;background-color:#626262;color:#FFFFFF;font-weight:700;cursor:pointer}
-#HCB_comment_box span.home-desc{font-size:10px;opacity:.4}
-.hcb-link{color:white;text-decoration:underline}
-.hcb-mod i{color:#00008b}
- 
- </style>
-<!-- end www.htmlcommentbox.com -->
-</div>
- 
+    <div id="content">
+        <div id="nav">
+            <ul>
+                <li><a href="/projects">Back To Projects</a></li>
+            </ul>
+        </div>
+        <!-- End Header $include_path/header.html -->
+        <div class="main">
+            <div class="bTitle"><p><u><strong>SHA-256</strong></u></p></div>
+            <img class="bImg" src="/includes/projects/sha256/thumbnail.jpeg" alt="Thumbnail for SHA-256"></img>
+            <p>The internet stores passwords as hashes resultant from algorthims such as
+              the Secure Hash Algorthim (256 bits), to understand it more I recreated it in python. The SHA-256 
+              algorthim takes in a string (your password) and outputs a seemingly random 256 bit number. There are a 
+              couple of factors that make for a good hashing algorthim. 
+              <ul>
+                <li>Same output for same input</li>
+                <li>A small change in the input results in a large change in the output</li>
+                <li>One-way, cannot derive the input from the output</li>
+              </ul>
+              Instead of a server (website such as Facebook) storing passwords as plain text, they are 
+              stored as their hashes. This means if the server is hacked, the hacker only has the hashes, not
+              the passwords. Since hashes are one-way, the hacker cannot get the password.
+              <p />
+              <a href="https://helix.stormhub.org/papers/SHA-256.pdf">This pdf</a> was used as a guide for 
+              a high level explaination of the algorthim. It was hard to find the author of the pdf, but following
+              the watermark in the corner "CRIPTOGRAFIA", google leds me to believe it is a document by Prof.
+              Fernando Martinez Saez from FIB (technical school in Barcalona). 
+              <a href="https://youtu.be/orIgy2MjqrA?si=4hF9WfaLAhn4Wl-F">This video</a> by RedBlockBlue was used as well to verify 
+              some of the intermidate values in the algorthim. It was tricky to debug this program because the point
+              of the algorthim is to not be able to get information about the output from the input. RedBlockBlue basically
+              explained a similar pdf as the one from FIB but no source was provided. I did leave a comment asking for the source 
+              of the pdf used in the video. 
+              </p>
+            <div class="bSub"><p><b>SHA-256 Overview</b></p></div>
+            <p>The algorthim class takes in input text. Generally this can be any data but for our case, it will be a string of text. The 
+              text is then converted into binary. The class reuires an ASCII input (normal english characters, numbers, and symbols). Each
+              character in the input is converted to it's binary representation. For example 'abc' is converted to '01100001 01100010 01100011'.
+              <img class="bImg" src="/includes/projects/sha256/img1.jpg" alt="str to bin code"></img>
+              Each character in the string A is converted first to its ASCII number and then to binary. The bin() adds a flag '0b' to the front
+              of the number so it is removed with [2:]. Finally the binary number is padded with zeros so that it is exactly 8 bits long. After
+              this is done for all  characters in the string, the combined binary number is returned. In the case of 'abc', 
+              '011000010110001001100011' is returned. 
+              <p />
+              This message then needs to get padded so that it is a multiple of 512 bits. The algorthim requires the message to be 
+              padded with a '1' and then enough '0's so the length is 448 % 512 (64 minus a multiple of 512). Finally the length of 
+              the orginal message is converted to binary, padded so it is length 64, and appended to the message. This results in a 
+              message that is exactly 512 or 1024 or 1536, .. bits long. 
+              <img class="bImg" src="/includes/projects/sha256/img2.jpg" alt="pad msg so it is multiple of 512"></img>
+              The first step in this method is to calculate how many '0's are to be padded. 
+              <ul>
+                <li>len(msg) = 440: 7 '0's are to be added (recall we always pad a '1' to the message)</li>
+                <li>len(msg) = 800: 159 '0's are to be added</li>
+                <li>len(msg) = 449: -2 '0's are to be added (not possible)</li>
+              </ul>
+              The last case is not possible so we then need to pad the message to the next multiple of 512 (in this case, 1024). Instead
+              of adding -2 '0's we add 450 '0's. We add the length of the message in binary and pad it so it is 64 bits long. For our string
+              'abc', the padded message is '011000010110001001100011' + '0'*423 + '0'*62 + '11'.
+              <p />
+              As an aside. I postulate that the algorthim requires us to add a '1' to handle specific cases. If the input string is blank
+              and the '1' wasn't required, the padded message would just be a string of 512 '0's. This would make the output predictable (not good).
+              <p />
+              Once we have the padded message, the hash can be computed.
+              <img class="bImg" src="/includes/projects/sha256/img3.jpg" alt="compute hash of msg"></img>
+              This method starts with 8 32 bit numbers (H) and combines them in variosu ways with parts of the message many times.
+              After the method finishs, the 8 H numbers are contactenated and returned as the hash.
+              <p />
+              The method if initializes the variable prev_H with the 8 starting values of H. It then entires a for loop that loops for 
+              each 512 bit block in the message. If the message is 512 bits, the loop only runs once. A message of length 1024 would loop 
+              twice, and so on. The loop first takes the corresponding section of the message and stores it as Mi and breaks the section 
+              of the message into 64 words (words are 64 bits long). The variables a through h are initialized to the values of H.
+              For each word in Mi, an inner loop is run. This inner loop calculates two values T1 and T2 using the variables a through h,
+              a "random" value K, and the word. These two values and then used to change the values of a through h. The H values are then
+              combined with a through h and the inner for loop continues. Once both for loops have completed, the H values are contactenated
+              and returned. For the input 'abc', the result of this is '1011101001111000000101101011111110001111000000011100111111101010010000010100000101000000110111100101110110101110001000100010001110110000000000110110000110100011100101100001011101111010100111001011010000010000111111110110000111110010000000000001010110101101'
+              or 'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad' in hex (more common). 
+            </p>
+            
+        </div>
+        <!-- Begin Footer $include_path/footer.html -->
+        <div id="footer">
+            <br>
+            david.mcphee3@gmail.com | MIT license unless otherwise stated
+        </div>
+    </div>
 </body>
 </html>
