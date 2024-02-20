@@ -46,7 +46,7 @@
             <p>The algorthim class takes in input text. Generally this can be any data but for our case, it will be a string of text. The 
               text is then converted into binary. The class reuires an ASCII input (normal english characters, numbers, and symbols). Each
               character in the input is converted to it's binary representation. For example 'abc' is converted to '01100001 01100010 01100011'.
-              <img class="bImg" src="/includes/projects/sha256/img1.jpg" alt="str to bin code"></img>
+              <img class="bImg" src="/includes/other/sha256/img1.jpg" alt="str to bin code"></img>
               Each character in the string A is converted first to its ASCII number and then to binary. The bin() adds a flag '0b' to the front
               of the number so it is removed with [2:]. Finally the binary number is padded with zeros so that it is exactly 8 bits long. After
               this is done for all  characters in the string, the combined binary number is returned. In the case of 'abc', 
@@ -56,7 +56,7 @@
               padded with a '1' and then enough '0's so the length is 448 % 512 (64 minus a multiple of 512). Finally the length of 
               the orginal message is converted to binary, padded so it is length 64, and appended to the message. This results in a 
               message that is exactly 512 or 1024 or 1536, .. bits long. 
-              <img class="bImg" src="/includes/projects/sha256/img2.jpg" alt="pad msg so it is multiple of 512"></img>
+              <img class="bImg" src="/includes/other/sha256/img2.jpg" alt="pad msg so it is multiple of 512"></img>
               The first step in this method is to calculate how many '0's are to be padded. 
               <ul>
                 <li>len(msg) = 440: 7 '0's are to be added (recall we always pad a '1' to the message)</li>
@@ -71,7 +71,7 @@
               and the '1' wasn't required, the padded message would just be a string of 512 '0's. This would make the output predictable (not good).
               <p />
               Once we have the padded message, the hash can be computed.
-              <img class="bImg" src="/includes/projects/sha256/img3.jpg" alt="compute hash of msg"></img>
+              <img class="bImg" src="/includes/other/sha256/img3.jpg" alt="compute hash of msg"></img>
               This method starts with 8 32 bit numbers (H) and combines them in variosu ways with parts of the message many times.
               After the method finishs, the 8 H numbers are contactenated and returned as the hash.
               <p />
