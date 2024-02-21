@@ -18,7 +18,7 @@
         <!-- End Header $include_path/header.html -->
         <div class="main">
             <div class="bTitle"><p><u><strong>SHA-256</strong></u></p></div>
-            <img class="bImg" src="/includes/projects/sha256/thumbnail.jpeg" alt="Thumbnail for SHA-256"></img>
+            <img class="bImg" src="/includes/other/sha256/thumbnail.jpeg" alt="Thumbnail for SHA-256"></img>
             <p>The internet stores passwords as hashes resultant from algorthims such as
               the Secure Hash Algorthim (256 bits), to understand it more I recreated it in python. The SHA-256 
               algorthim takes in a string (your password) and outputs a seemingly random 256 bit number. There are a 
@@ -84,6 +84,38 @@
               combined with a through h and the inner for loop continues. Once both for loops have completed, the H values are contactenated
               and returned. For the input 'abc', the result of this is '1011101001111000000101101011111110001111000000011100111111101010010000010100000101000000110111100101110110101110001000100010001110110000000000110110000110100011100101100001011101111010100111001011010000010000111111110110000111110010000000000001010110101101'
               or 'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad' in hex (more common). 
+            </p>
+            <div class="bSub"><p><b>Diving Deeper: H and K (and prime numbers)</b></p></div>
+            <p>
+              H and K are both lists of 'random' numbers used in the above hash function. They are actually derived from the square root 
+              and cube root, respectivly. The reason for this is so that the numbers in the lists are as random as possible. H is used as 
+              the starting value for the hash. If the two above for loops were skipped (impossible), the resultant hash would just be all 
+              8 H values contactenated. K is used in the inner loop (64 K values for 64 loops).
+              <img class="bImg" src="/includes/other/sha256/img4.jpg" alt="compute H value"></img>
+              For a given i, the H[i] is found from getting the ith prime number and taking the square root, taking only the fractional 
+              part and converting it to binary. K is the same but using the cube root. 
+              <p />
+              A quick aside into primes. When creating this class I could have just hard-coded the prime numbers into the script, but 
+              instead I wrote a funtion to calculate the list every time the class is run. 
+              <img class="bImg" src="/includes/other/sha256/img5.jpg" alt="calculate list of i prime numbers"></img>
+              A prime number is defined as a number greater than 1 and is only divisable by itself and 1. A neat trick about numbers is 
+              that if you cannot divide by its factors, you cannot divide by multiples of its factors. For example 15 is not divisable by
+              2, therefore 15 is not divisable by 4 and 8. To create a list of i prime numbers, we start at 2 and check if it is divisable by
+              any of the previously defined prime numbers. Since there are no prime numbers in our list yet, we add 2 to it. This continues for
+              3. When we get to 4, it is divisable by 2 so we do not add it to the list. This continues until we have i prime numbers. 
+            </p>
+            <div class="bSub"><p><b>Diving Deeper: Breaking the message into words</b></p></div>
+            <p>
+              Recall that before we can break the message section (Mi) into words (W), we first need to take the nth 512 bit chuck of the 
+              message (M). Now Mi of length 512 bits needs to split into 64 words each 32 bits long. 
+              <img class="bImg" src="/includes/other/sha256/img6.jpg" alt="get words from message"></img>
+              The first 16 words are just the message split into the appropriete chucks, the next 48 words are more complex. They follow a 
+              equation that requires the previous words to be calculated. It is the summation (and truncation to 32 bits) of s1 of W[i-2],
+              s0 of w[i-15], w[i-7], and w[i-16]. 
+            </p>
+            <div class="bSub"><p><b>Diving Deeper: s0, s1, S0, S1, rotations and shifts</b></p></div>
+            <p>
+
             </p>
             
         </div>
