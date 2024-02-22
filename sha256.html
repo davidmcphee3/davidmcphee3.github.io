@@ -19,45 +19,45 @@
         <div class="main">
             <div class="bTitle"><p><u><strong>SHA-256</strong></u></p></div>
             <img class="bImg" src="/includes/other/sha256/thumbnail.jpeg" alt="Thumbnail for SHA-256"></img>
-            <p>The internet stores passwords as hashes resultant from algorthims such as
-              the Secure Hash Algorthim (256 bits), to understand it more I recreated it in python. The SHA-256 
-              algorthim takes in a string (your password) and outputs a seemingly random 256 bit number. There are a 
-              couple of factors that make for a good hashing algorthim. 
+            <p>The internet stores passwords as hashes resultant from algorithms such as
+              the Secure Hash Algorithm (256 bits), to understand it more I recreated it in python. The SHA-256
+              algorithm takes in a string (your password) and outputs a seemingly random 256 bit number. There are a
+              couple of factors that make for a good hashing algorithm.
               <ul>
                 <li>Same output for same input</li>
                 <li>A small change in the input results in a large change in the output</li>
                 <li>One-way, cannot derive the input from the output</li>
               </ul>
-              Instead of a server (website such as Facebook) storing passwords as plain text, they are 
+              Instead of a server (website such as Facebook) storing passwords as plain text, they are
               stored as their hashes. This means if the server is hacked, the hacker only has the hashes, not
               the passwords. Since hashes are one-way, the hacker cannot get the password.
               <p />
-              <a href="https://helix.stormhub.org/papers/SHA-256.pdf">This pdf</a> was used as a guide for 
-              a high level explaination of the algorthim. It was hard to find the author of the pdf, but following
+              <a href="https://helix.stormhub.org/papers/SHA-256.pdf">This pdf</a> was used as a guide for
+              a high level explanation of the algorithm. It was hard to find the author of the pdf, but following
               the watermark in the corner "CRIPTOGRAFIA", google leds me to believe it is a document by Prof.
-              Fernando Martinez Saez from FIB (technical school in Barcalona). 
-              <a href="https://youtu.be/orIgy2MjqrA?si=4hF9WfaLAhn4Wl-F">This video</a> by RedBlockBlue was used as well to verify 
-              some of the intermidate values in the algorthim. It was tricky to debug this program because the point
-              of the algorthim is to not be able to get information about the output from the input. RedBlockBlue basically
-              explained a similar pdf as the one from FIB but no source was provided. I did leave a comment asking for the source 
-              of the pdf used in the video. 
+              Fernando Martinez Saez from FIB (technical school in Barcelona).
+              <a href="https://youtu.be/orIgy2MjqrA?si=4hF9WfaLAhn4Wl-F">This video</a> by RedBlockBlue was used as well to verify
+              some of the intermediate values in the algorithm. It was tricky to debug this program because the point
+              of the algorithm is to not be able to get information about the output from the input. RedBlockBlue basically
+              explained a similar pdf as the one from FIB but no source was provided. I did leave a comment asking for the source
+              of the pdf used in the video.
               </p>
             <div class="bSub"><p><b>SHA-256 Overview</b></p></div>
-            <p>The algorthim class takes in input text. Generally this can be any data but for our case, it will be a string of text. The 
-              text is then converted into binary. The class reuires an ASCII input (normal english characters, numbers, and symbols). Each
-              character in the input is converted to it's binary representation. For example 'abc' is converted to '01100001 01100010 01100011'.
+            <p>The algorithm class takes in input text. Generally this can be any data but for our case, it will be a string of text. The
+              text is then converted into binary. The class requires an ASCII input (normal english characters, numbers, and symbols). Each
+              character in the input is converted to its binary representation. For example 'abc' is converted to '01100001 01100010 01100011'.
               <img class="bImg" src="/includes/other/sha256/img1.jpg" alt="str to bin code"></img>
               Each character in the string A is converted first to its ASCII number and then to binary. The bin() adds a flag '0b' to the front
               of the number so it is removed with [2:]. Finally the binary number is padded with zeros so that it is exactly 8 bits long. After
-              this is done for all  characters in the string, the combined binary number is returned. In the case of 'abc', 
-              '011000010110001001100011' is returned. 
+              this is done for all  characters in the string, the combined binary number is returned. In the case of 'abc',
+              '011000010110001001100011' is returned.
               <p />
-              This message then needs to get padded so that it is a multiple of 512 bits. The algorthim requires the message to be 
-              padded with a '1' and then enough '0's so the length is 448 % 512 (64 minus a multiple of 512). Finally the length of 
-              the orginal message is converted to binary, padded so it is length 64, and appended to the message. This results in a 
-              message that is exactly 512 or 1024 or 1536, .. bits long. 
+              This message then needs to be padded so that it is a multiple of 512 bits. The algorithm requires the message to be
+              padded with a '1' and then enough '0's so the length is 448 % 512 (64 minus a multiple of 512). Finally the length of
+              the original message is converted to binary, padded so it is length 64, and appended to the message. This results in a
+              message that is exactly 512 or 1024 or 1536, .. bits long.
               <img class="bImg" src="/includes/other/sha256/img2.jpg" alt="pad msg so it is multiple of 512"></img>
-              The first step in this method is to calculate how many '0's are to be padded. 
+              The first step in this method is to calculate how many '0's are to be padded.
               <ul>
                 <li>len(msg) = 440: 7 '0's are to be added (recall we always pad a '1' to the message)</li>
                 <li>len(msg) = 800: 159 '0's are to be added</li>
@@ -67,74 +67,74 @@
               of adding -2 '0's we add 450 '0's. We add the length of the message in binary and pad it so it is 64 bits long. For our string
               'abc', the padded message is '011000010110001001100011' + '0'*423 + '0'*62 + '11'.
               <p />
-              As an aside. I postulate that the algorthim requires us to add a '1' to handle specific cases. If the input string is blank
+              As an aside. I postulate that the algorithm requires us to add a '1' to handle specific cases. If the input string is blank
               and the '1' wasn't required, the padded message would just be a string of 512 '0's. This would make the output predictable (not good).
               <p />
               Once we have the padded message, the hash can be computed.
               <img class="bImg" src="/includes/other/sha256/img3a.jpg" alt="compute hash of msg"></img>
               <img class="bImg" src="/includes/other/sha256/img3b.jpg" alt="compute hash of msg"></img>
-              This method starts with 8 32 bit numbers (H) and combines them in variosu ways with parts of the message many times.
-              After the method finishs, the 8 H numbers are contactenated and returned as the hash.
+              This method starts with 8 32 bit numbers (H) and combines them in various ways with parts of the message many times.
+              After the method finishes, the 8 H numbers are concatenated and returned as the hash.
               <p />
-              The method if initializes the variable prev_H with the 8 starting values of H. It then entires a for loop that loops for 
-              each 512 bit block in the message. If the message is 512 bits, the loop only runs once. A message of length 1024 would loop 
-              twice, and so on. The loop first takes the corresponding section of the message and stores it as Mi and breaks the section 
+              The method if initializes the variable prev_H with the 8 starting values of H. It then entries a for loop that loops for
+              each 512 bit block in the message. If the message is 512 bits, the loop only runs once. A message of length 1024 would loop
+              twice, and so on. The loop first takes the corresponding section of the message and stores it as Mi and breaks the section
               of the message into 64 words (words are 64 bits long). The variables a through h are initialized to the values of H.
               For each word in Mi, an inner loop is run. This inner loop calculates two values T1 and T2 using the variables a through h,
               a "random" value K, and the word. These two values and then used to change the values of a through h. The H values are then
-              combined with a through h and the inner for loop continues. Once both for loops have completed, the H values are contactenated
+              combined with a through h and the inner for loop continues. Once both for loops have completed, the H values are concatenated
               and returned. For the input 'abc', the result of this is '1011101001111000000101101011111110001111000000011100111111101010010000010100000101000000110111100101110110101110001000100010001110110000000000110110000110100011100101100001011101111010100111001011010000010000111111110110000111110010000000000001010110101101'
-              or 'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad' in hex (more common). 
+              or 'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad' in hex (more common).
             </p>
             <div class="bSub"><p><b>Diving Deeper: H and K (and prime numbers)</b></p></div>
             <p>
-              H and K are both lists of 'random' numbers used in the above hash function. They are actually derived from the square root 
-              and cube root, respectivly. The reason for this is so that the numbers in the lists are as random as possible. H is used as 
-              the starting value for the hash. If the two above for loops were skipped (impossible), the resultant hash would just be all 
-              8 H values contactenated. K is used in the inner loop (64 K values for 64 loops).
+              H and K are both lists of 'random' numbers used in the above hash function. They are actually derived from the square root
+              and cube root, respectively. The reason for this is so that the numbers in the lists are as random as possible. H is used as
+              the starting value for the hash. If the two above for loops were skipped (impossible), the resultant hash would just be all
+              8 H values concatenated. K is used in the inner loop (64 K values for 64 loops).
               <img class="bImg" src="/includes/other/sha256/img4.jpg" alt="compute H value"></img>
-              For a given i, the H[i] is found from getting the ith prime number and taking the square root, taking only the fractional 
-              part and converting it to binary. K is the same but using the cube root. 
+              For a given i, the H[i] is found from getting the ith prime number and taking the square root, taking only the fractional
+              part and converting it to binary. K is the same but using the cube root.
               <p />
-              A quick aside into primes. When creating this class I could have just hard-coded the prime numbers into the script, but 
-              instead I wrote a funtion to calculate the list every time the class is run. 
+              A quick aside into primes. When creating this class I could have just hard-coded the prime numbers into the script, but
+              instead I wrote a function to calculate the list every time the class is run.
               <img class="bImg" src="/includes/other/sha256/img5.jpg" alt="calculate list of i prime numbers"></img>
-              A prime number is defined as a number greater than 1 and is only divisable by itself and 1. A neat trick about numbers is 
-              that if you cannot divide by its factors, you cannot divide by multiples of its factors. For example 15 is not divisable by
-              2, therefore 15 is not divisable by 4 and 8. To create a list of i prime numbers, we start at 2 and check if it is divisable by
+              A prime number is defined as a number greater than 1 and is only divisible by itself and 1. A neat trick about numbers is
+              that if you cannot divide by its factors, you cannot divide by multiples of its factors. For example 15 is not divisible by
+              2, therefore 15 is not divisible by 4 and 8. To create a list of i prime numbers, we start at 2 and check if it is divisible by
               any of the previously defined prime numbers. Since there are no prime numbers in our list yet, we add 2 to it. This continues for
-              3. When we get to 4, it is divisable by 2 so we do not add it to the list. This continues until we have i prime numbers. 
+              3. When we get to 4, it is divisible by 2 so we do not add it to the list. This continues until we have i prime numbers.
             </p>
             <div class="bSub"><p><b>Diving Deeper: Breaking the message into words</b></p></div>
             <p>
-              Recall that before we can break the message section (Mi) into words (W), we first need to take the nth 512 bit chuck of the 
-              message (M). Now Mi of length 512 bits needs to split into 64 words each 32 bits long. 
+              Recall that before we can break the message section (Mi) into words (W), we first need to take the nth 512 bit chuck of the
+              message (M). Now Mi of length 512 bits needs to be split into 64 words each 32 bits long.
               <img class="bImg" src="/includes/other/sha256/img6.jpg" alt="get words from message"></img>
-              The first 16 words are just the message split into the appropriete chucks, the next 48 words are more complex. They follow a 
+              The first 16 words are just the message split into the appropriate chucks, the next 48 words are more complex. They follow a
               equation that requires the previous words to be calculated. It is the summation (and truncation to 32 bits) of s1 of W[i-2],
-              s0 of w[i-15], w[i-7], and w[i-16]. 
+              s0 of w[i-15], w[i-7], and w[i-16].
             </p>
             <div class="bSub"><p><b>Diving Deeper: s0, s1, S0, S1, ch, and maj</b></p></div>
             <p>
               The sigma functions s0, s1, S0, and S1 are used in the main hash function and operate on a single, 32 bit input. The functions use
-              rot_r and sh_r functions. The rot_r rotates x bits to the right. For example '00001111' rotated 3 bits will result in 
-              '11100001'. The sh_r shifts x bits to the right and then pads the lefthand side with '0's. For the same example, a shift 
-              of 3 will result in '00000001'. Each sigma uses a combination of these function and then XOR's the resulting values. 
+              rot_r and sh_r functions. The rot_r rotates x bits to the right. For example '00001111' rotated 3 bits will result in
+              '11100001'. The sh_r shifts x bits to the right and then pads the left hand side with '0's. For the same example, a shift
+              of 3 will result in '00000001'. Each sigma uses a combination of these functions and then XOR's the resulting values.
               <img class="bImg" src="/includes/other/sha256/img7.jpg" alt="sigma functions"></img>
               <p />
-              A quick aside into bitwise operators. Bitwise operators take into two values and outputs a third value. They act on each 
-              bit in the number. The AND operator results in a '1' if both bits are '1' and '0' otherwise. The OR operator results in a 
-              '0' if both bits are '0' and '1' otherwise. The XOR operator results in a '0' if both bits are the same and '1' otherwise. 
-              The COMP operator acts only on one input and simply flips the bits. 
+              A quick aside into bitwise operators. Bitwise operators take into two values and outputs a third value. They act on each
+              bit in the number. The AND operator results in a '1' if both bits are '1' and '0' otherwise. The OR operator results in a
+              '0' if both bits are '0' and '1' otherwise. The XOR operator results in a '0' if both bits are the same and '1' otherwise.
+              The COMP operator acts only on one input and simply flips the bits.
               <p />
-              The majortiy and choose function operate on three inputs of 32 bits and results in a single 32 bit output. The majority 
+              The majority and choose function operate on three inputs of 32 bits and results in a single 32 bit output. The majority
               function returns which bit is in the majority. For example if A, B, C are  '101', '111', and '001', the result is '101'.
-              The choose function chooses between B or C depending on A's bit. If A is '1', the bit in B is chosen. If A is '0', the bit in 
+              The choose function chooses between B or C depending on A's bit. If A is '1', the bit in B is chosen. If A is '0', the bit in
               C is chosen. For example if A, B, C are  '101', '110', and '001', the result is '100'.
               <img class="bImg" src="/includes/other/sha256/img8.jpg" alt="choose and majority functions"></img>
-              
+             
             </p>
-            
+           
         </div>
         <!-- Begin Footer $include_path/footer.html -->
         <div id="footer">
@@ -144,3 +144,6 @@
     </div>
 </body>
 </html>
+
+
+
