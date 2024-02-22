@@ -113,9 +113,25 @@
               equation that requires the previous words to be calculated. It is the summation (and truncation to 32 bits) of s1 of W[i-2],
               s0 of w[i-15], w[i-7], and w[i-16]. 
             </p>
-            <div class="bSub"><p><b>Diving Deeper: s0, s1, S0, S1, rotations and shifts</b></p></div>
+            <div class="bSub"><p><b>Diving Deeper: s0, s1, S0, S1, ch, and maj</b></p></div>
             <p>
-
+              The sigma functions s0, s1, S0, and S1 are used in the main hash function and operate on a single, 32 bit input. The functions use
+              rot_r and sh_r functions. The rot_r rotates x bits to the right. For example '00001111' rotated 3 bits will result in 
+              '11100001'. The sh_r shifts x bits to the right and then pads the lefthand side with '0's. For the same example, a shift 
+              of 3 will result in '00000001'. Each sigma uses a combination of these function and then XOR's the resulting values. 
+              <img class="bImg" src="/includes/other/sha256/img7.jpg" alt="sigma functions"></img>
+              <p />
+              A quick aside into bitwise operators. Bitwise operators take into two values and outputs a third value. They act on each 
+              bit in the number. The AND operator results in a '1' if both bits are '1' and '0' otherwise. The OR operator results in a 
+              '0' if both bits are '0' and '1' otherwise. The XOR operator results in a '0' if both bits are the same and '1' otherwise. 
+              The COMP operator acts only on one input and simply flips the bits. 
+              <p />
+              The majortiy and choose function operate on three inputs of 32 bits and results in a single 32 bit output. The majority 
+              function returns which bit is in the majority. For example if A, B, C are  '101', '111', and '001', the result is '101'.
+              The choose function chooses between B or C depending on A's bit. If A is '1', the bit in B is chosen. If A is '0', the bit in 
+              C is chosen. For example if A, B, C are  '101', '110', and '001', the result is '100'.
+              <img class="bImg" src="/includes/other/sha256/img8.jpg" alt="choose and majority functions"></img>
+              
             </p>
             
         </div>
