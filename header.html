@@ -1,0 +1,44 @@
+<!-- header.html -->
+<div id="header-content">
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>David McPhee's Personal Homepage</title>
+    <link rel="shortcut icon" type="image/png" href="includes/favicon.png">
+    <link href="includes/main.css" rel="stylesheet" type="text/css" media="screen" />
+    
+    <div id="nav-links">
+        <!-- This will be dynamically populated by JavaScript -->
+    </div>
+ 
+    <script>
+        // Function to update the navigation links based on the value passed
+        function updateNavigation(input) {
+            const navLinks = document.getElementById('nav-links');
+            let navContent = '';
+ 
+            // Define the navigation options based on the input value
+            switch(input) {
+                case 1:
+                    navContent = '<ul><li><a href="/projects">Back To Projects</a></li></ul>';
+                    break;
+                case 2:
+                    navContent = '<ul><li><a href="/ideas">Back To Ideas</a></li></ul>';
+                    break;
+                case 3:
+                    navContent = '<ul><li><a href="/about">About Me</a></li></ul>';
+                    break;
+                case 4:
+                    navContent = '<ul><li><a href="/contact">Contact</a></li></ul>';
+                    break;
+                default:
+                    navContent = '<ul><li><a href="/home">Home</a></li></ul>';
+                    break;
+            }
+ 
+            // Inject the updated navigation content into the DOM
+            navLinks.innerHTML = navContent;
+        }
+    </script>
+ </div>
+ 
