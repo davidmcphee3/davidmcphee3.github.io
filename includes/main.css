@@ -62,7 +62,7 @@ a:hover{
 	/*pad everything*/
 }
 
-/* Adjusting the header and nav to fit within the content width */
+/* Ensure the header and nav fit within the content */
 #header {
 	text-align: center;
 	margin-top: 30px;
@@ -75,7 +75,7 @@ a:hover{
   
   #header a {
 	display: inline-block;
-	width: 200px;
+	width: 100px;
 	margin: 0 auto;
   }
   
@@ -84,10 +84,10 @@ a:hover{
 	justify-content: center;
 	align-items: center;
 	padding: 20px 0;
-	width: 100%;
-	max-width: 800px; /* Make sure nav width is same as content */
+	max-width: 800px;
 	margin-left: auto;
 	margin-right: auto;
+	box-sizing: border-box;
   }
   
   #nav ul {
