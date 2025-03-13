@@ -127,16 +127,19 @@ a:hover{
   }
   
 
-#footer{
-	height:50px;
-	clear:both;
-	text-align:center;
-	background-color:#626262;
-	font-family:Arial;
-	font-size:13px;
+  #footer {
+	height: 50px;
+	clear: both;
+	background-color: #626262;
+	font-family: Arial;
+	font-size: 13px;
 	border-radius: 20px;
-	color:#b3b3b3;
-}
+	color: #b3b3b3;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+  }
 
 #note{
 	height: auto;
