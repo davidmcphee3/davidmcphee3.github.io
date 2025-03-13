@@ -9,55 +9,41 @@
 <title>David McPhee's Personal Homepage</title>
 <link rel="shortcut icon" type="image/png" href="includes/favicon.png">
 <link href="includes/main.css" rel="stylesheet" type="text/css" media="screen" />
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-C8K8BK48K1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag() { dataLayer.push(arguments); }
-  gtag('js', new Date());
-  gtag('config', 'G-C8K8BK48K1');
-</script>
 </head>
 
 <body style="background-color:#121212;">
 
 <div id="content">
+  <!-- Header content will be dynamically loaded here -->
+  <div id="header-container"></div>
 
-  <header id="header">
-    <a href="image.html">
-      <img src="includes/headshots/headshot.png" alt="Header Image" class="headerimg">
-    </a>
-  </header>
+  <!-- Main content will be dynamically loaded here -->
+  <div id="main-container"></div>
 
-  <nav id="nav">
-    <ul>
-      <li><a href="/index">Home</a></li>
-      <li><a href="/resume.pdf">CV</a></li>
-      <li><a href="/projects">Projects</a></li>
-      <li><a href="/other">Ideas</a></li>
-    </ul>
-  </nav>
-
-  <main class="main">
-    <p>Hi, I am David McPhee. Over the past few years I have been designing and 
-      building satellites, specificly the RF subsystem. I got a degree in 
-    Engineering Physics at the University of Saskatchewan in 2021 and moved 
-    down to Long Beach in early 2024 to work in the Space Systems division of Rocket Lab.</p>
-
-    <p>As an engineer, I find it hard to stop working on problems, even on the weekends
-    and evenings. To leave a paper trail and share my projects with others, I have them
-    all stored in the <a href="projects">Projects</a> page.</p>
-
-    <p>I also have been exploring a varitey of topics that are less hands-on. These 
-      are likes projects, but for the mind <a href="other">Ideas</a> page.</p>
-  </main>
-
-  <footer id="footer">
-    <p>david.mcphee3@gmail.com | MIT license unless otherwise stated</p>
-  </footer>
-
+  <!-- Footer content will be dynamically loaded here -->
+  <div id="footer-container"></div>
 </div>
+
+<!-- JavaScript to load the header, main content, and footer -->
+<script>
+  // Fetch the header, main content, and footer dynamically
+  Promise.all([
+    fetch('header-content.html').then(response => response.text()),
+    fetch('main-content.html').then(response => response.text()),
+    fetch('footer-content.html').then(response => response.text())
+  ])
+  .then(([headerData, mainData, footerData]) => {
+    document.getElementById('header-container').innerHTML = headerData;
+    document.getElementById('main-container').innerHTML = mainData;
+    document.getElementById('footer-container').innerHTML = footerData;
+  })
+  .catch(error => {
+    console.error('Error loading content:', error);
+    document.getElementById('header-container').innerHTML = '<p>Sorry, the header could not be loaded.</p>';
+    document.getElementById('main-container').innerHTML = '<p>Sorry, the main content could not be loaded.</p>';
+    document.getElementById('footer-container').innerHTML = '<p>Sorry, the footer could not be loaded.</p>';
+  });
+</script>
 
 </body>
 
