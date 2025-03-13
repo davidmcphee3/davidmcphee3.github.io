@@ -24,11 +24,11 @@
             Binary Phase Shift Keying (BPSK) is a modulation technique used in satellite communications, Bluetooth, and other applications. 
             Modulation works by combining a carrier signal with a stream of digital bits. The resulting spectrum (as shown in the thumbnail) 
             demonstrates that the BPSK signal occupies more than just the carrier frequency. It appears as a set of rolling hills with nulls 
-            (zero-crossings) at the symbol rate. We can rebuild this spectrum in Python and explain why:
+            at the symbol rate. We can rebuild this spectrum in Python and explore the following:
             <ol>
-              <li>The spectrum is wider than just the carrier frequency.</li>
-              <li>What is actually contained in the rolling hills.</li>
-              <li>Why there are nulls at the symbol rate offset from the carrier frequency.</li>
+              <li>Why is the spectrum wider than just the carrier frequency?</li>
+              <li>What data is actually contained in the rolling hills?</li>
+              <li>Why there are nulls at the symbol rate offset from the carrier frequency?</li>
             </ol>
         </p>
             We will start by looking at the signals in the time domain and explaining how each part contributes to the BPSK signal. 
