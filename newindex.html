@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>David McPhee's Personal Homepage</title>
+<link rel="shortcut icon" type="image/png" href="includes/favicon.png">
+<link href="includes/main.css" rel="stylesheet" type="text/css" media="screen" />
+</head>
+
+<body style="background-color:#121212;">
+
+<div id="content">
+  <!-- Header content will be dynamically loaded here -->
+  <div id="header-container"></div>
+
+  <!-- Main content will be dynamically loaded here -->
+  <div id="main-container"></div>
+
+  <!-- Footer content will be dynamically loaded here -->
+  <div id="footer-container"></div>
+</div>
+
+<!-- JavaScript to load the header, main content, and footer -->
+<script>
+  // Fetch the header, main content, and footer dynamically
+  Promise.all([
+    fetch('header-content.html').then(response => response.text()),
+    fetch('main-content.html').then(response => response.text()),
+    fetch('footer-content.html').then(response => response.text())
+  ])
+  .then(([headerData, mainData, footerData]) => {
+    document.getElementById('header-container').innerHTML = headerData;
+    document.getElementById('main-container').innerHTML = mainData;
+    document.getElementById('footer-container').innerHTML = footerData;
+  })
+  .catch(error => {
+    console.error('Error loading content:', error);
+    document.getElementById('header-container').innerHTML = '<p>Sorry, the header could not be loaded.</p>';
+    document.getElementById('main-container').innerHTML = '<p>Sorry, the main content could not be loaded.</p>';
+    document.getElementById('footer-container').innerHTML = '<p>Sorry, the footer could not be loaded.</p>';
+  });
+</script>
+
+</body>
+
+</html>
