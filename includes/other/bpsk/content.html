@@ -127,7 +127,7 @@
             <img class="bEqu" src="/includes/other/bpsk/equ8.png" alt="Fourier Series bn piecewise"></img>
 
             Putting these back into the Fourier Series equation:
-            <img class="bEqu" src="/includes/other/bpsk/equ8.png" alt="Fourier Series of a Square"></img>
+            <img class="bEqu" src="/includes/other/bpsk/equ9.png" alt="Fourier Series of a Square"></img>
 
             If we start to plot the individual components of the Fourier Series, we see that as <i>n</i> increases, the frequency of the 
             component increases, but each sine wave continues to have a null at <i>L, -L, 2*L, -2*L, etc.</i> 
@@ -139,16 +139,60 @@
             1/L, 3/L, 5/L. 
             <img class="bImg" src="/includes/other/bpsk/img13.png" alt="Fourier Series of a Square wave, increasing size of n"></img>
 
-            As we convert the time series of a square wave to the frequency domain, we expect to see tones at 1/L, 3/L, 5/L, etc. Which 
-            is what we saw at the beginning of this section for an L of 0.04, so the tones are 25, 75, 125, etc.
-            <img class="bImg" src="/includes/other/bpsk/img14.png" alt="Square Wave FFT"></img>
+            As we convert the time series of a square wave to the Frequency domain, we expect to see tones at 1/L, 3/L, 5/L, etc. Which 
+            is what we saw at the beginning of this section for a L of 0.04 so the tones are 25, 75, 125, etc.
+            <img class="bImg" src="/includes/other/bpsk/img11.png" alt="FFT of a Square Wave with Symbol Frequeny 25"></img>
 
-            Now that we have created a square wave, we are able to discuss higher order modulations like BPSK, QPSK, etc. 
-            Keep an eye on what happens to the frequency components as we increase the number of bits per symbol.
+            <div class="bSub"><p><b>BPSK of a Square Wave</b></p></div>
+            We now have our Fourier Series for the Carrier and Data waves. To finally get the BPSK wave, in the time domain we
+            multiplied these arrays but since we are in the Frequency domain, we will have to take the convolution. In simple terms,
+            the convoultion just re-centers the data wave so that its 0 point is now at the carrier frequency. Since the carrier 
+            frequency is much higher than 0, we can again show the (formerally) negative side of the plot because it is now a 
+            offset of the carrier frequency.
+            <img class="bImg" src="/includes/other/bpsk/img14.png" alt="Frequency Domain of a Square Wave"></img>
 
-            <div class="bSub"><p><b>The End (Not Quite)</b></p></div>
-            Some interesting questions come out of this solution: can we send more than 1 bit per symbol (yes, it's called QPSK), 
-            and how does the symbol rate affect bandwidth and energy?
+            We see the same tones now but as an offset to the carrier frequency. Instead of +-25, +-75, +-125, we see 
+            2500+-25, 2500+-75, 2500+-125 or 2325, 2375, 2425, 2475, 2525, 2575, 2625, 2675. This is our BPSK signal 
+            from the thumbnail and we do see nulls at integer multiples of the symbol rate (50), but it doesn't look "filled-in". This 
+            is because of the assumption we made about the data being square waves. 
+    </p>
+            The data, since it's random and infinite, is actually a superposition of rectangular waves. Our square wave (L = 1) has a 
+            series like [1,0,1,0], L = 2 looks like [1,1,0,0,1,1,0,0] and so on for increasing L. 
+
+            <div class="bSub"><p><b>The Frequency Domain (Retangular Waves)</b></p></div>
+            We can revisit the derived equations for the Fourier Series of a Square wave and use L = 2 (or higher) instead of L = 1. 
+            Once we solve this equation, we can then combine our square and retangle wave to get closer to the real BPSK signal. 
         </p>
+            One the left is the Fourier Series of the superposition rectangle waves with increasing complexity and on the left is 
+            the BPSK signal. The nulls at the integer multiples of the symbol rate persist and the "hills" are starting to take shape.
+            <img class="bImg" src="/includes/other/bpsk/img15a.png" alt="Frequency Domain of a Square Wave (1,2)"></img>
+            <img class="bImg" src="/includes/other/bpsk/img15b.png" alt="Frequency Domain of a Square Wave (1,2,3)"></img>
+            <img class="bImg" src="/includes/other/bpsk/img15c.png" alt="Frequency Domain of a Square Wave (1,2,3,4)"></img>
+
+            Finally we compare the superposition of retangular waves up to the order L = 6 against random data. The two plots are starting 
+            to look very similar to eachother as well as the thumbnail. 
+            <img class="bImg" src="/includes/other/bpsk/img16a.png" alt="Frequency Domain of a Square Wave (1,2,3,4,5,6)"></img>
+            <img class="bImg" src="/includes/other/bpsk/img16b.png" alt="Frequency Domain of Random Data"></img>
+
+            Can we prove that there will never be a sine component of the square/rectangle waves with a frequency of that of the 
+            symbol rate (or integer multiple therefore?).
+        </p>
+            <div class="bSub"><p><b>Conclusion and More Questions</b></p></div>
+            We can now revisit our original questions with some answers
+
+            <ol>
+                <li>The spectrum is wider than just the carrier frequency <i>because</i> the data signal is a superposition of 
+                retangular waves with periods of integer multiples of the symbol rate.</li>
+                <li>The data in the rolling hills are a result of the sine wavs that make up the rectangular waves.</li>
+                <li>The nulls at the integer multiples of the symbol rate are because through the derivation of the Fourier Series
+                    of a rectanglur wave, we calculated that it is a summation of sine waves with odd integer multiples of the inverse 
+                    of the symbol rate (and integer multiples of). 
+                </li>
+              </ol>
+
+            There are questions that come out of this solution such as: can we send more than 1 bit per symbol (yes its called 
+            QPSK) can we maintain the carrier while also setting data (yes, its called a residuel carrier and modulation index). 
+            This is just the starting point to digital modulation.   
+
     </main>
 
