@@ -1,170 +1,50 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
+<meta charset="UTF-8">
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-
 <title>David McPhee's Personal Homepage</title>
 <link rel="shortcut icon" type="image/png" href="includes/favicon.png">
 <link href="includes/main.css" rel="stylesheet" type="text/css" media="screen" />
-
 </head>
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-C8K8BK48K1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-C8K8BK48K1');
-</script>
 
 <body style="background-color:#121212;">
 
 <div id="content">
+  <!-- Header content will be dynamically loaded here -->
+  <div id="header-container"></div>
 
-<div id="header">
-<a href="image.html"><img src="includes/headshots/headshot.png" alt="Header Image" class="headerimg"></img>
-</a>
+  <!-- Main content will be dynamically loaded here -->
+  <div id="main-container"></div>
 
-<!--<center>
-David McPhee's Personal Homepage
-</center>
--->
-
+  <!-- Footer content will be dynamically loaded here -->
+  <div id="footer-container"></div>
 </div>
 
-<div id="tweet">
-<a class="twitter-timeline"
-	href="https://twitter.com/mcpheefilms?ref_src=twsrc%5Etfw"
-	data-chrome="nofooter noheader"
-	data-theme="dark"
-	data-tweet-limit="1">
-	Lastest Tweet
-</a>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-</div>
+<!-- JavaScript to load the header, main content, and footer -->
+<script>
+  // Fetch the header, main content, and footer dynamically
+  Promise.all([
+    fetch('header-content.html').then(response => response.text()),
+    fetch('/includes/projects/content.html').then(response => response.text()),
+    fetch('footer-content.html').then(response => response.text())
+  ])
+  .then(([headerData, mainData, footerData]) => {
+    document.getElementById('header-container').innerHTML = headerData;
+    document.getElementById('main-container').innerHTML = mainData;
+    document.getElementById('footer-container').innerHTML = footerData;
+  })
+  .catch(error => {
+    console.error('Error loading content:', error);
+    document.getElementById('header-container').innerHTML = '<p>Sorry, the header could not be loaded.</p>';
+    document.getElementById('main-container').innerHTML = '<p>Sorry, the main content could not be loaded.</p>';
+    document.getElementById('footer-container').innerHTML = '<p>Sorry, the footer could not be loaded.</p>';
+  });
+</script>
 
-<div id="nav">
-<ul>
-<li><a href="/index">Home</a></li>
-<li><a href="/resume.pdf">CV</a></li>
-<li><a href="/projects">Projects</a></li>
-<li><a href="/adventures">Adventures</a></li>
-<li><a href="/other">Other</a></li>
-</ul>
-</div>
-
-
-<!-- End Header $include_path/header.html -->
-
-<div class="main">
-
-Here is a list of the projects that I am (or have been) working on. They mostly center around small electronics or
-software. All the code I show is either mine or open source so feel free to do with it what you want (make sure to
-check the licenses).
-</div>
-
-<div class="proj" onclick="location.href='/authmanager';" style="cursor: pointer;">
-	<p><hdr>Authentication Manager</hdr>
-	<span style="float:right;"><a href="https://github.com/davidmcphee3/auth-manager">Github Repo</a></span><br>
-	<img src="includes/projects/authmanager/thumbnail.jpeg" alt="Thumbnail for Authentication Manger" class="projimg"></img>
-	<span>There are many ways that a service can store credentials for their users. This project
-	demonstrates 3 different storage solutions with a python example...
-	<br><br><i>Published: 2024-07-05<br>Updated: 2024-02-16</i></span></p>
-</div>
-
-<div class="proj" onclick="location.href='/tower';" style="cursor: pointer;">
-<p><hdr>Toddler Tower</hdr>
-<br>
-<img src="includes/projects/tower/thumbnail.jpeg" alt="Thumbnail for Toddler Tower" class="projimg"></img>
-<span>My daughter has started to become interested in what is going on in the kitchen, however all of 
-the counters are too high for her. The solution is to build a toddler tower...
-<br><br><i>Published: 2022-12-28<br>Updated: 2022-12-28</i></span></p></div>
-
-<div class="proj" onclick="location.href='/mind';" style="cursor: pointer;">
-<p><hdr>Philosophy of the Mind</hdr>
-<br>
-<img src="includes/projects/mind/thumbnail.jpg" alt="Thumbnail for Philosophy of the Mind" class="projimg"></img>
-<span>Jonathan Haidt outlined three theories of how passion and reason work in our minds in the book
-<i>The Righteous Mind</i>. I used AI to develop photos of each philosopy...
-<br><br><i>Published: 2022-12-10<br>Updated: 2022-12-10</i></span></p></div>
-
-<div class="proj" onclick="location.href='/doorbell';" style="cursor: pointer;">
-<p><hdr>OLED Doorbell</hdr>
-<span style="float:right;"><a href="https://github.com/davidmcphee3/doorbellOLED">Github Repo</a></span><br>
-<img src="includes/projects/doorbell/thumbnail.jpg" alt="Thumbnail for Doorbell OLED" class="projimg"></img>
-<span>This is a OLED attachment to the doorbell to display messages and images. It is connected via WiFi
-and can be controlled via a phone with internet. This all started with the wife needing...
-<br><br><i>Published: 2022-08-01<br>Updated: 2022-08-01</i></span></p></div>
-
-<div class="proj" onclick="location.href='/tinytoons';" style="cursor: pointer;">
-<p><hdr>LCD IoT</hdr>
-<br>
-<img src="includes/projects/tinytoons/thumbnail.jpg" alt="Thumbnail for LCD IoT" class="projimg"></img>
-<span>This is a major hardware update from the CRT IoT project. 30 years in the future (from 1955), the
-LCD TV was released and conveniently came with component ports. Unlike it's predecessor, the LCD IoT
-actually ...
-<br><br><i>Published: 2022-05-03<br>Updated: 2022-05-03</i></span></p></div>
-
-<div class="proj" onclick="location.href='/cryptominer';" style="cursor: pointer;">
-<p><hdr>Mining Crypto, A Bitcoin Explainer</hdr>
-<br>
-<img src="includes/projects/cryptominer/thumbnail.jpg" alt="Thumbnail for cryptominer" class="projimg"></img>
-<span> For this project a raspberry pi will be converted to a miner, working with a pool of others to solve
-cryptographic puzzles. To fully understand this process we must start with the whitepaper...
-<br><br><i>Published: 2022-04-09<br>Updated: 2022-04-11</i></span></p></div>
-
-<div class="proj" onclick="location.href='/smartcontracts';" style="cursor: pointer;">
-<p><hdr>Ethereum Smart Contracts</hdr>
-<br>
-<img src="includes/projects/smartcontracts/thumbnail.jpg" alt="Thumbnail for smart contracts" class="projimg"></img>
-<span>Smart contracts are a way of automatically executing transactions on the Ethereum blockchain. This project
-will cover the basics of these topics as well as the creation of a smart contract to deploy a...
-<br><br><i>Published: 2022-04-03<br>Updated: 2022-04-03</i></span></p></div>
-
-<div class="proj" onclick="location.href='/crtoons';" style="cursor: pointer;">
-<p><hdr>CRT IoT</hdr>
-<span style="float:right;"><a href="https://github.com/davidmcphee3/crtoons">Github Repo</a></span><br>
-<img src="includes/projects/crtoons/thumbnail.jpg" alt="Thumbnail for CRT IoT" class="projimg"></img>
-<span>This could be considered a nostalgia machine, a old CRT that has been upgraded with internet capabilities
-which enables viewing of cartoons from years past. Specifically the TV show from...
-<br><br><i>Published: 2022-04-02<br>Updated: 2022-05-03</i></span></p></div>
-
-<div class="proj" onclick="location.href='/wordlesolver';" style="cursor: pointer;">
-<p><hdr>Wordle Solver</hdr>
-<span style="float:right;"><a href="https://github.com/davidmcphee3/wordlesolver">Github Repo</a></span><br>
-<img src="includes/projects/wordlesolver/thumbnail.png" alt="Thumbnail for wordle solver" class="projimg"></img>
-<span>This is a python script that solves the Wordle Puzzle. It was developed specifically to assist me in the
-middle of a game of Wordle. It also works to solve the puzzle from start to finish...
-<br><br><i>Published: 2022-02-12<br>Updated: 2022-02-26</i></span></p></div>
-
-<div class="proj" onclick="location.href='/website';" style="cursor: pointer;">
-<p><hdr>Website From Scratch</hdr>
-<span style="float:right;"><a href="https://github.com/davidmcphee3/davidmcphee3.github.io">Github Repo</a></span><br>
-<img src="includes/projects/website/thumbnail.png" alt="Thumbnail for HTML and CSS" class="projimg"></img>
-<span>This is a directory and the files within that make up a website, <i>meta</i>. It was make from scratch
-so no online website builders like Wix or SquareSpace. It is the first time I ever used...
-<br><br><i>Published: 2022-02-23<br>Updated: 2022-02-26</i></span></p></div>
-
-<div class="proj" onclick="location.href='/webserver';" style="cursor: pointer;">
-<p><hdr>DIY Webserver</hdr>
-<br>
-<img src="includes/projects/webserver/thumbnail.jpg" alt="Thumbnail for webserver" class="projimg"></img>
-<span>There is more to creating a website than just buying a cool domain name. This is a project that uses
-a raspberry pi to host the files of this website. This is a very low cost way to experiment with web hosting...
-<br><br><i>Published: 2022-02-21<br>Updated: 2022-02-26</i></span></p></div>
-<!-- Begin Footer $include_path/footer.html -->
-
-
-<div id="footer">
-<br>
-david.mcphee3@gmail.com | MIT license unless otherwise stated
-
-</div>
-
-</div>
 </body>
+
 </html>

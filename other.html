@@ -1,140 +1,50 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
+<meta charset="UTF-8">
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-
 <title>David McPhee's Personal Homepage</title>
 <link rel="shortcut icon" type="image/png" href="includes/favicon.png">
-<link rel="shortcut icon" type="image/png" href="includes/favicon.png">
 <link href="includes/main.css" rel="stylesheet" type="text/css" media="screen" />
-
 </head>
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-C8K8BK48K1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-C8K8BK48K1');
-</script>
 
 <body style="background-color:#121212;">
 
 <div id="content">
+  <!-- Header content will be dynamically loaded here -->
+  <div id="header-container"></div>
 
-<div id="header">
-<a href="/image.html"><img src="/includes/headshots/headshot.png" alt="Header Image" class="headerimg"></img>
-</a>
+  <!-- Main content will be dynamically loaded here -->
+  <div id="main-container"></div>
 
-<!--<center>
-David McPhee's Personal Homepage
-</center>
--->
-
+  <!-- Footer content will be dynamically loaded here -->
+  <div id="footer-container"></div>
 </div>
 
-<div id="nav">
-<ul>
-<li><a href="/index">Home</a></li>
-<li><a href="/resume.pdf">CV</a></li>
-<li><a href="/projects">Projects</a></li>
-<li><a href="/other">Other</a></li>
-</ul>
-</div>
+<!-- JavaScript to load the header, main content, and footer -->
+<script>
+  // Fetch the header, main content, and footer dynamically
+  Promise.all([
+    fetch('header-content.html').then(response => response.text()),
+    fetch('/includes/other/content.html').then(response => response.text()),
+    fetch('footer-content.html').then(response => response.text())
+  ])
+  .then(([headerData, mainData, footerData]) => {
+    document.getElementById('header-container').innerHTML = headerData;
+    document.getElementById('main-container').innerHTML = mainData;
+    document.getElementById('footer-container').innerHTML = footerData;
+  })
+  .catch(error => {
+    console.error('Error loading content:', error);
+    document.getElementById('header-container').innerHTML = '<p>Sorry, the header could not be loaded.</p>';
+    document.getElementById('main-container').innerHTML = '<p>Sorry, the main content could not be loaded.</p>';
+    document.getElementById('footer-container').innerHTML = '<p>Sorry, the footer could not be loaded.</p>';
+  });
+</script>
 
-<!-- End Header $include_path/header.html -->
-
-<div class="main">
-
-Here is a collection of other ideas and things that I find interesting.
-</div>
-<div class="proj" onclick="location.href='/bpsk';" style="cursor: pointer;">
-	<p><hdr>But what is BPSK?</hdr>
-		<br>
-	<img src="/includes/other/bpsk/thumbnail.png" alt="Thumbnail for BPSK" class="projimg"></img>
-	<span>Binary Phase Shift Keying (BPSK) is a modulation technique used in satellite communications,
-		Bluetooth, and other applications. Modulation works by combining... 
-	<br><br><i>Published: 2025-03-13<br>Updated: 2025-03-13</i></span></p></div>
-
-<div class="proj" onclick="location.href='/primesearch.pdf';" style="cursor: pointer;">
-	<p><hdr>A quick proof</hdr>
-		<br>
-	<img src="/includes/other/primesearch/thumbnail.jpg" alt="Thumbnail for prime search" class="projimg"></img>
-	<span>While building the SHA-256 function, it was recommended that the prime number 
-		search have a upper limit of sqrt(n). Here is the proof that it works. 
-	<br><br><i>Published: 2024-02-23<br>Updated: 2024-02-23</i></span></p></div>
-
-<div class="proj" onclick="location.href='/sha256';" style="cursor: pointer;">
-	<p><hdr>Recreating the SHA-256</hdr>
-	<span style="float:right;"><a href="https://github.com/davidmcphee3/sha256">Github Repo</a></span><br>
-	<img src="/includes/other/sha256/thumbnail.jpeg" alt="Thumbnail for sha256" class="projimg"></img>
-	<span>The internet stores passwords as hashes resultant from algorthims such as
-		the Secure Hash Algorthim (256 bits), to understand it more I...
-	<br><br><i>Published: 2024-02-19<br>Updated: 2024-04-08</i></span></p></div>
-
-<div class="proj" onclick="location.href='/tap';" style="cursor: pointer;">
-<p><hdr>Reynolds Number of Kitchen Tap</hdr>
-<br>
-<img src="/includes/other/tap/thumbnail.jpg" alt="Thumbnail for Tap" class="projimg"></img>
-<span>The tap in the kitchen appeared uniform and made me think that it could be laminar flow.
-A fluids dynamic engineer thought otherwise so I put it to the test...
-<br><br><i>Published: 2022-09-29<br>Updated: 2022-09-29</i></span></p></div>
-
-<div class="proj" onclick="location.href='/terra';" style="cursor: pointer;">
-<p><hdr>Terra, a Not Very Stablecoin</hdr>
-<br>
-<img src="/includes/other/terra/thumbnail.png" alt="Thumbnail for terra" class="projimg"></img>
-<span>Terra was promised to combine the best of fiat and crypto currencies that would disrupt
-the financial sector forever. The Terra project aimed to combine...
-<br><br><i>Published: 2022-07-25<br>Updated: 2022-07-25</i></span></p></div>
-
-<div class="proj" onclick="location.href='/gamblersruin';" style="cursor: pointer;">
-<p><hdr>The Gambler's Ruin</hdr>
-<br>
-<img src="/includes/other/gamblersruin/thumbnail.png" alt="Thumbnail for The Gambler's Ruin" class="projimg"></img>
-<span>The Gambler's Ruin is a statistical concept that is used to prove the security of Bitcoin and other
-blockchain-based technologies. This concept lacks explanation and proof in the...
-<br><br><i>Published: 2022-04-14<br>Updated: 2022-04-14</i></span></p></div>
-
-<!-- Add at a later date once the scope is more refined
-<div class="proj" onclick="location.href='/construction';" style="cursor: pointer;">
-<p><hdr>An Indefinite Guide to Quantum Mechanics</hdr>
-<br>
-<img src="/includes/other/quantum/thumbnail.jpg" alt="Thumbnail for quantum" class="projimg"></img>
-<span>This contains my ongoing goal to complete solution the textbook "Introduction to Quantum Mechanics 3<sup>rd</sup>" by
-D. J. Griffiths and D. F. Schoroeter. I plan to answer every question as well as...
-<br><br><i>Published: UNDER DEVELOPMENT<br>Updated: 2022-07-31</i></span></p></div>
-
-
-<div class="projw" onclick="location.href='/construction';" style="cursor: pointer;">
-<p><hdr>Ukrainian Fundraiser</hdr>
-<br>
-<img src="/includes/other/placemats/thumbnail.jpg" alt="Thumbnail for Placemats" class="projimg"></img>
-<span>UNDER DEVELOPMENT
-<br><br><i>Published: Under Development<br>Updated: 2022-03-26</i></span></p></div>
--->
-
-<div class="proj" onclick="location.href='/f12022cars';" style="cursor: pointer;">
-<p><hdr>F1 2022 Cars</hdr>
-<br>
-<img src="/includes/other/f12022cars/thumbnail.jpg" alt="Thumbnail for F1 2022 Cars" class="projimg"></img>
-<span>2022 is the first season that I am fully involved in with F1. An exciting part of the season is when
-the teams show off their race car for the first time. Included is photos and some...
-<br><br><i>Published: 2022-02-23<br>Updated: 2022-02-26</i></span></p></div>
-
-<!-- Begin Footer $include_path/footer.html -->
-
-
-<div id="footer">
-<br>
-david.mcphee3@gmail.com | MIT license unless otherwise stated
-
-</div>
-
-</div>
 </body>
+
 </html>

@@ -1,0 +1,64 @@
+<main class="main">
+<div class="bTitle"><p><u><strong>LCD IoT</strong></u><p /></div>
+<img class="bImg" src="/includes/projects/tinytoons/thumbnail.jpg" alt="Thumbnail for OLED doorbell"></img>
+This is a major hardware update from the CRT IoT project. 30 years in the future (from 1955), the
+LCD TV was released and conveniently came with component ports. Unlike it's predecessor, the LCD IoT
+actually has proper hardware.
+<div class="bSub"><p><b>Where Did We Leave Off?</b><p /></div>
+Whilst it is not strictly necessary to read the first iteration, <a href="https://davidmcphee.ca/crtoons">CRT IoT</a>,
+it will give greater detail into the software and initial design. The CRT IoT ended because CRTs are actually not that
+convenient and are hard to obtain with a component port. We left off with a working prototype on a small TV and had
+these parts:
+<img class="bImg" src="/includes/projects/tinytoons/img1.jpg" alt="All parts"></img>
+<div class="bSub"><p><b>What Changed?</b><p /></div>
+This project became possible when I found a small LCD screen on Amazon. It was originally meant to be a back-up
+monitor for trucks but it has component plugs so it works great for me. The LCD requires 12V DC which makes sense
+because that is the power supply in almost every vehicle. Once the power and cables where connected:
+<img class="bImg" src="/includes/projects/tinytoons/img2.jpg" alt="Video working on LCD"></img>
+It worked, which is great because it means I didn't waste money on buying the screen. The one thing that this screen
+did not come with was audio. This stumped me for a little while until I found the Easy Button.
+<div class="bSub"><p><b>That was Easy</b><p /></div>
+<img class="bImg" src="/includes/projects/tinytoons/img3.jpg" alt="Easy Button"></img>
+This is an "That was Easy" button from Staples. When you pushed the big red button, it would say "That was easy" quite
+loudly. One thing led to another and the speaker was out of the button:
+<img class="bImg" src="/includes/projects/tinytoons/img4.jpg" alt="button torn apart"></img>
+<img class="bImg" src="/includes/projects/tinytoons/img5.jpg" alt="Extracted speaker from button"></img>
+This was a little too harsh and I realized (much later) that I destroyed the speaker's amplifier system as well. The button
+used two AAA batteries so only a voltage of 3.0V which means it could have been powered with the Pi. Moving on, with the
+speaker out I needed to determine the positive and negative wires which could just be done with a battery. If the leads
+match the battery, there was a crackling noise. If it was reversed, there was no noise.
+<img class="bImg" src="/includes/projects/tinytoons/img6.jpg" alt="Testing audio through battery"></img>
+It was then tested through the component to 3.5 mm jack that was soldered in the CRT project.
+<img class="bImg" src="/includes/projects/tinytoons/img7.jpg" alt="Testing audio through component"></img>
+<div class="bSub"><p><b>All Together</b><p /></div>
+<img class="bImg" src="/includes/projects/tinytoons/img8.jpg" alt="Audio Video working through component"></img>
+It worked and sound was coming out of the speaker which was pretty cool! At the moment it was just duct taped to the
+component cable but it was not a permanent solution. I wanted to make this project as small as possible so I
+bypassed the cable and the audio port by soldering the speaker directly to the Pi board:
+<img class="bImg" src="/includes/projects/tinytoons/img9.jpg" alt="Speaker soldered to bottom of Pi"></img>
+To figure out which pins were which, I used my make-shift continuity checker. Test time:
+<img class="bImg" src="/includes/projects/tinytoons/img10.jpg" alt="Test showing working audio and video"></img>
+Again it worked! Now the only wiring step left was to figure out how to power both the Pi and the LCD with a single power
+cable. I found two power bricks, one that converts wall power to 5V and another that converts it to 12V. I connected
+the first brick:
+<img class="bImg" src="/includes/projects/tinytoons/img11.jpg" alt="AC cable to 5V power brick"></img>
+This worked so I daisy chained the next brick onto that. I did attempt to solder the AC cable to the brick, but the prongs
+were large so they didn't heat up as fast as I thought. I actually melted the plastic on the brick a little bit, whoops.
+Everything was crammed into a nail box that was in my workshop:
+<img class="bImg" src="/includes/projects/tinytoons/img12.jpg" alt="All parts in box"></img>
+You can see the daisy-chained power bricks on the right and the Pi, speaker and cables on the left. With the lid on the
+result is:
+<img class="bImg" src="/includes/projects/tinytoons/img13.jpg" alt="Finished Project, no tape"></img>
+<img class="bImg" src="/includes/projects/tinytoons/img14.jpg" alt="Finished Project, tape"></img>
+I taped it up to make it look more complete. There is a single power cable coming out the back, Ethernet and USB on the
+side and the speaker with speaker holes on the front.
+<div class="bSub"><p><b>Power and Audio</b><p /></div>
+Using a power reader, the LCD IoT uses about 5.2 W of power which works out to about $3.00 a month if I leave it plugged
+in 24/7, nice.
+<img class="bImg" src="/includes/projects/tinytoons/img15.jpg" alt="AC Power Reader"></img>
+The audio was too quiet, it can be heard if everything is still but not much else. I was able to crank up the internal
+amplification settings on the omxplayer to about 50/100. If I went any higher than that the signal would clip and become
+distorted.</ p>
+I am pleased with how this turned out and that it can redeem what was the CRT IoT.
+
+</main>
