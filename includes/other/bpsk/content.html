@@ -5,17 +5,17 @@
            <p>
             <p>
             Binary Phase Shift Keying (BPSK) is a modulation technique used in satellite communications, Bluetooth, and other applications. 
-            Modulation works by combining a carrier signal with a stream of digital bits. The resulting spectrum (as shown in the thumbnail) 
+            Modulation works by combining a carrier signal with a stream of digital bits to form a modulated signal. The resulting spectrum (as shown in the thumbnail) 
             demonstrates that the BPSK signal occupies more than just the carrier frequency. It appears as a set of rolling hills with nulls 
-            at the symbol rate. We can rebuild this spectrum in Python and explore the following:
+            at the symbol rate. We can rebuild this spectrum in Python and answer the following:
             <ol>
               <li>Why is the spectrum wider than just the carrier frequency?</li>
-              <li>What data is actually contained in the rolling hills?</li>
+              <li>What do the rolling hills represent?</li>
               <li>Why there are nulls at the symbol rate offset from the carrier frequency?</li>
             </ol>
         </p>
             We will start by looking at the signals in the time domain and explaining how each part contributes to the BPSK signal. 
-            We will then discuss convolution and Fourier Transforms as we convert to the frequency domain. Finally, we will rebuild 
+            We will then discuss convolution and Fourier Series as we convert to the frequency domain. Finally, we will rebuild 
             the BPSK wave and, in doing so, understand its key characteristics. After the waveform is built, some questions will arise, 
             such as: what about higher forms of modulation, modulation index, subcarriers, etc.
 
@@ -33,16 +33,16 @@
             of this wave is 5 Hz. 
         </p>
             The data wave is a series of binary numbers, 0s and 1s. We will encode this data such that the 0s are -1s (Non-return to zero), 
-            but it will still appear as a normal set of 0s and 1s. Real-world binary data has two key characteristics: it is infinitely long, 
-            and it is random. These might seem like extreme assumptions, but typical phone plans have data speeds on the order of Mbps, 
+            but it will still means the same as 0s and 1s. Real-world binary data has two key characteristics: it is infinitely long, 
+            and it is sufficently random. These might seem like extreme assumptions, but typical phone plans have data speeds on the order of Mbps, 
             meaning 1,000,000 bits per second. Even over 1 minute, over 60,000,000 bits of data are sent. With 60 million bits, we can 
             easily make the jump to "infinite." Data is random in the same way that the digits of pi are random. Yes, we can calculate 
             the digits of pi, but we can also find any string of numbers we want in pi. So, sufficiently long binary data will contain 
-            at least example patterns of [1,0,1,0], [1,1,0,0,1,1,0,0], [1,1,0,1,1,0], etc. Here is an example of some NRZ binary data:
+            at least example patterns of [1 0 1 0], [1 1 0 0 1 1 0 0], [1 1 1 0 0 0 1 1 1 0 0 0], etc. Here is an example of some NRZ binary data:
             <img class="bImg" src="/includes/other/bpsk/img2.png" alt="Zoomed-in NRZ binary wave"></img>
 
             The BPSK wave is the multiplication of the carrier wave and the data wave. If the data wave was all 1s, the BPSK wave 
-            would look identical to the carrier wave. If the data wave was all 0s, the BPSK wave would be an upside-down version of 
+            would look identical to the carrier wave. If the data wave was all 0s, the BPSK wave would be an inverse version of 
             the carrier wave. Another way to think about this is that when the binary data is -1, the wave is shifted 180 degrees. 
             This is where the name "Binary Phase Shift Keying" comes from.
             <img class="bImg" src="/includes/other/bpsk/img3.png" alt="BPSK of all 1s"></img>
@@ -54,7 +54,7 @@
 
             There are two more aspects of the BPSK wave to discuss. The first is how often we change between -1 and 1, and the second is 
             when we change between -1 and 1. The answer to the first question is called the symbol rate. We can see that the data changes 
-            from a 1 to a -1 at the 0.1 second mark and then back to 1 at the 0.2 second mark. This shows that our symbol rate is 0.1 seconds. 
+            from a 1 to a -1 at the 0.1 second mark and then back to 1 at the 0.2 second mark. This shows that our symbol period is 0.1 seconds and thus our symbol rate is 10 baud. 
             We can change when the binary data changes the BPSK by shifting our carrier phase. This leads to some interesting BPSK spectra, 
             but the information carried is still the same:
             <img class="bImg" src="/includes/other/bpsk/img6.png" alt="Random BPSK, 0 crossing"></img>
@@ -86,7 +86,7 @@
             <img class="bImg" src="/includes/other/bpsk/img11.png" alt="FFT of a Square Wave with Symbol Frequency 25"></img>
             What does this really mean? It means that 
             
-            f<img class="bEqu" src="/includes/other/bpsk/equ1.png" alt="Fourier Series"></img>
+            <img class="bEqu" src="/includes/other/bpsk/equ1.png" alt="Fourier Series"></img>
 
             ... equals a square wave.
     </p>
@@ -177,6 +177,8 @@
             Can we prove that there will never be a sine component of the square/rectangle waves with a frequency of that of the 
             symbol rate (or integer multiple therefore?).
         </p>
+
+                   
             <div class="bSub"><p><b>Conclusion and More Questions</b></p></div>
             We can now revisit our original questions with some answers
 
