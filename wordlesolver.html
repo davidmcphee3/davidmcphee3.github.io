@@ -1,248 +1,50 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
+<meta charset="UTF-8">
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-
 <title>David McPhee's Personal Homepage</title>
 <link rel="shortcut icon" type="image/png" href="includes/favicon.png">
 <link href="includes/main.css" rel="stylesheet" type="text/css" media="screen" />
-
 </head>
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-C8K8BK48K1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-C8K8BK48K1');
-</script>
 
 <body style="background-color:#121212;">
 
 <div id="content">
+  <!-- Header content will be dynamically loaded here -->
+  <div id="header-container"></div>
 
-<div id="nav">
-<ul>
-<li><a href="/projects">Back To Projects</a></li>
-</ul>
+  <!-- Main content will be dynamically loaded here -->
+  <div id="main-container"></div>
+
+  <!-- Footer content will be dynamically loaded here -->
+  <div id="footer-container"></div>
 </div>
 
-<!-- End Header $include_path/header.html -->
-
-<div class="main">
-<div class="bTitle"><p><u><strong>Wordle Solver</strong></u><p /></div>
-<img class="bImg" src="/includes/projects/wordlesolver/thumbnail.png" alt="Thumbnail for wordle solver"></img>
-Welcome to the Wordle Solver. In this project I'll explain how to use the solver to wrangle the
-New York Times Wordle Solver. Following the widget I will explain my reasonings for making the solver, my
-design process and the source code.<br>
-<p />
-The solver may have some bugs in it, but it should be user-proof for the most part. If you are able to break
-it I would love to know (See bottom of page). I have personally broke it many times and watched my wife break
-it once which broke my heart.
-<p />
-Prior to starting the solver I recommend you open up a
-<a href="https://www.powerlanguage.co.uk/wordle/" target="_blank">Wordle</a> tab or bring it up on your
-phone to play along. If you have already solved the wordle for the day you can do it in a private
-browser. This widget can also be used for helping you if you are stuck in a current game.
-<p />
-<div class="bSub"><p><b>The Rules</b><p /></div>
-Wordle is a game where you attempt to find the hidden word in six guesses or less. After each guess a color
-will be assigned to each letter of the guess. Green means it is the correct letter and in the correct space,
-yellow means it is the correct letter in the wrong space, and black means it is the wrong letter in
-the wrong space.<p />
-
-Click the "> Run" button at the top of the widget to start.
-<p />
-<iframe src="https://trinket.io/embed/python/c3acd28781?outputOnly=true&runOption=run" width="100%" height="400" frameborder="2" marginwidth="0" marginheight="0" allowfullscreen></iframe>
-<div class="bSub"><p><b>Motivation</b><p /></div>
-Wordle first entered my life in the middle of Jan 2022 when a couple of friends came over for dinner. All was
-going well until Anne started to cry. Melle and Anne left to go figure some things out so I was left alone with
-the guests. One thing led to another and they were explaining the rules of the game to me. Their first guess was
-<i>Rates</i> which still influences my guesses to this day. I found it interesting how random the first guess was.
-Before the first guess you have no information about what the hidden word could be. This means that there was
-most likely an optimal opening word...
-<img class="bImg" src="/includes/projects/wordlesolver/img1.png" alt="Wordle guess Rates"></img>
-Flash forward to the end of Jan 2022 when my parents came out for a visit. I played wordle once or twice since that
-fateful night but didn't obsess over it. On a quiet morning I was eating breakfast and my mother was on her
-phone. What was she playing on her phone?
-<p />
-<div class="cText"><i>Wordle</i></div>
-<p />
-After she informed me of a group chat with other wordlers I was hooked. We were all doing the wordle each morn
-trying to get the best score. After a couple of games I felt as though I understood the rules pretty well and
-thought that a wordle solver wouldn't be too hard.
-<div class="bSub"><p><b>Blueprints</b><p /></div>
-Just like they taught me in Compt 101, I began with the <i>pseudo-code.</i> This type of code isn't actually
-code but more of a quick way to be able to explain what you want the more complex code to do. Typically I
-only include the more complex parts and leave out any of the basic steps.
-<p />
-1. Get list of all possible 5 letter words <p />
-2. Get optimal guess<p />
-3. Get the colours of the guess<p />
-4. Apply results of 2. to 1.<p />
-5. Repeat steps 2 through 4 until hidden word is found<p />
-The above list is very similar to what I do when I am playing wordle without help. The computer and the
-human have different advantages which I will have outlined in the table:
-<table>
-<tr><th>David</th>
-<th>Computer</th></tr>
-<tr><td>Think of a lot of 5 letter words<p />
-        -Dynamic thinking<br>
-        -Hard to think of obscure words</td>
-<td>Import a list of all 5 letter words<p />
-    -Long and complete list<br>
-    -Static and strictly 5 letters</td></tr>
-<tr><td>Think of a good guess<p />
-        -Can use "gut feeling"<br>
-        -Impossilbe to consider all guesses</td>
-<td>Use algorithm to get best guess<p />
-    -Will always get best guess<br>
-    -Tricky implementation</td>
-</tr>
-<tr>
-<td>Look at results from guess<p />
-    -Quick<br>
-    -Revisit info many times</td>
-<td>User inputs results<p />
-    -No obvious downsides<br>
-    -Only needed once per guess</td>
-</tr>
-<tr>
-<td>Think of new guess<p />
-    -Dynamic<br>
-    -Hard to make best use of<br>
-     previous information</td>
-<td>Apply results to word list<p />
-    -Perfect use of results<br>
-    -Rules must be well defined<p /></td>
-</tr>
-</table><p />
-I assume that you have a good idea of how a human would go about completing each of the above steps,
-so I will mainly talk about how the computer code will go about it.
-<div class="bSub"><p><b>The List</b><p /></div>
-The first thing I did was head to the wordle website to
-inspect the source code for clues. This was back when the game was hosted by the creator on
-<div class="cText">www.powerlanguage.co.uk/wordle/</div><p />
-Since this was a small game at the time none of the code was too hard to get to and soon enough I found myself
-looking at the brains of the operation. It was hard to read except for the massive list of five letter words.
-There were two lists in the code:
-<div class="cText"><p />
-1. Possible guesses<p />
-2. Possible answers<p /></div>
-2. was a subset of 1. because the creator wanted to make the hidden word a "typical" word. This word segregation
-is best explained through some role-play. Lets listen in on Rem and Jordyn playing a game of scrabble where Rem
-just played a 5 letter word Jordyn has never heard of before...<br>
-<div class="sText">(note: all characters are fictional, any similarity to actual persons is purely coincidental)<p /></div>
-<div class="cText"><p /><i>
-"Rem: I will play Yrivd"<p />"Jordyn: That is not a word"<p />
-"R: Sure it is, should we look at the dictionary?"<p />"J: Okay, but when its not in there you lose a turn"<p /></i>
-They turn to the back of the book and find that sure enough "Yrivd" is in there and is the past participle of rive.
-<p /><i>"R: 24 points because I am on a double word tile"</i><p /></div>
-If a word would elicit the same situation as we just went through, it most likely is not in list 2. I ran into
-the first major decision of this journey; Do I use just list 2. and have a great but specific solver or do I
-use 1. and have a good but more general solver? Spoiler: I chose the latter.
-<div class="bSub"><p><b>The Algorithm</b><p /></div>
-Disclaimer: I know algorithm is a scary word now-a-days but mine will only discriminate against bad words.<p />
-This problem kept me up many nights (well Anne also kept me up but whos counting) trying to think of what makes
-a "good". My original plan was to find the frequency of each letter in each spot of all the words and sum them up
-to get a score. This meant that the score was dependent on not only the letter but also what spot the letter was
-in. The reasoning behind this was simple: I had green-goggles. I thought that getting a green letter was the best
-type of information so I highly valued the position of the letter within the word. After running the algorithm for
-the first time, it suggested the word:
-<img class="bImg" src="/includes/projects/wordlesolver/img2.png" alt="Wordle Guess: ESSES"></img>
-This is a terrible starting word, or any word for that matter. What even is a esses? <i>"plural noun, a thing shaped like the
-letter S"</i> -google. Great. The real reason this is such a bad word is the repeating letters. I can't blame the code because
-I wrote it but it sure is a stupid suggestion. I like to think of double (and triple letters for that matter) as a new
-letter in the alphabet with respect to wordle. So for the same reason words like <i>zygal</i> are good starting words, double
-letter words are also not good. There just aren't that many words with double or triple letters to make it worth a guess in
-the early rounds. <p />
-After adding in a penalty for multiples of letters I ran the code again and got <i>Cares</i>. Okay. This seems to be a good
-starting word from my perspective. It has a couple of vowels in it and and s which I would imagine is quite common. This is
-good but I should take off my green-goggles and try to get some yellows as well. This was a quick change because I now just
-cared about the frequency of the letter rather than the position. The final picking algorithm looks like this:
-<img class="bImg" src="/includes/projects/wordlesolver/alg.png" alt="Algorithm for wordle solver"></img>
-The only bit that might need explaining is the divisor in the for loop. This is a constant that makes sure the scores are
-a decimal number which is helpful during debugging and can technically be removed. The last part of this algorithm finds
-the top 3 words and prints them as suggestions: AROSE, ARISE, STALE. Those all seem like pretty good guesses to me.
-<div class="bSub"><p><b>Reading the Rules</b><p /></div>
-This part of the project was by far the trickiest. I explained the rules earlier and it took only a sentence or two but
-that was not the case for the code. There are many pit falls and traps that I walked into in this section. My plan was
-to start with the list of possible words and remove any word that does not conform to the results of the previous guess.
-If I keep modifying the most recent list, I only ever have to take into consideration the most recent result. I will go
-through every word in the list and see if it adheres to the rules from the result. I will first assume that the word
-DOES adhere to the rules put it through a series of tests. If the word doesn't fail, it gets to stay in the list. If it
-fails, it gets removed from the list. <p />
-Lets start with the basics, each position a letter is in must be assigned one colour and one colour only: Green, Yellow,
-or Black. Green is the most simple;
-<img class="bImg" src="/includes/projects/wordlesolver/green.png" alt="Removing words that don't have green letters"></img>
-If the word under scrutiny does not have all the matching green letters, remove it. greenList is a list of all of the green
-letters in the most recent result along with thier corresponding position. The word must contain all of the green letters in
-greenList to pass.<p />
-Just because a word passes the green test does not mean it is home free. The next test is the yellow test. The yellow letters
-are more complex because they have two rules. The first rule is the opposite of the green rule. If a word has the same letter
-in the same position as a yellow letter, it is removed. This is because yellow means correct letter but wrong space. The
-second yellow rule is that the word under scrutiny must contain all the yellow words. If both of these conditions are
-met, the word passes to its final test.
-<img class="bImg" src="/includes/projects/wordlesolver/yellow.png" alt="Removing words that don't follow yellow rules"></img>
-<i>The Black Test</i>.<p />
-Black was surprisingly the most complex rule. This is best shown in an example:<p />
-<img class="bImg" src="/includes/projects/wordlesolver/img3.png" alt="Wordle Guess: Cynic"></img>
-In the above guess the hidden word is Caulk. The first C is a green but the last is a black. If I were to simply remove all
-words that contained a black letter then Caulk would be removed and the solver would fail. The same is true for yellow letters.
-This means I first need to check that the black letter is not also green or a yellow letter in a different position. Finally just
-like with the yellow letters, all words with a black letter in the same position can be removed.
-<img class="bImg" src="/includes/projects/wordlesolver/black.png" alt="Removing words that don't follow black rules"></img>
-<div class="bSub"><p><b>Force Computer to Play Many Wordle Games</b><p /></div>
-The wordle solver is now complete. It is playable and <i>seems</i> to get good results. However I do not know how good the
-results are. The final step was to create a script to play wordle automatically. The only interesting step in this part
-was the fact that I had to generate the result of the guess as well. It is just a different way of applying the rules I
-laid out previously. Assuming that any word could be the hidden word, LATER got a score of 4.60. This means that on average
-it took 4.6 guesses to get the correct word with LATER as the starting word.<p />
-Sightly more narrow, if I use only the answer list from earlier, LATER gets a score of 4.2 while ARISE gets a score of 4.12 and
-CRANE a score of 4.15.
-<div class="bSub"><p><b>Final Thoughts</b><p /></div>
-If you want to have the best shot at getting a low score, this wordle solver can help you do it. The best strategy when playing
-the official wordle is to use the top suggestion when the possible answers are above ~40 and then switch to picking words you
-recognize later in the game. For all of my code check the <a href="https://github.com/davidmcphee3/wordlesolver">Github repo</a>
- and for some more wordle deep dives check <a href="https://www.youtube.com/watch?v=v68zYyaEmEA">here</a>.
-</div>
-
-<!-- Begin Footer $include_path/footer.html -->
-<div id="footer">
-<br>
-david.mcphee3@gmail.com | MIT license unless otherwise stated
-</div>
-
-</div>
-
-<div id="content">
-<!-- begin wwww.htmlcommentbox.com -->
- <div id="HCB_comment_box"><a href="http://www.htmlcommentbox.com">Comment Box</a> is loading comments...</div>
- <script type="text/javascript" id="hcb"> /*<!--*/ if(!window.hcb_user){hcb_user={};} (function(){var s=document.createElement("script"), l=hcb_user.PAGE || (""+window.location).replace(/'/g,"%27"), h="https://www.htmlcommentbox.com";s.setAttribute("type","text/javascript");s.setAttribute("src", h+"/jread?page="+encodeURIComponent(l).replace("+","%2B")+"&mod=%241%24wq1rdBcg%24Xk1c2cCSlprFkr2MjLvTb."+"&opts=16662&num=10&ts=1644780820414");if (typeof s!="undefined") document.getElementsByTagName("head")[0].appendChild(s);})(); /*--!>*/ </script>
-<style>
-#HCB_comment_box textarea{width:50%;
-}
-#HCB_comment_box{font-family:arial;color:#FFFFFF;background-color:none;}
-#HCB_comment_box p.error{border:1px solid red;background-color:#fee}
-.hcb-mod b{color:#d34}
-#HCB_comment_box textarea,#hcb_form_name,#HCB_comment_box input.text{border:none;border-radius:5px;background-color:#FFFFFF}
-#HCB_comment_box .text-blur {color:none;}
-#HCB_comment_box blockquote{background-color:#626262;width:50%;padding:10px;border-radius:5px}
-#HCB_comment_box .hcb-wrapper-half{display:block;width:50%;float:left;}
-#HCB_comment_box .hcb-wrapper{clear:both}
-#HCB_comment_box input.text{display:block;width:75%}
-#HCB_comment_box input.submit{border-radius: 20px;;background-color:#626262;color:#FFFFFF;font-weight:700;cursor:pointer}
-#HCB_comment_box span.home-desc{font-size:10px;opacity:.4}
-.hcb-link{color:white;text-decoration:underline}
-.hcb-mod i{color:#00008b}
-
- </style>
-<!-- end www.htmlcommentbox.com -->
-</div>
+<!-- JavaScript to load the header, main content, and footer -->
+<script>
+  // Fetch the header, main content, and footer dynamically
+  Promise.all([
+    fetch('header-content.html').then(response => response.text()),
+    fetch('/includes/projects/wordlesolver/content.html').then(response => response.text()),
+    fetch('footer-content.html').then(response => response.text())
+  ])
+  .then(([headerData, mainData, footerData]) => {
+    document.getElementById('header-container').innerHTML = headerData;
+    document.getElementById('main-container').innerHTML = mainData;
+    document.getElementById('footer-container').innerHTML = footerData;
+  })
+  .catch(error => {
+    console.error('Error loading content:', error);
+    document.getElementById('header-container').innerHTML = '<p>Sorry, the header could not be loaded.</p>';
+    document.getElementById('main-container').innerHTML = '<p>Sorry, the main content could not be loaded.</p>';
+    document.getElementById('footer-container').innerHTML = '<p>Sorry, the footer could not be loaded.</p>';
+  });
+</script>
 
 </body>
+
 </html>

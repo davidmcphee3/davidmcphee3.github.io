@@ -1,0 +1,183 @@
+<main class="main">
+<div class="bTitle"><p><u><strong>Ethereum Smart Contracts</strong></u><p /></div>
+<img class="bImg" src="/includes/projects/smartcontracts/thumbnail.jpg" alt="Thumbnail for smart contracts"></img>
+Smart contracts are a way of automatically executing transactions on the Ethereum blockchain. This project will
+cover the basics of these topics as well as the creation of a smart contract to deploy a Non-Fungible Token (NFT)
+on the blockchain. Here is the NFT that will be minted:
+<img class="bImg" src="/includes/projects/smartcontracts/img1.PNG" alt="Image to Mint"></img>
+<div class="bSub"><p><b>The Basic Basics</b><p /></div>
+<b>NFT-</b> A Non-Fungible Token (NFT) is some data stored on the blockchain that is unique (the actual code) and
+can be traded whilst leaving a permanent and unchangeable record. On the Ethereum blockchain they are also known as
+a ERC-721 Token. Unlike an Ether token, these ERC-721 tokens are unique and generally speaking are not traded one
+for one. The current trends for NFTs are to be used to store PNG or JPG data to represent digital art work but this
+is only one way that the tokens can be used.
+<p />
+<b>Ether Token-</b> The Ether Token (ERC-20) is the default token used on the Ether Blockchain. It rewarded to miners
+for adding blocks to the blockchain and is used to pay transaction fees. These tokens can be exchanged with each other
+one for one, unlike NFTs. These tokens do not exist in a physical form and it is not issued by any bank.
+<p />
+<b>Blockchain-</b> A blockchain is an immutable list of records that are linked cryptographically to each other. The
+list is made of blocks which contain data such as the time, transaction details, and link to the previous block.
+blockchain is managed by a decentralized network of computers, called nodes. The nodes validate new blocks whilst
+following identical protocols. The Ethereum Blockchain differs from the Bitcoin Blockchain because the Eth can contain
+smart contracts. This is because the Bitcoin Blockchain is primarily used to store and exchange the Bitcoin cryptocurrency
+while the Ethereum Blockchain has more of a general purpose and uses the Ether cryptocurrency as the native token.
+Bitcoin was invented first after the 2008 financial crisis and Ether was invented in 2013 after discovering that blockchain
+technology can be utilized for much more than just exchanging Bitcoin tokens.
+<p />
+<b>Smart Contract-</b> These contracts can be thought of as any physical contract such as a mortgage or wager. The difference
+between the physical and smart contracts are that the smart contracts are self-executing pertinent to the terms agreed to <body>
+all parties. These contracts are stored on the Ether Blockchain and thus are irreversible. The smart contracts can be written
+in a language called Solidity and deployed to the blockchain using Ether.
+<b>Test Networks-</b>
+To interact with the Ethereum Blockchain, gas needs to be spent. Gas is transaction fee which are payments made to the miners
+for processing and validating the transaction. As of writing, the gas fee my test smart contract was ~$120 to deploy and mint
+an NFT. Gas fees are set by supply and demand and thus can change hour to hour, day to day, etc. The "real" blockchain is
+called the mainnet and is where actual transactions occur that cost real money (well, real Ether). Testnets are used to test
+smart contracts without the cost of the mainnet. Since the blockchain is immutable, developers need to squash every bug in
+their code before deploying it on the mainnet. There are many testnets to work with but currently the one that most resembles
+the mainnet is called Ropsten. This testnet uses proof-of-work which is the same as the mainnet, however the Eth on the testnet
+is free unlike the mainnet.
+<div class="bSub"><p><b>Filling a Wallet with Eth</b><p /></div>
+Note: This <a href="https://github.com/ethereum/ethereum-org-website/tree/dev/src/content/developers/tutorials/how-to-mint-an-nft">github repo</a>
+contains the guide that was referenced through the following sections<p />
+Eth is stored in an Ethereum account address. This address can be easily managed via virtual wallet called MetaMask. Once the
+MetaMask wallet is set up and connected to the Ropsten testnet, it can be filled with Eth. Crypot faucets in general give out
+tiny amounts of crypto for users doing simple tasks. Basically the faucet pays humans to do human-only tasks. However since
+we are using a testnet, the Eth is fake and can therefore be given in much larger quantities. Using a faucet my MetaMask account
+now has 0.2 Eth (search the current conversion).
+<img class="bImg" src="/includes/projects/smartcontracts/img2.png" alt="Wallet Filled with Eth"></img>
+Now that the wallet is set up with the Eth we can move onto actually writing the smart contract.
+<p />
+<div class="bSub"><p><b>Setting the Scene</b><p /></div>
+This project will be built using node js and npm. Node.js a runtime environment for network applications. Npm is a package manager for the
+node.js platform. The package.json file can be created by using the npm init command. This package contains the metadata of the project
+and package/application dependencies. <p />
+The other environment that is needed is Hardhat. This is used to test and debug the smart contracts prior to being deployed on the mainnet. The
+Hardhat package is executed and a hardhat.config.js is generated which will be used to specify the setup of the smart contract.
+<img class="bImg" src="/includes/projects/smartcontracts/img3.png" alt="Hardhat Initialized"></img>
+Inside the project there will be two types of code: contracts and scripts. Code such as the smart contract will fall under the contracts type
+while deployment and interaction code will fall under the latter.
+<div class="bSub"><p><b>The Smart Contract</b><p /></div>
+On the Ethereum Blockchain, the smart contracts are written in a language called Solidity which can be viewed as a mix of Python, C++, and
+javascript. It contains enough unique features to warrant its own language. Recall that an NFT is a ERC-721 token. Using a library called
+OpenZeppelin, the ERC-721 token can be created. Each token has a set of standards that must be followed to be considered a valid token. The
+following smart contract is from <a href="https://github.com/ethereum/ethereum-org-website/tree/dev/src/content/developers/tutorials/how-to-mint-an-nft">here</a>
+which was based on <a href="https://docs.openzeppelin.com/contracts/3.x/erc721">this</a> all under the MIT license. The first step is to import
+four classes from the openzeppelin library: ERC721.sol, Counters.sol, Ownable.sol, and ERC721URIStorage.sol.<p />
+As mentioned previously, a token must meet a certain set of requirements to be considered valid. These requirements are contained in the ERC721 class. The
+counter and ownable classes are pretty straightforward, the former counts each NFT minted (for uniqueness) and the latter means only the owner (me) can
+use this contract to mint NFTs. The last imported class creates a token with storage basen URI management which means that the metadata for the token is
+stored on the blockchain. After the imports there is the following contract:
+<p style="font-family:'Courier New'">
+  contract MyNFT is ERC721URIStorage, Ownable {<br>
+      using Counters for Counters.Counter;<br>
+      Counters.Counter private _tokenIds;<br>
+  <br>
+      constructor() ERC721("MyNFT", "NFT") {}<br>
+  <br>
+      function mintNFT(address recipient, string memory tokenURI)<br>
+          public onlyOwner<br>
+          returns (uint256)<br>
+      {<br>
+          _tokenIds.increment();<br>
+  <br>
+          uint256 newItemId = _tokenIds.current();<br>
+          _mint(recipient, newItemId);<br>
+          _setTokenURI(newItemId, tokenURI);<br>
+  <br>
+          return newItemId;<br>
+      }}<br>
+</p><p />
+The first three lines initialize the contract and sets up the counter so the minted NFTs have a unique number (1,2,3,..). The fourth line is a constructor
+which is automatically run when the contract is called and calls the imported class with two variables (smart contract name and ticker symbol). Finally
+the function mintNFT takes two variables and mints the NFT. The fist variable is the address of my wallet where the NFT will be sent to. Second is the NFTs
+metadata, <i>data about the data</i>. This function only allows the owner to call it, creates the tokens ID and returns that ID value.<p />
+An .env file is then created with my wallets private key. This .env file is used in the hardhat.config.js file and then the contract is compiled. The NFT
+can now be created but it still needs to be deployed to the blockchain to work. This requires another script to put the contract on the blockchain.
+<p style="font-family:'Courier New'">
+  async function main() {<br>
+    const MyNFT = await ethers.getContractFactory("MyNFT")<br>
+  <br>
+    const myNFT = await MyNFT.deploy()<br>
+    await myNFT.deployed()<br>
+    console.log("Contract deployed to address:", myNFT.address)<br>
+  }<br>
+  <br>
+  main()<br>
+    .then(() => process.exit(0))<br>
+    .catch((error) => {<br>
+      console.error(error)<br>
+      process.exit(1)<br>
+    })<br>
+</p><p />
+Again this script is adapted from <a href="https://ethereum.org/en/developers/tutorials/how-to-write-and-deploy-an-nft/">this</a>. This script uses the
+ethers.js and deploys the smart contract to an address. Because the blockchain is public, the contract deployment can be viewed on a Ethereum (Ropsten)
+scanner.
+<div class="bSub"><p><b>Configuring the Data and it's Data</b><p /></div>
+The NFT and it's data will be stored on an IPFS (Interplanetary File System) which is a protocol used for storing the data in a decentralized peer-to-peer
+network. The metadata for my NFT is pretty simple because it is not a part of a collection or anything like that. NFTs from popular collections will contain
+the data of which variations the image has (type of hair, color, accessories, etc). Since the contract is already deployed to the blockchain, we just need
+its address to be able to interact with it which again can be found on a blockchain scanner.
+<p style="font-family:'Courier New'">
+require("dotenv").config()<br>
+const API_URL = process.env.API_URL<br>
+const PUBLIC_KEY = process.env.PUBLIC_KEY<br>
+const PRIVATE_KEY = process.env.PRIVATE_KEY<br>
+<br>
+const { createAlchemyWeb3 } = require("@alch/alchemy-web3")<br>
+const web3 = createAlchemyWeb3(API_URL)<br>
+<br>
+const contract = require("../artifacts/contracts/MyNFT.sol/MyNFT.json")<br>
+const contractAddress = "0x9e40c2bc662056cf3c1cc4046061cfa25720b4f6"<br>
+const nftContract = new web3.eth.Contract(contract.abi, contractAddress)<br>
+<br>
+async function mintNFT(tokenURI) {<br>
+  const nonce = await web3.eth.getTransactionCount(PUBLIC_KEY, "latest")<br>
+  const tx = {<br>
+    from: PUBLIC_KEY,<br>
+    to: contractAddress,<br>
+    nonce: nonce,<br>
+    gas: 500000,<br>
+    data: nftContract.methods.mintNFT(PUBLIC_KEY, tokenURI).encodeABI(),<br>
+  }<br>
+<br>
+  const signPromise = web3.eth.accounts.signTransaction(tx, PRIVATE_KEY)<br>
+  signPromise<br>
+    .then((signedTx) => {<br>
+      web3.eth.sendSignedTransaction(<br>
+        signedTx.rawTransaction,<br>
+        function (err, hash) {<br>
+          if (!err) {<br>
+            console.log(<br>
+              "The hash of your transaction is: ",<br>
+              hash,<br>
+              "\nCheck Alchemy's Mempool to view the status of your transaction!"<br>
+            )<br>
+          } else {<br>
+            console.log(<br>
+              "Something went wrong when submitting your transaction:",<br>
+              err)}})})<br>
+    .catch((err) => {<br>
+      console.log("Promise failed:", err)<br>
+    })}<br>
+<br>
+mintNFT(<br>
+    "https://gateway.pinata.cloud/ipfs/<br>QmV8GbzM59tsos5QCyVC67YUqGLg7RmCGzbehdnEMZTwhf")<br>
+</p><p />
+There are many lines of housekeeping at the beginning of the script which includes the NFT and it' metadata as well as the address of the
+contract that was deployed. Next the mintNFT function mints the NFT and is signed. Running this will mint our NFT using the smart contract!
+Using <a href="https://ropsten.etherscan.io/">Ropsten Etherscan</a>, the transaction can be viewed.
+<div class="bSub"><p><b>Twitter NFT Profile</b><p /></div>
+The NFT has successfully made it to the MetaMask wallet:
+<img class="bImg" src="/includes/projects/smartcontracts/img4.jpg" alt="NFT in MetaMask Wallet"></img>
+My account started with 0.2 ETH and now has 0.179 ETH which means the transaction cost 0.021 ETH, which is around $100 CAD! Twitter has a paid
+subscription plan that allows users to set NFTs as their profile pictures and are notable because the border is a hexagon. I coughed up
+the $3.87 for a subscription and connected my accounts to find... my NFT is not there! This is because I minted it on the testnet, not the mainnet.
+Bummer.<br>
+I barely wanted to spend $4 on the subscription so I am definitely not spending $100 to mint the NFT on the mainnet. I will however do some
+photoshopping:
+<img class="bImg" src="/includes/projects/smartcontracts/img5.png" alt="Doctored image of NFT Twitter profile picture"></img>
+Ta-da, now I have a doctored image showing that I really own the NFT that I made and minted.
+
+</main>

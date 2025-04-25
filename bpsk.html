@@ -1,222 +1,50 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-   <meta name="keywords" content="" />
-   <meta name="description" content="" />
-   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-   <title>David McPhee's Personal Homepage</title>
-   <link rel="shortcut icon" type="image/png" href="includes/favicon.png">
-   <link href="includes/main.css" rel="stylesheet" type="text/css" media="screen" />
+<meta charset="UTF-8">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>David McPhee's Personal Homepage</title>
+<link rel="shortcut icon" type="image/png" href="includes/favicon.png">
+<link href="includes/main.css" rel="stylesheet" type="text/css" media="screen" />
 </head>
+
 <body style="background-color:#121212;">
-   <div id="content">
-       <div id="nav">
-           <ul>
-               <li><a href="/projects">Back To Projects</a></li>
-           </ul>
-       </div>
-       <!-- End Header $include_path/header.html -->
-       <div class="main">
-           <div class="bTitle"><p><u><strong>But What is BPSK?</strong></u></p></div>
-           <img class="bImg" src="/includes/other/bpsk/thumbnail.png" alt="Thumbnail for BPSK"></img>
-           <p>
 
-            The Binary Phase Key Shifting is a modulation technique used in satellite communications, bluetooth, etc.
-            Modulation works by combining a carrier signal with a stream of digital bits. The resulting spectrum (as 
-            seen in the thumbnail) show that the BPSK signal occupies more than just the carrier frequency. It is a 
-            set of rolling hills with nulls (zero-crossings) at the symbol rate. We can rebuild this spectrum in python 
-            and explain why:
-            <ol>
-              <li>The spectrum is wider than just the carrier frequency</li>
-              <li>What is actually contained in the rolling hills</li>
-              <li>Why there are nulls at the symbol rate offset to the carrier frequency</li>
-            </ol>
+<div id="content">
+  <!-- Header content will be dynamically loaded here -->
+  <div id="header-container"></div>
 
-            We will start with looking at the signals in the time domain and how each is built. We will look at each part 
-            and explain what is contributes to the BPSK signal. We will then talk about convolution and Fourier Transforms 
-            as we convert to the Frequency Domain. Finally we rebuild the BPSK wave and in doing so, understand the key 
-            characteristics of it. After the waveform is built some questions will arise such as, what about higher forms of
-            modulation, modulation index, subcarriers etc.
+  <!-- Main content will be dynamically loaded here -->
+  <div id="main-container"></div>
 
-            <div class="bSub"><p><b>The Time Domain</b></p></div>
+  <!-- Footer content will be dynamically loaded here -->
+  <div id="footer-container"></div>
+</div>
 
-            As mentioned previously, modulation is the act of combining a carrier wave with a data wave. There are numerous benefits
-            to do this such as specifying the frequency of your data. Imagine if 10 people had bluetooth headphones and their phones
-            where all transmitting data to their headpones on the same frequency, this would lead to confusion and mixed signals. By
-            modulating our data to a specific frequency, we can avoid these issues. 
+<!-- JavaScript to load the header, main content, and footer -->
+<script>
+  // Fetch the header, main content, and footer dynamically
+  Promise.all([
+    fetch('header-content.html').then(response => response.text()),
+    fetch('/includes/other/bpsk/content.html').then(response => response.text()),
+    fetch('footer-content.html').then(response => response.text())
+  ])
+  .then(([headerData, mainData, footerData]) => {
+    document.getElementById('header-container').innerHTML = headerData;
+    document.getElementById('main-container').innerHTML = mainData;
+    document.getElementById('footer-container').innerHTML = footerData;
+  })
+  .catch(error => {
+    console.error('Error loading content:', error);
+    document.getElementById('header-container').innerHTML = '<p>Sorry, the header could not be loaded.</p>';
+    document.getElementById('main-container').innerHTML = '<p>Sorry, the main content could not be loaded.</p>';
+    document.getElementById('footer-container').innerHTML = '<p>Sorry, the footer could not be loaded.</p>';
+  });
+</script>
 
-            The Carrier Wave can be any sine wave we choose. The exact frequency isn't important for demonstration and will change based 
-            on which aspects of the signal I am trying to emphisze. Here is an example of a carrier sine wave:
-            <img class="bImg" src="/includes/other/bpsk/img1.png" alt="zoomed in sine wave"></img>
-            We can see that the period of the sine wave is 0.2 seconds (how long it takes for the wave to repeat). Therefore the frequency
-            of this wave is 5 Hz. 
-
-            The Data Wave is a series of binary numbers, 0s and 1s. We will encode this data such that the 0s are -1s (Non-return to zero), but it will 
-            still look the same as a normal set of 0s and 1s. Real world binary data has two key characteristics: it is inifintly long, 
-            and it is random. These might seem like extreme assumptions, however, typical phone plans have data speeds on the order of 
-            Mbvscode-remote://wsl%2Bubuntu-20.04/home/dmcphee/bpsk_demo/plot1_simple_time_domain.pngps which means 1,000,000 bits per second. Even over 1 minute, over 60,000,000 bits of data are sent. With 60 million bits,
-            we can easily make the jump to 'infinite'. Data is random in the same way that the digits of pi are random. Yes we can calculate
-            the digits of pi, but we can also find any string of numbers we want in pi. So sufficently long binary data will contain 
-            at least example patterns of [1,0,1,0], [1,1,0,0,1,1,0,0], [1,1,0,1,1,0], etc. Here is an example of some NRZ binary data:
-            <img class="bImg" src="/includes/other/bpsk/img2.png" alt="zoomed in NRZ binary wave"></img>
-
-            The BPSK Wave is the multiplication of the Carrier Wave and the Data wave. If the data wave was all 1s, the BPSK wave 
-            would look identical to the carrier wave. If the data wave was all 0s, the BPSK wave would be an upsidedown version of 
-            the carrier wave. Another way to this about this is that when the binary data is -1, the wave is shift 180 degrees. This 
-            is where the name comes from "Binary" "Phase" Key "Shifting".
-            <img class="bImg" src="/includes/other/bpsk/img3.png" alt="BPSK of all 1s"></img>
-            <img class="bImg" src="/includes/other/bpsk/img4.png" alt="BPSK of all 0s"></img>
-
-            Now lets look what happens when we use a combination of 0s and 1s for the data. We can see that as the data flips between 
-            -1 and 1, the sine wave is shifted forward and backward 180 degrees. 
-            <img class="bImg" src="/includes/other/bpsk/img5.png" alt="Random BPSK, pi/2 crossing"></img>
-
-            There are two more aspects of the BPSK wave to talk about. The first is how often we change between -1 and 1 and the second is
-            when we change between -1 and 1. The answer to the first question is called the symbol rate. We can see that the data changes 
-            from a 1 to a -1 at the 0.1 second mark and then back to 1 at the 0.2 second mark. This shows that our symbol rate is 0.1 seconds. We can 
-            change when the binary data changes the BPSK by shifting our carrier phase. It leads to some interesting BPSK spectrum, but the 
-            information carried is still the same:
-            <img class="bImg" src="/includes/other/bpsk/img6.png" alt="Random BPSK, 0 crossing"></img>
-            <img class="bImg" src="/includes/other/bpsk/img7.png" alt="Random BPSK, pi/3 crossing"></img>
-
-            We have successfully built a BPSK signal. However this does not look like the thumbnail. That is because this is in the time 
-            domain and we need to convert to the frequency domain. We need to convert the carrier wave and the data wave to the frequency 
-            domain using Fourier Transforms and then we need to convole them together. We need to use convolution rather than multiplication 
-            thanks to the convolution theorem which states that: multiplication in the time/frequency domain is convolution in the frequency/time domain.
-
-            <div class="bSub"><p><b>The Frequency Domain (Square Waves)</b></p></div>
-            The Frequency Domain represents which frequencies are present in a signal. In this domain, the x-axis is frequency rather than 
-            time. For a sine-wave (a single frequency signal), the plot in the frequency domain only has one point and that is at the 
-            frequency of the sine wave.
-            <img class="bImg" src="/includes/other/bpsk/img8.png" alt="Carrier FFT"></img>
-            You wil notice that there are actually two peaks, one at 2500 Hz and another at -2500 Hz. That is because a negative frequency looks 
-            the same as a positive frequency, although negavtive frequencies do not exist. It is more common to show Fourier Transform 
-            results starting at zero.
-            <img class="bImg" src="/includes/other/bpsk/img9.png" alt="Carrier FFT starting at zero"></img>
-            In summary, the Fourier Series shows the frequencies components that make up the wave. 
-
-            What does the Fourier Series of our data wave look like? Lets start with the simple case where our data is alternating 0s and 1s,
-            a square wave. 
-            <div class="bSub"><p><b>A Dive into the Fourier Series of a Square Wave</b></p></div>
-            A square wave has a Fourier Series that has energy at the symbol frequency, and every odd harmonic (multiple) of the 
-            symbol frequency. For a symbol frequency of 25 (and thus a symbol rate of 50), we should expect peaks at 25, 75, 125, etc. 
-            <img class="bImg" src="/includes/other/bpsk/img10.png" alt="A Square Wave with Symobl Frequency 25"></img>
-            <img class="bImg" src="/includes/other/bpsk/img11.png" alt="FFT of a Square Wave with Symbol Frequeny 25"></img>
-            What does this really mean? It means that 
-            
-            f(x) = sin(25*x) + sin(50*x) + ... equals a square wave. 
-
-            To fully appriecant this concept, we need to derive the formula using the Fourier Series Equation. If you recall, the 
-            Foruier Series is an expansion of a periodic function in terms of infinite sums of sines and cosines. (I would love 
-            to prove this formula but we really don't have time...)
-            
-            <img class="bEqu" src="/includes/other/bpsk/equ2.png" alt="Fourier Series"></img>
-
-            where the variables are defined as 
-
-            <img class="bEqu" src="/includes/other/bpsk/equ3.png" alt="Variables of the Fourier Series"></img>
-
-            Mathematically we can describe a square wave as
-
-            <img class="bEqu" src="/includes/other/bpsk/equ4.png" alt="Piecewise Function of a Square Wave"></img>
-
-            To start solving the coefficents we can start with a0. This equation is the integral from -L to L, multipled
-            by a constant. Visually we can see from the plot (where L = 0.04), that for half a period (-L to 0), the plot 
-            is negative and for the other have, it is positive. This means that the net area is 0 and therefore in the integral 
-            is 0 and finally, a0 = 0. One oefficient down, two infinities to go.
-
-            Starting with <i>an</i>, we can split the integral into to parts, one for the negative piecewise (where 
-            <itlatics>f(x) = -1</itlatics>) and the positive piecewise (<i>f(x) = 1</i>).
-
-            <img class="bEqu" src="/includes/other/bpsk/equ5.png" alt="Fourier Series A0 definition"></img>
-            <img class="bEqu" src="/includes/other/bpsk/equ6.png" alt="Fourier Series an solved"></img>
-            
-            Therefore all <i>an</i> are equal to zero and thus there are no cosines in the Fourier Series of a 
-            square wave.
-
-            Moving onto the <i>bn</i> coefficents, we follow the same logic in solving these:
-            <img class="bEqu" src="/includes/other/bpsk/equ7.png" alt="Fourier Series bn solved"></img>
-
-            Something interesting is noted for this step. Since <i>n</i> is all natural numbers and cosine is periodic about 2 pi, we 
-            end up with just two options for <i>bn</i>. The first case is where <i>n</i> is odd, in which case the cosine reduces to -1. 
-            In the even case, the cosine reduces to 1. Simplifying further:
-            <img class="bEqu" src="/includes/other/bpsk/equ8.png" alt="Fourier Series bn piecewise"></img>
-
-            Putting these back into the Fourier Series equation:
-            <img class="bEqu" src="/includes/other/bpsk/equ8.png" alt="Fourier Series of a Square"></img>
-
-            If we start to plot the induvidual components of the Fourier Series, we see that as <i>n</i> increases, the frequency of the 
-            component increases, but each sine wave continues to have a null at <i>L, -L, 2*L, -2*L, etc</i>. 
-            <img class="bImg" src="/includes/other/bpsk/img12.png" alt="Fourier Series of a Square wave, carpenmentilzed"></img>
-
-            As we add these sine waves together, the shape of the square wave begins to form. The Fourier Series <i>n</i>
-            increases in each plot from 1, 5, 9, to 13. Two important notes about this graph, we see that the nulls of the 
-            fundamental frequency persist, and two, the entire plot is sine waves with increaseing frequency,
-            1/L, 3/L, 5/L. 
-            <img class="bImg" src="/includes/other/bpsk/img13.png" alt="Fourier Series of a Square wave, increasing size of n"></img>
-
-            As we convert the time series of a square wave to the Frequency domain, we expect to see tones at 1/L, 3/L, 5/L, etc. Which 
-            is what we saw at the beginning of this section for a L of 0.04 so the tones are 25, 75, 125, etc.
-            <img class="bImg" src="/includes/other/bpsk/img11.png" alt="FFT of a Square Wave with Symbol Frequeny 25"></img>
-
-            <div class="bSub"><p><b>BPSK of a Square Wave</b></p></div>
-            We now have our Fourier Series for the Carrier and Data waves. To finally get the BPSK wave, in the time domain we
-            multiplied these arrays but since we are in the Frequency domain, we will have to take the convolution. In simple terms,
-            the convoultion just re-centers the data wave so that its 0 point is now at the carrier frequency. Since the carrier 
-            frequency is much higher than 0, we can again show the (formerally) negative side of the plot because it is now a 
-            offset of the carrier frequency.
-            <img class="bImg" src="/includes/other/bpsk/img14.png" alt="Frequency Domain of a Square Wave"></img>
-
-            We see the same tones now but as an offset to the carrier frequency. Instead of +-25, +-75, +-125, we see 
-            2500+-25, 2500+-75, 2500+-125 or 2325, 2375, 2425, 2475, 2525, 2575, 2625, 2675. This is our BPSK signal 
-            from the thumbnail and we do see nulls at integer multiples of the symbol rate (50), but it doesn't look "filled-in". This 
-            is because of the assumption we made about the data being square waves. 
-
-            The data, since it's random and infinite, is actually a superposition of rectangular waves. Our square wave (L = 1) has a 
-            series like [1,0,1,0], L = 2 looks like [1,1,0,0,1,1,0,0] and so on for increasing L. 
-
-            <div class="bSub"><p><b>The Frequency Domain (Retangular Waves)</b></p></div>
-            We can revisit the derived equations for the Fourier Series of a Square wave and use L = 2 (or higher) instead of L = 1. 
-            Once we solve this equation, we can then combine our square and retangle wave to get closer to the real BPSK signal. 
-
-            One the left is the Fourier Series of the superposition rectangle waves with increasing complexity and on the left is 
-            the BPSK signal. The nulls at the integer multiples of the symbol rate persist and the "hills" are starting to take shape.
-            <img class="bImg" src="/includes/other/bpsk/img15a.png" alt="Frequency Domain of a Square Wave (1,2)"></img>
-            <img class="bImg" src="/includes/other/bpsk/img15b.png" alt="Frequency Domain of a Square Wave (1,2,3)"></img>
-            <img class="bImg" src="/includes/other/bpsk/img15c.png" alt="Frequency Domain of a Square Wave (1,2,3,4)"></img>
-
-            Finally we compare the superposition of retangular waves up to the order L = 6 against random data. The two plots are starting 
-            to look very similar to eachother as well as the thumbnail. 
-            <img class="bImg" src="/includes/other/bpsk/img16a.png" alt="Frequency Domain of a Square Wave (1,2,3,4,5,6)"></img>
-            <img class="bImg" src="/includes/other/bpsk/img16b.png" alt="Frequency Domain of Random Data"></img>
-
-            Can we prove that there will never be a sine component of the square/rectangle waves with a frequency of that of the 
-            symbol rate (or integer multiple therefore?).
-
-            <div class="bSub"><p><b>Conclusion and More Questions</b></p></div>
-            We can now revisit our original questions with some answers
-
-            <ol>
-                <li>The spectrum is wider than just the carrier frequency <i>because</i> the data signal is a superposition of 
-                retangular waves with periods of integer multiples of the symbol rate.</li>
-                <li>The data in the rolling hills are a result of the sine wavs that make up the rectangular waves.</li>
-                <li>The nulls at the integer multiples of the symbol rate are because through the derivation of the Fourier Series
-                    of a rectanglur wave, we calculated that it is a summation of sine waves with odd integer multiples of the inverse 
-                    of the symbol rate (and integer multiples of). 
-                </li>
-              </ol>
-
-            There are questions that come out of this solution such as: can we send more than 1 bit per symbol (yes its called 
-            QPSK) can we maintain the carrier while also setting data (yes, its called a residuel carrier and modulation index). 
-            This is just the starting point to digital modulation.   
-
-            </p>
-       </div>
-       <!-- Begin Footer $include_path/footer.html -->
-       <div id="footer">
-           <br>
-           david.mcphee3@gmail.com | MIT license unless otherwise stated
-       </div>
-   </div>
 </body>
+
 </html>

@@ -1,113 +1,50 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
+<meta charset="UTF-8">
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-
 <title>David McPhee's Personal Homepage</title>
 <link rel="shortcut icon" type="image/png" href="includes/favicon.png">
 <link href="includes/main.css" rel="stylesheet" type="text/css" media="screen" />
-
 </head>
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-C8K8BK48K1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-C8K8BK48K1');
-</script>
 
 <body style="background-color:#121212;">
 
 <div id="content">
+  <!-- Header content will be dynamically loaded here -->
+  <div id="header-container"></div>
 
-<div id="header">
-<a href="/image.html"><img src="/includes/headshots/headshot.png" alt="Header Image" class="headerimg"></img>
-</a>
+  <!-- Main content will be dynamically loaded here -->
+  <div id="main-container"></div>
 
-<!--<center>
-David McPhee's Personal Homepage
-</center>
--->
-
+  <!-- Footer content will be dynamically loaded here -->
+  <div id="footer-container"></div>
 </div>
 
-<div id="tweet">
-<a class="twitter-timeline"
-	href="https://twitter.com/mcpheefilms?ref_src=twsrc%5Etfw"
-	data-chrome="nofooter noheader"
-	data-theme="dark"
-	data-tweet-limit="1">
-	Lastest Tweet
-</a>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-</div>
+<!-- JavaScript to load the header, main content, and footer -->
+<script>
+  // Fetch the header, main content, and footer dynamically
+  Promise.all([
+    fetch('header-content.html').then(response => response.text()),
+    fetch('/includes/adventures/content.html').then(response => response.text()),
+    fetch('footer-content.html').then(response => response.text())
+  ])
+  .then(([headerData, mainData, footerData]) => {
+    document.getElementById('header-container').innerHTML = headerData;
+    document.getElementById('main-container').innerHTML = mainData;
+    document.getElementById('footer-container').innerHTML = footerData;
+  })
+  .catch(error => {
+    console.error('Error loading content:', error);
+    document.getElementById('header-container').innerHTML = '<p>Sorry, the header could not be loaded.</p>';
+    document.getElementById('main-container').innerHTML = '<p>Sorry, the main content could not be loaded.</p>';
+    document.getElementById('footer-container').innerHTML = '<p>Sorry, the footer could not be loaded.</p>';
+  });
+</script>
 
-<div id="nav">
-<ul>
-<li><a href="/index">Home</a></li>
-<li><a href="/resume.pdf">CV</a></li>
-<li><a href="/projects">Projects</a></li>
-<li><a href="/adventures">Adventures</a></li>
-<li><a href="/other">Other</a></li>
-</ul>
-</div>
-
-<!-- End Header $include_path/header.html -->
-
-<div class="main">
-
-<p />
-Here is a list of some of the adventures that I have been on. These are a mix of work and personal trips and
-I try to include as many photos as I can. My favourites are of course the ones with my wife and daughter.
-</div>
-<div class="proj" onclick="location.href='/punchlist';" style="cursor: pointer;">
-	<p><hdr>United States</hdr>
-	<br>
-	<img src="/includes/adventures/punchlist/thumbnail.jpeg" alt="Thumbnail for United States" class="projimg"></img>
-	<span>I volunteered to help out another team at work and go on a site trip to the United States. The original timeline 
-		for this trip was going to be from Oct 18 to Dec 7, 2022 but I quickly learned how fast scheduling can change. 
-		The unoffical motto for the trip became...
-	<br><br><i>Published: UNDER DEVELOPMENT<br>Updated: 2023-03-25</i></span></p></div>
-
-
-<div class="projw" onclick="location.href='/calgary22';" style="cursor: pointer;">
-	<p><hdr>Calgary '22</hdr>
-	<br>
-	<img src="/includes/adventures/calgary22/thumbnail.jpg" alt="Thumbnail for Calgary 22" class="projimg"></img>
-	<span>On June 18th, David embarked on his 5 week journey to Malaysia for work. Which meant Anne and I were 
-		left without our captain. At first we just kind of looked at each other then we had some ideas!
-	<br><br><i>Published: 2022-08-13<br>Updated: 2022-08-13</i></span></p></div>
-
-<div class="proj" onclick="location.href='/malaysia';" style="cursor: pointer;">
-<p><hdr>Malaysia Trip</hdr>
-<br>
-<img src="/includes/adventures/malaysia/thumbnail.jpg" alt="Thumbnail for Malaysia" class="projimg"></img>
-<span>I visited Malaysia for five weeks to visit Kuala Lumpur and Cyberjaya for work. Most days were
-very long but I still managed to fit in some tourist activities...
-<br><br><i>Published: 2022-07-30<br>Updated: 2022-07-27</i></span></p></div>
-
-<div class="proj" onclick="location.href='/firstroadtrip';" style="cursor: pointer;">
-<p><hdr>Anne's First Road Trip</hdr>
-<br>
-<img src="/includes/adventures/firstroadtrip/thumbnail.png" alt="Thumbnail for First Road Trip" class="projimg"></img>
-<span>Anne's first road trip was from her home in Saskatoon to her grandparents home in Calgary. The drive
-without her would typically take six and a half hours but with her took...
-<br><br><i>Published: 2022-02-17<br>Updated: 2022-02-26</i></span></p></div>
-
-<!-- Begin Footer $include_path/footer.html -->
-
-
-<div id="footer">
-<br>
-david.mcphee3@gmail.com | MIT license unless otherwise stated
-
-</div>
-
-</div>
 </body>
+
 </html>
